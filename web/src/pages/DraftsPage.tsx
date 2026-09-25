@@ -100,10 +100,10 @@ function DraftView({ draftId }: { draftId: string }) {
       <Section title="Хамт өргөн мэдүүлсэн төслүүд" count={draft.cosubmitted_titles.length}>
         {draft.cosubmitted_titles.length ? (
           <ul className="m-0 list-none p-0">
-            {draft.cosubmitted_titles.map((t, i) => (
+            {draft.cosubmitted_titles.map((t) => (
               <li key={t} className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line py-1.5 text-[0.9375rem]">
                 <span>{t}</span>
-                <span className="text-sm text-muted">{cosubmitted[i]?.name}</span>
+                <span className="text-sm text-muted">{lawInTitle(t, cosubmitted)?.name}</span>
               </li>
             ))}
           </ul>
@@ -140,7 +140,7 @@ export function DraftsPage() {
   const lawName = (id: string) => laws.data?.find((l) => l.law_id === id)?.name ?? id;
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(20rem,26rem)_minmax(0,1fr)]">
-      <aside aria-label="Хуулийн төслүүд">
+      <aside className="panel self-start" aria-label="Хуулийн төслүүд">
         <h2 className="mt-0 mb-2 text-lg font-semibold">Хуулийн төслүүд</h2>
         {drafts.isLoading ? <Loading /> : drafts.error ? <ErrorBox error={drafts.error} /> : drafts.data!.length ? (
           <ul className="m-0 list-none border-t border-line p-0">
@@ -160,7 +160,7 @@ export function DraftsPage() {
           <Empty text="Хуулийн төсөл бүртгэгдээгүй байна." />
         )}
       </aside>
-      <section aria-label="Үр дүн" className="min-w-0">
+      <section aria-label="Үр дүн" className="panel min-w-0 self-start">
         {draftId ? <DraftView draftId={draftId} /> : (
           <div className="max-w-3xl">
             <h2 className="mt-0 text-xl font-semibold">Хамт өргөн мэдүүлсэн төслийн шалгалт</h2>
@@ -173,4 +173,13 @@ export function DraftsPage() {
       </section>
     </div>
   );
+}
+
+/** The co-submitted law a bill title amends: "Барилгын тухай хуульд өөрчлөлт…" -> Барилгын тухай хууль.
+ *  Titles and resolved laws are separate lists (unresolved titles have no law), so match by name. */
+function lawInTitle<T extends { name: string }>(title: string, laws: T[]): T | undefined {
+  const t = title.toLowerCase();
+  return [...laws]
+    .sort((a, b) => b.name.length - a.name.length)
+    .find((l) => t.startsWith(l.name.toLowerCase().replace(/хууль$/, "")));
 }

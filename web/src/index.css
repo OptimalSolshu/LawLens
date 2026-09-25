@@ -1,110 +1,145 @@
 @import "tailwindcss";
 
-/* Formal government style: white, one accent, thin borders, no shadows or gradients. */
+/* Formal government style: light grey page, white panels, one muted accent,
+   thin borders, no shadows or gradients. */
 @theme {
-  --color-accent: #1f4e8c;
-  --color-accent-dark: #173b6a;
-  --color-ink: #1b1f24;
-  --color-muted: #59626d;
-  --color-line: #d5d9df;
-  --color-soft: #f4f6f8;
-  --color-warn: #8a3b12;
+  --color-accent: #3a5a78;
+  --color-accent-dark: #2b4660;
+  --color-ink: #1f2328;
+  --color-muted: #5c636c;
+  --color-line: #d8dce1;
+  --color-soft: #f1f3f5;
+  --color-page: #f4f5f7;
+  --color-warn: #8a4b2a;
   --font-sans: "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
 }
 
-html {
-  font-size: 16px;
+/* Element defaults live in the base layer so utility classes (text-ink ...) can override them. */
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-underline-offset: 2px;
+  }
+
+  a:hover {
+    color: var(--color-accent-dark);
+  }
+
+  input,
+  select,
+  textarea {
+    accent-color: var(--color-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
 }
 
-body {
-  margin: 0;
-  background: #fff;
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  line-height: 1.5;
-}
+@layer components {
+  /* A white content area on the grey page. */
+  .panel {
+    background: #fff;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+  }
 
-a {
-  color: var(--color-accent);
-}
+  /* Label boxes: plain text with a hairline border, never a coloured badge. */
+  .label {
+    display: inline-block;
+    border: 1px solid var(--color-line);
+    border-radius: 3px;
+    padding: 0 0.45rem;
+    font-size: 0.8125rem;
+    line-height: 1.5rem;
+    white-space: nowrap;
+    background: #fff;
+  }
 
-a:hover {
-  color: var(--color-accent-dark);
-}
+  .label-fact {
+    border-color: #b9c0c8;
+    background: var(--color-soft);
+    color: var(--color-ink);
+  }
 
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 1px;
-}
+  .label-suggestion {
+    border-style: dashed;
+    border-color: #b9c0c8;
+    color: var(--color-muted);
+  }
 
-/* Label boxes: plain text with a hairline border, never a coloured badge. */
-.label {
-  display: inline-block;
-  border: 1px solid var(--color-line);
-  padding: 0 0.4rem;
-  font-size: 0.8125rem;
-  line-height: 1.5rem;
-  white-space: nowrap;
-}
+  .label-warn {
+    border-color: #d9bba9;
+    color: var(--color-warn);
+  }
 
-.label-fact {
-  border-color: var(--color-ink);
-}
+  .btn {
+    display: inline-block;
+    border: 1px solid var(--color-accent);
+    border-radius: 4px;
+    background: var(--color-accent);
+    color: #fff;
+    padding: 0.45rem 1rem;
+    font-size: 0.9375rem;
+    cursor: pointer;
+  }
 
-.label-suggestion {
-  border-style: dashed;
-  color: var(--color-muted);
-}
+  .btn:hover {
+    background: var(--color-accent-dark);
+    border-color: var(--color-accent-dark);
+    color: #fff;
+  }
 
-.label-warn {
-  border-color: var(--color-warn);
-  color: var(--color-warn);
-}
+  .btn:disabled {
+    border-color: var(--color-line);
+    background: #e6e9ec;
+    color: #6b727b;
+    cursor: default;
+  }
 
-.btn {
-  display: inline-block;
-  border: 1px solid var(--color-accent);
-  background: var(--color-accent);
-  color: #fff;
-  padding: 0.4rem 0.9rem;
-  font-size: 0.9375rem;
-  cursor: pointer;
-}
+  .btn-plain {
+    display: inline-block;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--color-ink);
+    padding: 0.2rem 0.7rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-decoration: none;
+  }
 
-.btn:hover {
-  background: var(--color-accent-dark);
-  color: #fff;
-}
+  .btn-plain:hover {
+    background: var(--color-soft);
+    border-color: #b9c0c8;
+    color: var(--color-ink);
+  }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
+  .field {
+    width: 100%;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    font: inherit;
+    background: #fff;
+  }
 
-.btn-plain {
-  display: inline-block;
-  border: 1px solid var(--color-line);
-  background: #fff;
-  color: var(--color-accent);
-  padding: 0.15rem 0.6rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn-plain:hover {
-  border-color: var(--color-accent);
-}
-
-.field {
-  width: 100%;
-  border: 1px solid var(--color-line);
-  padding: 0.45rem 0.6rem;
-  font: inherit;
-  background: #fff;
-}
-
-.field:focus {
-  border-color: var(--color-accent);
-  outline: none;
+  .field:focus {
+    border-color: var(--color-accent);
+    outline: none;
+  }
 }

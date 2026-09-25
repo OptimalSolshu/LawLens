@@ -149,7 +149,7 @@ export function LawsPage() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(20rem,26rem)_minmax(0,1fr)]">
-      <aside aria-label="Хууль хайх">
+      <aside className="panel self-start" aria-label="Хууль хайх">
         <h2 className="mt-0 mb-2 text-lg font-semibold">Хууль хайх</h2>
         <input
           className="field"
@@ -187,7 +187,7 @@ export function LawsPage() {
           )}
         </div>
       </aside>
-      <section aria-label="Үр дүн" className="min-w-0">
+      <section aria-label="Үр дүн" className="panel min-w-0 self-start">
         {lawId && number ? (
           <ArticleView key={number} articleId={articleIdOf(lawId, number)} />
         ) : lawId ? (

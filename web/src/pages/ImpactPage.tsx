@@ -122,7 +122,7 @@ export function ImpactPage() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(20rem,28rem)_minmax(0,1fr)]">
-      <aside aria-label="Нөлөөллийн шинжилгээ">
+      <aside className="panel self-start" aria-label="Нөлөөллийн шинжилгээ">
         <h2 className="mt-0 mb-2 text-lg font-semibold">Нөлөөллийн шинжилгээ</h2>
         <form
           className="grid gap-3"
@@ -201,7 +201,7 @@ export function ImpactPage() {
           <p className="m-0 text-sm text-muted">{NOTE}</p>
         </form>
       </aside>
-      <section aria-label="Үр дүн" className="min-w-0">
+      <section aria-label="Үр дүн" className="panel min-w-0 self-start">
         {run.isPending ? <Loading /> : run.error ? <ErrorBox error={run.error} /> : run.data ? (
           <Result r={run.data} csv={csv} />
         ) : (
