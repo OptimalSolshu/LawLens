@@ -32,9 +32,9 @@ def _batches(rows: list[dict]):
         yield rows[i:i + BATCH]
 
 
-def _run(session, query: str, rows: list[dict]) -> None:
+def _run(session, query: str, rows: list[dict], prepare=None) -> None:
     for chunk in _batches(rows):
-        session.run(query, rows=chunk)
+        session.run(query, rows=prepare(chunk) if prepare else chunk)
 
 
 def is_empty() -> bool:
@@ -62,11 +62,14 @@ def load(processed_dir: Path, reset: bool = False, embed: bool = True) -> dict:
             name_rows += [{"law_id": law["law_id"], "name": n, "kind": kind} for n in names]
         for a in law.get("articles", []):
             art_rows.append({**a, "law_id": law["law_id"]})
-    if embed and art_rows:
-        emb = DemoEmbedder()
-        texts = [f"{a.get('title') or ''} {a.get('text') or ''}" for a in art_rows]
-        for a, v in zip(art_rows, emb.embed(texts)):
-            a["embedding"], a["embedding_model"] = v, emb.model
+    emb = DemoEmbedder() if embed else None
+
+    def with_embedding(chunk: list[dict]) -> list[dict]:
+        """Embed one batch at a time: 1024 floats for ~50k provisions held at once need >2 GB."""
+        if emb is None:
+            return chunk
+        vectors = emb.embed([f"{a.get('title') or ''} {a.get('text') or ''}" for a in chunk])
+        return [{**a, "embedding": v, "embedding_model": emb.model} for a, v in zip(chunk, vectors)]
 
     with get_driver().session() as s:
         if s.run("MATCH (n:LawNode) RETURN count(n) AS n").single()["n"]:
@@ -87,7 +90,7 @@ def load(processed_dir: Path, reset: bool = False, embed: bool = True) -> dict:
                    SET a.law_id = r.law_id, a.number = r.number, a.parent_number = r.parent_number,
                        a.title = r.title, a.text = r.text, a.embedding = r.embedding,
                        a.embedding_model = r.embedding_model
-                   MERGE (l)-[:HAS_ARTICLE]->(a)""", art_rows)
+                   MERGE (l)-[:HAS_ARTICLE]->(a)""", art_rows, prepare=with_embedding)
         _run(s, """UNWIND $rows AS r MATCH (c:Article {article_id: r.article_id})
                    MATCH (p:Article {article_id: r.law_id + ':' + r.parent_number})
                    MERGE (c)-[:PART_OF]->(p)""", [a for a in art_rows if a.get("parent_number")])
