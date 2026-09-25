@@ -131,3 +131,15 @@ def test_csv_endpoint(client):
     assert "Шууд нөлөөлөл" in r.text and "Дам нөлөөлөл" in r.text
     assert client.get("/api/export", params={"kind": "bogus"}).status_code == 422
     assert client.get("/api/export", params={"kind": "connections"}).status_code == 422
+
+
+def test_law_connections_limit_suggestions_not_facts(sample_store):
+    full = law_service.law_connections(sample_store, LABOR, limit=None)
+    cut = law_service.law_connections(sample_store, LABOR, limit=1)
+    assert cut.totals == full.totals and cut.incoming == full.incoming and cut.outgoing == full.outgoing
+    for k in ("similar", "overlaps", "conflicts"):
+        f, c = getattr(full, k), getattr(cut, k)
+        assert len(c) == min(1, len(f))
+        if c:
+            assert c[0].confidence == max(i.confidence for i in f)
+    assert any(getattr(full, k) for k in ("similar", "overlaps", "conflicts"))  # the sample exercises the limit

@@ -52,7 +52,15 @@ def selection(store: GraphStore, article: dict) -> dict[str, dict]:
     return {a["article_id"]: a for a in store.articles(article["law_id"]) if under(a["number"], article["number"])}
 
 
-def _connections(ctx: Ctx, sel: dict[str, dict], incoming_refs: list[dict], outgoing_refs: list[dict]) -> Connections:
+LAW_SUGGESTION_LIMIT = 200  # a whole law has thousands of similar pairs; totals keep the full counts
+
+
+def _best(items: list, limit: int | None) -> list:
+    return items if limit is None else sorted(items, key=lambda i: -i.confidence)[:limit]
+
+
+def _connections(ctx: Ctx, sel: dict[str, dict], incoming_refs: list[dict], outgoing_refs: list[dict],
+                 limit: int | None = None) -> Connections:
     ctx.prefetch([r["from_article_id"] for r in incoming_refs] + [r["to_article_id"] for r in outgoing_refs])
     incoming = [incoming_item(ctx, r) for r in incoming_refs]
     outgoing = [outgoing_item(ctx, r) for r in outgoing_refs]
@@ -64,7 +72,7 @@ def _connections(ctx: Ctx, sel: dict[str, dict], incoming_refs: list[dict], outg
     inc_g, out_g = group(incoming), group(outgoing)
     return Connections(
         incoming=inc_g, outgoing=out_g, former_name_refs=old, missing_target_refs=missing,
-        similar=sim, conflicts=rel["conflict"], overlaps=rel["overlap"],
+        similar=_best(sim, limit), conflicts=_best(rel["conflict"], limit), overlaps=_best(rel["overlap"], limit),
         totals=ConnectionTotals(incoming=count(inc_g), outgoing=count(out_g), former_name_refs=count(old),
                                 missing_target_refs=count(missing), similar=len(sim),
                                 conflicts=len(rel["conflict"]), overlaps=len(rel["overlap"])))
@@ -82,14 +90,15 @@ def article_connections(store: GraphStore, article_id: str) -> ArticleConnection
     return ArticleConnections(**conn.model_dump(), article=article_detail(ctx, art))
 
 
-def law_connections(store: GraphStore, law_id: str) -> Connections:
+def law_connections(store: GraphStore, law_id: str, limit: int | None = LAW_SUGGESTION_LIMIT) -> Connections:
+    """Facts in full; suggestions (similar, overlaps, conflicts) limited to the `limit` best, None = all."""
     ctx = Ctx(store)
     get_law_or_404(store, law_id)
     sel = {a["article_id"]: a for a in store.articles(law_id)}
     ids = list(sel)
     incoming = [r for r in store.refs_to(law_id, ids, None, True) if r["from_law_id"] != law_id]
     outgoing = [r for r in store.refs_from(ids) if r["to_law_id"] != law_id]
-    return _connections(ctx, sel, incoming, outgoing)
+    return _connections(ctx, sel, incoming, outgoing, limit)
 
 
 def groups_total(groups: list[LawGroup]) -> int:

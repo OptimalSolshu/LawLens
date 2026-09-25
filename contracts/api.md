@@ -120,7 +120,10 @@ items.length`; groups are sorted by `count` desc.
 
 Selecting an article covers the provision **and everything under it**
 (`80` covers `80.1`, `80.1.2`, ...); `anchor_number` names the exact provision.
-A law-level selection lists only links to *other* laws.
+A law-level selection lists only links to *other* laws. Its suggestion lists
+(`similar`, `overlaps`, `conflicts`) hold the 200 highest-confidence items; `totals` gives
+the full counts and the CSV export (`kind=law_connections`) returns every item. Facts are
+never limited.
 
 | key | UI section | content |
 |---|---|---|

@@ -57,7 +57,7 @@ def rows(store: GraphStore, kind: str, *, article_id=None, law_id=None, draft_id
             conn = law_service.article_connections(store, article_id)
         else:
             _need(law_id, "law_id")
-            conn = law_service.law_connections(store, law_id)
+            conn = law_service.law_connections(store, law_id, limit=None)
         for name in ("incoming", "outgoing", "former_name_refs", "missing_target_refs"):
             out += _groups(name, getattr(conn, name))
         for name in ("similar", "overlaps", "conflicts"):

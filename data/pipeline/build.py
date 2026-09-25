@@ -86,7 +86,7 @@ def similar_pairs(texts: list[str], groups: list[str], embedder: Embedder, block
             yield int(rows[r, 0]), int(c), float(scores[r, c])
 
 
-SIMILAR_TOP_K = 3  # per provision; ~50k provisions otherwise give >150k pairs, mostly weak n-gram overlaps
+SIMILAR_TOP_K: int | None = None  # every pair above the model threshold; an int keeps the k best per provision
 
 
 def top_k_per_article(similar: list[SimilarRec], k: int) -> list[SimilarRec]:
@@ -150,7 +150,8 @@ def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) ->
         a_id, b_id = sorted((ai, bj))
         similar.append(SimilarRec(a_article_id=a_id, b_article_id=b_id, score=round(min(score, 1.0), 3),
                                   model=embedder.model, **s))
-    similar = top_k_per_article(similar, SIMILAR_TOP_K)
+    similar = top_k_per_article(similar, SIMILAR_TOP_K) if SIMILAR_TOP_K else sorted(
+        similar, key=lambda r: (-r.score, r.a_article_id, r.b_article_id))
 
     # ---- suggestions: relation judgements + resolution -------------------------
     def prov(aid: str) -> Provision:
