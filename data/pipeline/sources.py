@@ -89,14 +89,18 @@ class LegalInfoHttpSource(LegalInfoSource):
             return re.sub(r"\s+", " ", re.sub(r"^монгол улсын\s+", "", s)).strip(" ,/")
 
         want = {norm(name), norm(re.sub(r"\s*хууль$", "", name))}
-        r = requests.post(f"{self.BASE}/mn/ajaxList", data={"title": re.sub(r"\s*хууль$", "", name), "isvalid": "1"},
-                          timeout=TIMEOUT)
-        r.raise_for_status()
         found = {}
-        for lid, title in re.findall(r"detail\?lawId=(\d+)[^>]*>(.*?)</a>", r.json()["Html"], re.S):
-            title = re.sub(r"<[^>]+>|\s+", " ", title).strip()
-            if title and norm(title) in want:
-                found.setdefault(lid, title)
+        for page in range(1, 51):  # 20 results a page, oldest lawId first
+            r = requests.post(f"{self.BASE}/mn/ajaxList", timeout=TIMEOUT,
+                              data={"title": re.sub(r"\s*хууль$", "", name), "isvalid": "1", "page": page})
+            r.raise_for_status()
+            items = re.findall(r"detail\?lawId=(\d+)[^>]*>(.*?)</a>", r.json()["Html"], re.S)
+            if not items:
+                break
+            for lid, title in items:
+                title = re.sub(r"<[^>]+>|\s+", " ", title).strip()
+                if title and norm(title) in want:
+                    found.setdefault(lid, title)
         return list(found.items())
 
     def download(self, entry: dict, force: bool = False) -> Path:

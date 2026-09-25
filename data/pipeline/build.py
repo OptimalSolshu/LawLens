@@ -18,6 +18,7 @@ from app.ai.relations import LLMRelationService, Provision
 from app.graph.store import number_key
 from app.parser import LawNameRegistry, extract_references, load_law_names, parse_amendments
 from app.parser.amendments import law_in_title
+from app.parser.names import NameEntry
 
 from .schemas import (AmendmentRec, DraftRec, InternationalFile, LawRec, RefRec, RelationRec,
                       SimilarRec)
@@ -84,13 +85,33 @@ def similar_pairs(texts: list[str], groups: list[str], embedder: Embedder, block
             yield int(rows[r, 0]), int(c), float(scores[r, c])
 
 
+SIMILAR_TOP_K = 3  # per provision; ~50k provisions otherwise give >150k pairs, mostly weak n-gram overlaps
+
+
+def top_k_per_article(similar: list[SimilarRec], k: int) -> list[SimilarRec]:
+    """Keep a pair when it is among the k best for either of its provisions, best first."""
+    ranked = sorted(similar, key=lambda r: (-r.score, r.a_article_id, r.b_article_id))
+    seen: dict[str, int] = {}
+    keep = []
+    for r in ranked:
+        if seen.get(r.a_article_id, 0) < k or seen.get(r.b_article_id, 0) < k:
+            keep.append(r)
+        for aid in (r.a_article_id, r.b_article_id):
+            seen[aid] = seen.get(aid, 0) + 1
+    return keep
+
+
 def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) -> BuildOutput:
     s = {"_sample": True} if inp.sample else {}
     names_meta = [rec for f in inp.law_names_files for rec in load_law_names(f)]
     registry = LawNameRegistry.from_sources(inp.laws)
     for rec in names_meta:
-        if not any(l["law_id"] == rec["law_id"] or l["name"] == rec["current_name"] for l in inp.laws):
+        law = next((l for l in inp.laws if l["law_id"] == rec["law_id"] or l["name"] == rec["current_name"]), None)
+        if law is None:
             registry.add_law(rec["law_id"], rec["current_name"], rec["former_names"], rec["short_names"], rec["aliases"])
+        else:  # a parsed law: its aliases ("Монгол Улсын Их Хурлын тухай хууль") resolve to it too
+            for v in rec["aliases"]:
+                registry.add(NameEntry(law["law_id"], v, law["name"], "alias"))
     numbers = {l["law_id"]: {a["number"] for a in l["articles"]} for l in inp.laws}
     articles = {a["article_id"]: (l, a) for l in inp.laws for a in l["articles"]}
 
@@ -128,7 +149,7 @@ def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) ->
         a_id, b_id = sorted((ai, bj))
         similar.append(SimilarRec(a_article_id=a_id, b_article_id=b_id, score=round(min(score, 1.0), 3),
                                   model=embedder.model, **s))
-    similar.sort(key=lambda r: -r.score)
+    similar = top_k_per_article(similar, SIMILAR_TOP_K)
 
     # ---- suggestions: relation judgements + resolution -------------------------
     def prov(aid: str) -> Provision:

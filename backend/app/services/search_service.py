@@ -5,12 +5,27 @@
 "ажлын цаг"          -> keyword in provision titles/texts ("цагийн", "цагаас" match too)
 Query words are stemmed (normalize.stem) and matched as prefixes of stemmed text words.
 """
+import time
+
 from ..graph.store import GraphStore, number_key, under
 from ..parser.normalize import is_number, stem, stems, tokens
 from ..schemas import ArticleHit, SearchResponse
 from .reference_service import article_url, excerpt, law_summary
 
 LIMIT = 60
+INDEX_TTL = 600  # s; the graph is read-only between loads, and stemming ~50k provisions takes seconds
+_index: dict[int, tuple[float, list[tuple[dict, list[str]]]]] = {}
+
+
+def article_index(store: GraphStore) -> list[tuple[dict, list[str]]]:
+    """(article, stemmed title+text) for every provision, cached per store for INDEX_TTL."""
+    now = time.monotonic()
+    hit = _index.get(id(store))
+    if hit and hit[0] > now:
+        return hit[1]
+    index = [(a, stems(f"{a.get('title') or ''} {a.get('text') or ''}")) for a in store.all_articles()]
+    _index[id(store)] = (now + INDEX_TTL, index)
+    return index
 
 
 def _match(word: str, bag: list[str]) -> bool:
@@ -31,13 +46,12 @@ def search(store: GraphStore, q: str) -> SearchResponse:
     hits: list[tuple[tuple, ArticleHit]] = []
     if numbers or words:
         by_id = {l["law_id"]: l for l in laws}
-        for a in store.all_articles():
+        for a, bag in article_index(store):
             law = by_id.get(a["law_id"])
             if not law:
                 continue
             if numbers and not any(under(a["number"], n) for n in numbers):
                 continue
-            bag = stems(f"{a.get('title') or ''} {a.get('text') or ''}")
             in_law = [w for w in words if _match(w, law_bags[law["law_id"]])]
             in_text = [w for w in words if _match(w, bag)]
             if any(w not in in_law and w not in in_text for w in words):

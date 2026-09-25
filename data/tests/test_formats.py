@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-from pipeline.ids import law_id
 from pipeline.validate import validate_dir
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -28,7 +27,9 @@ def test_law_names_file():
     for rec in raw["laws"]:
         assert {"current_name", "former_names", "short_names", "aliases"} <= rec.keys()
         assert all(isinstance(rec[k], list) for k in ("former_names", "short_names", "aliases"))
-    assert law_id("Зөвшөөрлийн тухай хууль") in {law_id(r["current_name"]) for r in raw["laws"]}
+    # renamed law (legalinfo.mn lawId=16530780109311): the former name still resolves to it
+    permit = next(r for r in raw["laws"] if r["current_name"] == "Зөвшөөрөл, мэдэгдлийн тухай хууль")
+    assert "Зөвшөөрлийн тухай хууль" in permit["former_names"]
 
 
 def _copy_samples(tmp_path):

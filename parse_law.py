@@ -25,7 +25,7 @@ RE_FOOTER = re.compile(r"^\s*\d+\s*/\s*\d+\s*$")
 RE_CHAPTER = re.compile(rf"^\s*([{CYR_U} ]+?)\s*БҮЛЭГ\s*$")
 RE_SECTION = re.compile(rf"^\s*([{CYR_U}][{CYR_L}]+)\s+дэд\s+бүлэг\s*$")
 NUMBER_PART = r"\d+[⁰¹²³⁴⁵⁶⁷⁸⁹]*"  # a number, possibly with an insertion index: 9¹ (added after 9)
-RE_ARTICLE = re.compile(rf"^\s*({NUMBER_PART}(?:\.{NUMBER_PART})?)\s*(?:дүгээр|дугаар|дугээр|дүгаар)\s+зүйл\.\s*(.*)$")
+RE_ARTICLE = re.compile(rf"^\s*({NUMBER_PART}(?:\.{NUMBER_PART})?)\s*(?:(?:дүгээр|дугаар|дугээр|дүгаар)\s+)+зүйл\.\s*(.*)$")  # "27 дугаар дүгээр зүйл." (typo in Ойн тухай хууль)
 RE_ARTICLE_WORD = re.compile(rf"^\s*((?:[{CYR_U}][{CYR_L}]+\s+)?[{CYR_U}{CYR_L}][{CYR_L}]*(?:дугаар|дүгээр))\s+зүйл\.\s*(.*)$")
 RE_PROVISION = re.compile(rf"^\s*({NUMBER_PART}(?:\.{NUMBER_PART})+)\.(.*)$")
 RE_ARTICLE_WORD_SUP = re.compile(rf"^\s*((?:[{CYR_U}][{CYR_L}]+\s+)?[{CYR_U}{CYR_L}][{CYR_L}]*)([\d⁰¹²³⁴⁵⁶⁷⁸⁹])\s*(?:дугаар|дүгээр)\s+зүйл\.\s*(.*)$")  # "Арван ес1 дүгээр зүйл." = 19¹
@@ -149,6 +149,8 @@ def clean(s: str) -> str:
 def normalize_number(line: str) -> str:
     """Typing slips at the start of a numbered line on legalinfo.mn."""
     line = re.sub(r"^(\s*\d+(?:\.\d+)*)\s+\.(?=\S)", r"\1.", line)  # "174.3 ./Энэ хэсгийг"
+    line = re.sub(rf"^(\s*\d+(?:[⁰¹²³⁴⁵⁶⁷⁸⁹]+|(?:\.\d+[⁰¹²³⁴⁵⁶⁷⁸⁹]*)+))\.\s+(\d+[⁰¹²³⁴⁵⁶⁷⁸⁹]*\.)(?=\s*[{CYR_U}{CYR_L}])", r"\1.\2",
+                  line)  # "13¹. 2. Монгол Улсаас" = 13¹.2.
     line = re.sub(r"^(\s*\d+(?:\.\d+)*\.)З\.", r"\g<1>3.", line)  # "7.З." : letter З for 3
     return re.sub(rf"^(\s*\d+(?:\.\d+)*\.)3(?=[{CYR_L}])", r"\1З", line)  # "1.3өвшөөрөлгүй": digit 3 for З
 
@@ -281,9 +283,15 @@ def parse_structure(text: str, html_input: bool = False):
             cur_prov["text"] += f" {li.group(2)}.{li.group(3).strip()}"
             i += 1
             continue
+        if (cur_art and not local and isinstance(cur_art["number"], int) and (m := RE_PROVISION.match(line))
+                and m.group(1) == f"{cur_art['number'] + 1}.1"):
+            # the next article's first part with no heading line (Нийгмийн халамжийн тухай хууль: 3.1 after 2)
+            cur_art = {"id": f"art{cur_art['number'] + 1}", "number": cur_art["number"] + 1, "title": "",
+                       "chapter": cur_ch["id"] if cur_ch else None, "text": ""}
+            articles.append(cur_art)
         num = None
         if cur_art and local:
-            if (m := RE_LOCAL_PROVISION.match(line)) and int(m.group(1).split(".")[0]) <= 200:
+            if (m := RE_LOCAL_PROVISION.match(line)) and int(m.group(1).split(".")[0].rstrip("⁰¹²³⁴⁵⁶⁷⁸⁹")) <= 200:
                 num = f"{cur_art['number']}.{m.group(1)}"
         elif cur_art and (m := RE_PROVISION.match(line)) and m.group(1).split(".")[0] == str(cur_art["number"]):
             num = m.group(1)

@@ -2,14 +2,6 @@
  "_comment": "Law name registry (contracts/data-format.md#law_names.json). current_name is the canonical name; former_names/short_names/aliases resolve to it. Only add names you have verified on legalinfo.mn. Laws cited by the real Labor Law are listed by the name exactly as cited there.",
  "laws": [
   {
-   "current_name": "Зөвшөөрлийн тухай хууль",
-   "former_names": [
-    "Тусгай зөвшөөрлийн тухай хууль"
-   ],
-   "short_names": [],
-   "aliases": []
-  },
-  {
    "current_name": "Зөрчлийн тухай хууль",
    "former_names": [],
    "short_names": [],
@@ -118,6 +110,567 @@
    "aliases": [
     "Монгол Улсын Үндсэн хууль"
    ]
+  },
+  {
+   "current_name": "Банк бус санхүүгийн үйл ажиллагааны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Банкны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Барилгын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гаалийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Газрын тосны бүтээгдэхүүний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Газрын тосны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Газрын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэмт хэрэг, зөрчлөөс урьдчилан сэргийлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэр бүлийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэр бүлийн хэрэг шүүхэд хянан шийдвэрлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэр бүлийн хүчирхийлэлтэй тэмцэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэрийн тэжээвэр амьтны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гэрч, хохирогчийг хамгаалах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гүйцэтгэх ажлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Даатгалын мэргэжлийн оролцогчийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Даатгалын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Дипломат албаны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Дээд боловсролын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Ерөнхийлөгчийн сонгуулийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Ерөнхийлөгчийн сонгуулийн тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Жендэрийн эрх тэгш байдлыг хангах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Жижиг, дунд үйлдвэр, үйлчилгээг дэмжих тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Жолоочийн даатгалын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Замын хөдөлгөөний аюулгүй байдлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зар сурталчилгааны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Засаг захиргаа, нутаг дэвсгэрийн нэгж, түүний удирдлагын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын засаг захиргаа, нутаг дэвсгэрийн нэгж, түүний удирдлагын тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Засгийн газрын агентлагийн эрх зүйн байдлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зохиогчийн эрхийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зээлийн мэдээллийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зөвшөөрөл, мэдэгдлийн тухай хууль",
+   "former_names": [
+    "Зөвшөөрлийн тухай хууль",
+    "Тусгай зөвшөөрлийн тухай хууль"
+   ],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зөрчил шалган шийдвэрлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Иргэний хэрэг шүүхэд хянан шийдвэрлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Ирээдүйн өв сангийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Компанийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Малчны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Мансууруулах эм, сэтгэцэд нөлөөт бодисын эргэлтэд хяналт тавих тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Монгол Улсын иргэн гадаадад хувийн хэргээр зорчих, цагаачлах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Монгол Улсын иргэнд газар өмчлүүлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Монгол Улсын хилийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Монгол Улсын шүүхийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Монгол хэлний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Мэргэжлийн болон техникийн боловсрол, сургалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Мөнгө угаах болон терроризмыг санхүүжүүлэхтэй тэмцэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийгмийн даатгалын сангаас олгох тэтгэврийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийгмийн даатгалын сангаас олгох тэтгэмжийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийгмийн халамжийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийтийн мэдээллийн ил тод байдлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Номын сангийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нягтлан бодох бүртгэлийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нялх, балчир хүүхдийн хүнсний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Ойн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Онцгой албан татварын тэмдгийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Прокурорын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Соёлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Соёлын өвийг хамгаалах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Стандартчилал, техникийн зохицуулалт, тохирлын үнэлгээний итгэмжлэлийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төмөр замын тээврийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төр, хувийн хэвшлийн түншлэлийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн болон албаны нууцын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн болон орон нутгийн өмчийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн болон орон нутгийн өмчит компанийн засаглалын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн тусгай хамгаалалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн хэмнэлтийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төсвийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Улс төрийн намын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Улсын Их Хурлын сонгуулийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Их Хурлын сонгуулийн тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Улсын Их Хурлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Их Хурлын тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Улсын Их Хурлын хяналт шалгалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Их Хурлын хяналт шалгалтын тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Хоршооны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хот байгуулалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хувиргасан амьд организмын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хэрэглэгчийн эрхийг хамгаалах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хүн амын амьжиргааны доод түвшинг тодорхойлох тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хүний хувийн мэдээлэл хамгаалах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хүүхэд хамгааллын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөгжлийн банкны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Хөгжлийн банкны тухай хууль"
+   ]
+  },
+  {
+   "current_name": "Хөрөнгө оруулалтын сангийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөрөнгө оруулалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Цахим гарын үсгийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Цэргийн алба хаагчийн тэтгэвэр, тэтгэмжийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Цэргийн алба хаагчийн эрх зүйн байдлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Цэргийн албаны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Шинжлэх ухаан, технологийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Шүүх шинжилгээний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Шүүхийн шийдвэр гүйцэтгэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрдэнэсийн сангийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрчим хүчний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрүүл мэндийн даатгалын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрүүл мэндийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Үндэсний их баяр наадмын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Үндэсний төлбөрийн системийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Өмгөөллийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
   }
  ]
 }

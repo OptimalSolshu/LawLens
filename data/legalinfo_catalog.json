@@ -126,6 +126,643 @@
    "legalinfo_id": "500",
    "title_on_legalinfo": "ТӨРИЙН ХЯНАЛТ ШАЛГАЛТЫН ТУХАЙ",
    "source_url": "https://legalinfo.mn/mn/detail?lawId=500"
+  },
+  {
+   "law_id": "bank-bus-sankhuugiin-uil-ajillagaany-tukhai-khuuli",
+   "name": "Банк бус санхүүгийн үйл ажиллагааны тухай хууль",
+   "legalinfo_id": "103",
+   "title_on_legalinfo": "БАНК БУС САНХҮҮГИЙН ҮЙЛ АЖИЛЛАГААНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=103"
+  },
+  {
+   "law_id": "bankny-tukhai-khuuli",
+   "name": "Банкны тухай хууль",
+   "legalinfo_id": "108",
+   "title_on_legalinfo": "БАНКНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=108"
+  },
+  {
+   "law_id": "barilgyn-tukhai-khuuli",
+   "name": "Барилгын тухай хууль",
+   "legalinfo_id": "11705",
+   "title_on_legalinfo": "БАРИЛГЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11705"
+  },
+  {
+   "law_id": "gaaliin-tukhai-khuuli",
+   "name": "Гаалийн тухай хууль",
+   "legalinfo_id": "209",
+   "title_on_legalinfo": "ГААЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=209"
+  },
+  {
+   "law_id": "gazryn-tosny-buteegdekhuunii-tukhai-khuuli",
+   "name": "Газрын тосны бүтээгдэхүүний тухай хууль",
+   "legalinfo_id": "214",
+   "title_on_legalinfo": "ГАЗРЫН ТОСНЫ БҮТЭЭГДЭХҮҮНИЙ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=214"
+  },
+  {
+   "law_id": "gazryn-tosny-tukhai-khuuli",
+   "name": "Газрын тосны тухай хууль",
+   "legalinfo_id": "10484",
+   "title_on_legalinfo": "ГАЗРЫН ТОСНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=10484"
+  },
+  {
+   "law_id": "gazryn-tukhai-khuuli",
+   "name": "Газрын тухай хууль",
+   "legalinfo_id": "216",
+   "title_on_legalinfo": "ГАЗРЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=216"
+  },
+  {
+   "law_id": "gemt-khereg-zorchloos-uridchilan-sergiilekh-tukhai-khuuli",
+   "name": "Гэмт хэрэг, зөрчлөөс урьдчилан сэргийлэх тухай хууль",
+   "legalinfo_id": "14700",
+   "title_on_legalinfo": "ГЭМТ ХЭРЭГ, ЗӨРЧЛӨӨС УРЬДЧИЛАН СЭРГИЙЛЭХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=14700"
+  },
+  {
+   "law_id": "ger-buliin-tukhai-khuuli",
+   "name": "Гэр бүлийн тухай хууль",
+   "legalinfo_id": "17438692438732",
+   "title_on_legalinfo": "ГЭР БҮЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17438692438732"
+  },
+  {
+   "law_id": "ger-buliin-khereg-shuukhed-khyanan-shiidverlekh-tukhai-khuuli",
+   "name": "Гэр бүлийн хэрэг шүүхэд хянан шийдвэрлэх тухай хууль",
+   "legalinfo_id": "17438180618972",
+   "title_on_legalinfo": "ГЭР БҮЛИЙН ХЭРЭГ ШҮҮХЭД ХЯНАН ШИЙДВЭРЛЭХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17438180618972"
+  },
+  {
+   "law_id": "ger-buliin-khuchirkhiileltei-temtsekh-tukhai-khuuli",
+   "name": "Гэр бүлийн хүчирхийлэлтэй тэмцэх тухай хууль",
+   "legalinfo_id": "12393",
+   "title_on_legalinfo": "ГЭР БҮЛИЙН ХҮЧИРХИЙЛЭЛТЭЙ ТЭМЦЭХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12393"
+  },
+  {
+   "law_id": "geriin-tejeever-amitny-tukhai-khuuli",
+   "name": "Гэрийн тэжээвэр амьтны тухай хууль",
+   "legalinfo_id": "17047956310041",
+   "title_on_legalinfo": "ГЭРИЙН ТЭЖЭЭВЭР АМЬТНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17047956310041"
+  },
+  {
+   "law_id": "gerch-khokhirogchiig-khamgaalakh-tukhai-khuuli",
+   "name": "Гэрч, хохирогчийг хамгаалах тухай хууль",
+   "legalinfo_id": "9287",
+   "title_on_legalinfo": "ГЭРЧ, ХОХИРОГЧИЙГ ХАМГААЛАХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=9287"
+  },
+  {
+   "law_id": "guitsetgekh-ajlyn-tukhai-khuuli",
+   "name": "Гүйцэтгэх ажлын тухай хууль",
+   "legalinfo_id": "229",
+   "title_on_legalinfo": "ГҮЙЦЭТГЭХ АЖЛЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=229"
+  },
+  {
+   "law_id": "daatgalyn-mergejliin-oroltsogchiin-tukhai-khuuli",
+   "name": "Даатгалын мэргэжлийн оролцогчийн тухай хууль",
+   "legalinfo_id": "230",
+   "title_on_legalinfo": "ДААТГАЛЫН МЭРГЭЖЛИЙН ОРОЛЦОГЧИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=230"
+  },
+  {
+   "law_id": "daatgalyn-tukhai-khuuli",
+   "name": "Даатгалын тухай хууль",
+   "legalinfo_id": "232",
+   "title_on_legalinfo": "ДААТГАЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=232"
+  },
+  {
+   "law_id": "diplomat-albany-tukhai-khuuli",
+   "name": "Дипломат албаны тухай хууль",
+   "legalinfo_id": "246",
+   "title_on_legalinfo": "ДИПЛОМАТ АЛБАНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=246"
+  },
+  {
+   "law_id": "deed-bolovsrolyn-tukhai-khuuli",
+   "name": "Дээд боловсролын тухай хууль",
+   "legalinfo_id": "16759959041191",
+   "title_on_legalinfo": "ДЭЭД БОЛОВСРОЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16759959041191"
+  },
+  {
+   "law_id": "yeronkhiilogchiin-songuuliin-tukhai-khuuli",
+   "name": "Ерөнхийлөгчийн сонгуулийн тухай хууль",
+   "legalinfo_id": "16106891958781",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ЕРӨНХИЙЛӨГЧИЙН СОНГУУЛИЙН ТУХАЙ /Шинэчилсэн найруулга",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16106891958781"
+  },
+  {
+   "law_id": "jyenderiin-erkh-tegsh-baidlyg-khangakh-tukhai-khuuli",
+   "name": "Жендэрийн эрх тэгш байдлыг хангах тухай хууль",
+   "legalinfo_id": "253",
+   "title_on_legalinfo": "ЖЕНДЭРИЙН ЭРХ ТЭГШ БАЙДЛЫГ ХАНГАХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=253"
+  },
+  {
+   "law_id": "jijig-dund-uildver-uilchilgeeg-demjikh-tukhai-khuuli",
+   "name": "Жижиг, дунд үйлдвэр, үйлчилгээг дэмжих тухай хууль",
+   "legalinfo_id": "14525",
+   "title_on_legalinfo": "ЖИЖИГ, ДУНД ҮЙЛДВЭР, ҮЙЛЧИЛГЭЭГ ДЭМЖИХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=14525"
+  },
+  {
+   "law_id": "joloochiin-daatgalyn-tukhai-khuuli",
+   "name": "Жолоочийн даатгалын тухай хууль",
+   "legalinfo_id": "256",
+   "title_on_legalinfo": "ЖОЛООЧИЙН ДААТГАЛЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=256"
+  },
+  {
+   "law_id": "zamyn-khodolgoonii-ayuulgui-baidlyn-tukhai-khuuli",
+   "name": "Замын хөдөлгөөний аюулгүй байдлын тухай хууль",
+   "legalinfo_id": "11224",
+   "title_on_legalinfo": "ЗАМЫН ХӨДӨЛГӨӨНИЙ АЮУЛГҮЙ БАЙДЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11224"
+  },
+  {
+   "law_id": "zar-surtalchilgaany-tukhai-khuuli",
+   "name": "Зар сурталчилгааны тухай хууль",
+   "legalinfo_id": "259",
+   "title_on_legalinfo": "ЗАР СУРТАЛЧИЛГААНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=259"
+  },
+  {
+   "law_id": "zasag-zakhirgaa-nutag-devsgeriin-negj-tuunii-udirdlagyn-tukhai-khuuli",
+   "name": "Засаг захиргаа, нутаг дэвсгэрийн нэгж, түүний удирдлагын тухай хууль",
+   "legalinfo_id": "16106891904801",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ЗАСАГ ЗАХИРГАА, НУТАГ ДЭВСГЭРИЙН НЭГЖ, ТҮҮНИЙ УДИРДЛАГЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16106891904801"
+  },
+  {
+   "law_id": "zasgiin-gazryn-agyentlagiin-erkh-zuin-baidlyn-tukhai-khuuli",
+   "name": "Засгийн газрын агентлагийн эрх зүйн байдлын тухай хууль",
+   "legalinfo_id": "271",
+   "title_on_legalinfo": "ЗАСГИЙН ГАЗРЫН АГЕНТЛАГИЙН ЭРХ ЗҮЙН БАЙДЛЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=271"
+  },
+  {
+   "law_id": "zokhiogchiin-erkhiin-tukhai-khuuli",
+   "name": "Зохиогчийн эрхийн тухай хууль",
+   "legalinfo_id": "16230812154721",
+   "title_on_legalinfo": "ЗОХИОГЧИЙН ЭРХИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16230812154721"
+  },
+  {
+   "law_id": "zeeliin-medeelliin-tukhai-khuuli",
+   "name": "Зээлийн мэдээллийн тухай хууль",
+   "legalinfo_id": "9175",
+   "title_on_legalinfo": "ЗЭЭЛИЙН МЭДЭЭЛЛИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=9175"
+  },
+  {
+   "law_id": "zovshoorliin-tukhai-khuuli",
+   "name": "Зөвшөөрөл, мэдэгдлийн тухай хууль",
+   "legalinfo_id": "16530780109311",
+   "title_on_legalinfo": "ЗӨВШӨӨРӨЛ, МЭДЭГДЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16530780109311"
+  },
+  {
+   "law_id": "zorchil-shalgan-shiidverlekh-tukhai-khuuli",
+   "name": "Зөрчил шалган шийдвэрлэх тухай хууль",
+   "legalinfo_id": "12696",
+   "title_on_legalinfo": "ЗӨРЧИЛ ШАЛГАН ШИЙДВЭРЛЭХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12696"
+  },
+  {
+   "law_id": "irgenii-khereg-shuukhed-khyanan-shiidverlekh-tukhai-khuuli",
+   "name": "Иргэний хэрэг шүүхэд хянан шийдвэрлэх тухай хууль",
+   "legalinfo_id": "302",
+   "title_on_legalinfo": "ИРГЭНИЙ ХЭРЭГ ШҮҮХЭД ХЯНАН ШИЙДВЭРЛЭХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=302"
+  },
+  {
+   "law_id": "ireeduin-ov-sangiin-tukhai-khuuli",
+   "name": "Ирээдүйн өв сангийн тухай хууль",
+   "legalinfo_id": "11707",
+   "title_on_legalinfo": "ИРЭЭДҮЙН ӨВ САНГИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11707"
+  },
+  {
+   "law_id": "kompaniin-tukhai-khuuli",
+   "name": "Компанийн тухай хууль",
+   "legalinfo_id": "310",
+   "title_on_legalinfo": "КОМПАНИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=310"
+  },
+  {
+   "law_id": "malchny-tukhai-khuuli",
+   "name": "Малчны тухай хууль",
+   "legalinfo_id": "17140718292011",
+   "title_on_legalinfo": "МАЛЧНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140718292011"
+  },
+  {
+   "law_id": "mansuuruulakh-em-setgetsed-noloot-bodisyn-ergelted-khyanalt-tavikh-tukhai-khuuli",
+   "name": "Мансууруулах эм, сэтгэцэд нөлөөт бодисын эргэлтэд хяналт тавих тухай хууль",
+   "legalinfo_id": "315",
+   "title_on_legalinfo": "МАНСУУРУУЛАХ ЭМ, СЭТГЭЦЭД НӨЛӨӨТ БОДИСЫН ЭРГЭЛТЭД ХЯНАЛТ ТАВИХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=315"
+  },
+  {
+   "law_id": "mongol-ulsyn-irgen-gadaadad-khuviin-khergeer-zorchikh-tsagaachlakh-tukhai-khuuli",
+   "name": "Монгол Улсын иргэн гадаадад хувийн хэргээр зорчих, цагаачлах тухай хууль",
+   "legalinfo_id": "345",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ИРГЭН ГАДААДАД ХУВИЙН ХЭРГЭЭР ЗОРЧИХ, ЦАГААЧЛАХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=345"
+  },
+  {
+   "law_id": "mongol-ulsyn-irgend-gazar-omchluulekh-tukhai-khuuli",
+   "name": "Монгол Улсын иргэнд газар өмчлүүлэх тухай хууль",
+   "legalinfo_id": "346",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ИРГЭНД ГАЗАР ӨМЧЛҮҮЛЭХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=346"
+  },
+  {
+   "law_id": "mongol-ulsyn-khiliin-tukhai-khuuli",
+   "name": "Монгол Улсын хилийн тухай хууль",
+   "legalinfo_id": "12418",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ХИЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12418"
+  },
+  {
+   "law_id": "mongol-ulsyn-shuukhiin-tukhai-khuuli",
+   "name": "Монгол Улсын шүүхийн тухай хууль",
+   "legalinfo_id": "16106892006021",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ШҮҮХИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16106892006021"
+  },
+  {
+   "law_id": "mongol-khelnii-tukhai-khuuli",
+   "name": "Монгол хэлний тухай хууль",
+   "legalinfo_id": "10932",
+   "title_on_legalinfo": "МОНГОЛ ХЭЛНИЙ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=10932"
+  },
+  {
+   "law_id": "mergejliin-bolon-tyekhnikiin-bolovsrol-surgaltyn-tukhai-khuuli",
+   "name": "Мэргэжлийн болон техникийн боловсрол, сургалтын тухай хууль",
+   "legalinfo_id": "16759959076531",
+   "title_on_legalinfo": "МЭРГЭЖЛИЙН БОЛОН ТЕХНИКИЙН БОЛОВСРОЛ, СУРГАЛТЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16759959076531"
+  },
+  {
+   "law_id": "mongo-ugaakh-bolon-tyerrorizmyg-sankhuujuulekhtei-temtsekh-tukhai-khuuli",
+   "name": "Мөнгө угаах болон терроризмыг санхүүжүүлэхтэй тэмцэх тухай хууль",
+   "legalinfo_id": "9242",
+   "title_on_legalinfo": "МӨНГӨ УГААХ БОЛОН ТЕРРОРИЗМЫГ САНХҮҮЖҮҮЛЭХТЭЙ ТЭМЦЭХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=9242"
+  },
+  {
+   "law_id": "niigmiin-daatgalyn-sangaas-olgokh-tetgevriin-tukhai-khuuli",
+   "name": "Нийгмийн даатгалын сангаас олгох тэтгэврийн тухай хууль",
+   "legalinfo_id": "16760148505951",
+   "title_on_legalinfo": "НИЙГМИЙН ДААТГАЛЫН САНГААС ОЛГОХ ТЭТГЭВРИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16760148505951"
+  },
+  {
+   "law_id": "niigmiin-daatgalyn-sangaas-olgokh-tetgemjiin-tukhai-khuuli",
+   "name": "Нийгмийн даатгалын сангаас олгох тэтгэмжийн тухай хууль",
+   "legalinfo_id": "16760148705641",
+   "title_on_legalinfo": "НИЙГМИЙН ДААТГАЛЫН САНГААС ОЛГОХ ТЭТГЭМЖИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16760148705641"
+  },
+  {
+   "law_id": "niigmiin-khalamjiin-tukhai-khuuli",
+   "name": "Нийгмийн халамжийн тухай хууль",
+   "legalinfo_id": "393",
+   "title_on_legalinfo": "НИЙГМИЙН ХАЛАМЖИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=393"
+  },
+  {
+   "law_id": "niitiin-medeelliin-il-tod-baidlyn-tukhai-khuuli",
+   "name": "Нийтийн мэдээллийн ил тод байдлын тухай хууль",
+   "legalinfo_id": "16390263044601",
+   "title_on_legalinfo": "НИЙТИЙН МЭДЭЭЛЛИЙН ИЛ ТОД БАЙДЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16390263044601"
+  },
+  {
+   "law_id": "nomyn-sangiin-tukhai-khuuli",
+   "name": "Номын сангийн тухай хууль",
+   "legalinfo_id": "10844",
+   "title_on_legalinfo": "НОМЫН САНГИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=10844"
+  },
+  {
+   "law_id": "nyagtlan-bodokh-burtgeliin-tukhai-khuuli",
+   "name": "Нягтлан бодох бүртгэлийн тухай хууль",
+   "legalinfo_id": "11191",
+   "title_on_legalinfo": "НЯГТЛАН БОДОХ БҮРТГЭЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11191"
+  },
+  {
+   "law_id": "nyalkh-balchir-khuukhdiin-khunsnii-tukhai-khuuli",
+   "name": "Нялх, балчир хүүхдийн хүнсний тухай хууль",
+   "legalinfo_id": "12654",
+   "title_on_legalinfo": "НЯЛХ, БАЛЧИР ХҮҮХДИЙН ХҮНСНИЙ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12654"
+  },
+  {
+   "law_id": "oin-tukhai-khuuli",
+   "name": "Ойн тухай хууль",
+   "legalinfo_id": "12171",
+   "title_on_legalinfo": "ОЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12171"
+  },
+  {
+   "law_id": "ontsgoi-alban-tatvaryn-temdgiin-tukhai-khuuli",
+   "name": "Онцгой албан татварын тэмдгийн тухай хууль",
+   "legalinfo_id": "435",
+   "title_on_legalinfo": "ОНЦГОЙ АЛБАН ТАТВАРЫН ТЭМДГИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=435"
+  },
+  {
+   "law_id": "prokuroryn-tukhai-khuuli",
+   "name": "Прокурорын тухай хууль",
+   "legalinfo_id": "12702",
+   "title_on_legalinfo": "ПРОКУРОРЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12702"
+  },
+  {
+   "law_id": "soyolyn-tukhai-khuuli",
+   "name": "Соёлын тухай хууль",
+   "legalinfo_id": "16230709374521",
+   "title_on_legalinfo": "СОЁЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16230709374521"
+  },
+  {
+   "law_id": "soyolyn-oviig-khamgaalakh-tukhai-khuuli",
+   "name": "Соёлын өвийг хамгаалах тухай хууль",
+   "legalinfo_id": "10439",
+   "title_on_legalinfo": "СОЁЛЫН ӨВИЙГ ХАМГААЛАХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=10439"
+  },
+  {
+   "law_id": "standartchilal-tyekhnikiin-zokhitsuulalt-tokhirlyn-unelgeenii-itgemjleliin-tukhai-khuuli",
+   "name": "Стандартчилал, техникийн зохицуулалт, тохирлын үнэлгээний итгэмжлэлийн тухай хууль",
+   "legalinfo_id": "13071",
+   "title_on_legalinfo": "СТАНДАРТЧИЛАЛ, ТЕХНИКИЙН ЗОХИЦУУЛАЛТ, ТОХИРЛЫН ҮНЭЛГЭЭНИЙ ИТГЭМЖЛЭЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=13071"
+  },
+  {
+   "law_id": "tomor-zamyn-teevriin-tukhai-khuuli",
+   "name": "Төмөр замын тээврийн тухай хууль",
+   "legalinfo_id": "16760186498011",
+   "title_on_legalinfo": "ТӨМӨР ЗАМЫН ТЭЭВРИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16760186498011"
+  },
+  {
+   "law_id": "tor-khuviin-khevshliin-tunshleliin-tukhai-khuuli",
+   "name": "Төр, хувийн хэвшлийн түншлэлийн тухай хууль",
+   "legalinfo_id": "16532629445571",
+   "title_on_legalinfo": "ТӨР, ХУВИЙН ХЭВШЛИЙН ТҮНШЛЭЛИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16532629445571"
+  },
+  {
+   "law_id": "toriin-bolon-albany-nuutsyn-tukhai-khuuli",
+   "name": "Төрийн болон албаны нууцын тухай хууль",
+   "legalinfo_id": "12408",
+   "title_on_legalinfo": "ТӨРИЙН БОЛОН АЛБАНЫ НУУЦЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12408"
+  },
+  {
+   "law_id": "toriin-bolon-oron-nutgiin-omchiin-tukhai-khuuli",
+   "name": "Төрийн болон орон нутгийн өмчийн тухай хууль",
+   "legalinfo_id": "492",
+   "title_on_legalinfo": "ТӨРИЙН БОЛОН ОРОН НУТГИЙН ӨМЧИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=492"
+  },
+  {
+   "law_id": "toriin-bolon-oron-nutgiin-omchit-kompaniin-zasaglalyn-tukhai-khuuli",
+   "name": "Төрийн болон орон нутгийн өмчит компанийн засаглалын тухай хууль",
+   "legalinfo_id": "17438765124382",
+   "title_on_legalinfo": "ТӨРИЙН БОЛОН ОРОН НУТГИЙН ӨМЧИТ КОМПАНИЙН ЗАСАГЛАЛЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17438765124382"
+  },
+  {
+   "law_id": "toriin-tusgai-khamgaalaltyn-tukhai-khuuli",
+   "name": "Төрийн тусгай хамгаалалтын тухай хууль",
+   "legalinfo_id": "17140718521551",
+   "title_on_legalinfo": "ТӨРИЙН ТУСГАЙ ХАМГААЛАЛТЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140718521551"
+  },
+  {
+   "law_id": "toriin-khemneltiin-tukhai-khuuli",
+   "name": "Төрийн хэмнэлтийн тухай хууль",
+   "legalinfo_id": "16468624002961",
+   "title_on_legalinfo": "ТӨРИЙН ХЭМНЭЛТИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16468624002961"
+  },
+  {
+   "law_id": "tosviin-tukhai-khuuli",
+   "name": "Төсвийн тухай хууль",
+   "legalinfo_id": "12254",
+   "title_on_legalinfo": "ТӨСВИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12254"
+  },
+  {
+   "law_id": "uls-toriin-namyn-tukhai-khuuli",
+   "name": "Улс төрийн намын тухай хууль",
+   "legalinfo_id": "16760239349461",
+   "title_on_legalinfo": "УЛС ТӨРИЙН НАМЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16760239349461"
+  },
+  {
+   "law_id": "ulsyn-ikh-khurlyn-songuuliin-tukhai-khuuli",
+   "name": "Улсын Их Хурлын сонгуулийн тухай хууль",
+   "legalinfo_id": "14869",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ИХ ХУРЛЫН СОНГУУЛИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=14869"
+  },
+  {
+   "law_id": "ulsyn-ikh-khurlyn-tukhai-khuuli",
+   "name": "Улсын Их Хурлын тухай хууль",
+   "legalinfo_id": "17140610916031",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ИХ ХУРЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140610916031"
+  },
+  {
+   "law_id": "ulsyn-ikh-khurlyn-khyanalt-shalgaltyn-tukhai-khuuli",
+   "name": "Улсын Их Хурлын хяналт шалгалтын тухай хууль",
+   "legalinfo_id": "17140615614031",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ИХ ХУРЛЫН ХЯНАЛТ ШАЛГАЛТЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140615614031"
+  },
+  {
+   "law_id": "khorshoony-tukhai-khuuli",
+   "name": "Хоршооны тухай хууль",
+   "legalinfo_id": "16230442329501",
+   "title_on_legalinfo": "ХОРШООНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16230442329501"
+  },
+  {
+   "law_id": "khot-baiguulaltyn-tukhai-khuuli",
+   "name": "Хот байгуулалтын тухай хууль",
+   "legalinfo_id": "530",
+   "title_on_legalinfo": "ХОТ БАЙГУУЛАЛТЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=530"
+  },
+  {
+   "law_id": "khuvirgasan-amid-organizmyn-tukhai-khuuli",
+   "name": "Хувиргасан амьд организмын тухай хууль",
+   "legalinfo_id": "536",
+   "title_on_legalinfo": "ХУВИРГАСАН АМЬД ОРГАНИЗМЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=536"
+  },
+  {
+   "law_id": "khereglegchiin-erkhiig-khamgaalakh-tukhai-khuuli",
+   "name": "Хэрэглэгчийн эрхийг хамгаалах тухай хууль",
+   "legalinfo_id": "551",
+   "title_on_legalinfo": "ХЭРЭГЛЭГЧИЙН ЭРХИЙГ ХАМГААЛАХ ТУХАЙ ХУУЛЬ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=551"
+  },
+  {
+   "law_id": "khun-amyn-amijirgaany-dood-tuvshing-todorkhoilokh-tukhai-khuuli",
+   "name": "Хүн амын амьжиргааны доод түвшинг тодорхойлох тухай хууль",
+   "legalinfo_id": "553",
+   "title_on_legalinfo": "ХҮН АМЫН АМЬЖИРГААНЫ ДООД ТҮВШИНГ ТОДОРХОЙЛОХ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=553"
+  },
+  {
+   "law_id": "khunii-khuviin-medeelel-khamgaalakh-tukhai-khuuli",
+   "name": "Хүний хувийн мэдээлэл хамгаалах тухай хууль",
+   "legalinfo_id": "16390288615991",
+   "title_on_legalinfo": "ХҮНИЙ ХУВИЙН МЭДЭЭЛЭЛ ХАМГААЛАХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16390288615991"
+  },
+  {
+   "law_id": "khuukhed-khamgaallyn-tukhai-khuuli",
+   "name": "Хүүхэд хамгааллын тухай хууль",
+   "legalinfo_id": "17140463602711",
+   "title_on_legalinfo": "ХҮҮХЭД ХАМГААЛЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140463602711"
+  },
+  {
+   "law_id": "khogjliin-bankny-tukhai-khuuli",
+   "name": "Хөгжлийн банкны тухай хууль",
+   "legalinfo_id": "12482",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ХӨГЖЛИЙН БАНКНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12482"
+  },
+  {
+   "law_id": "khorongo-oruulaltyn-sangiin-tukhai-khuuli",
+   "name": "Хөрөнгө оруулалтын сангийн тухай хууль",
+   "legalinfo_id": "9493",
+   "title_on_legalinfo": "ХӨРӨНГӨ ОРУУЛАЛТЫН САНГИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=9493"
+  },
+  {
+   "law_id": "khorongo-oruulaltyn-tukhai-khuuli",
+   "name": "Хөрөнгө оруулалтын тухай хууль",
+   "legalinfo_id": "9491",
+   "title_on_legalinfo": "ХӨРӨНГӨ ОРУУЛАЛТЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=9491"
+  },
+  {
+   "law_id": "tsakhim-garyn-usgiin-tukhai-khuuli",
+   "name": "Цахим гарын үсгийн тухай хууль",
+   "legalinfo_id": "16390355252531",
+   "title_on_legalinfo": "ЦАХИМ ГАРЫН ҮСГИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16390355252531"
+  },
+  {
+   "law_id": "tsergiin-alba-khaagchiin-tetgever-tetgemjiin-tukhai-khuuli",
+   "name": "Цэргийн алба хаагчийн тэтгэвэр, тэтгэмжийн тухай хууль",
+   "legalinfo_id": "576",
+   "title_on_legalinfo": "ЦЭРГИЙН АЛБА ХААГЧИЙН ТЭТГЭВЭР, ТЭТГЭМЖИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=576"
+  },
+  {
+   "law_id": "tsergiin-alba-khaagchiin-erkh-zuin-baidlyn-tukhai-khuuli",
+   "name": "Цэргийн алба хаагчийн эрх зүйн байдлын тухай хууль",
+   "legalinfo_id": "12125",
+   "title_on_legalinfo": "ЦЭРГИЙН АЛБА ХААГЧИЙН ЭРХ ЗҮЙН БАЙДЛЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12125"
+  },
+  {
+   "law_id": "tsergiin-albany-tukhai-khuuli",
+   "name": "Цэргийн албаны тухай хууль",
+   "legalinfo_id": "12124",
+   "title_on_legalinfo": "ЦЭРГИЙН АЛБАНЫ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12124"
+  },
+  {
+   "law_id": "shinjlekh-ukhaan-tyekhnologiin-tukhai-khuuli",
+   "name": "Шинжлэх ухаан, технологийн тухай хууль",
+   "legalinfo_id": "17140710245891",
+   "title_on_legalinfo": "ШИНЖЛЭХ УХААН, ТЕХНОЛОГИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=17140710245891"
+  },
+  {
+   "law_id": "shuukh-shinjilgeenii-tukhai-khuuli",
+   "name": "Шүүх шинжилгээний тухай хууль",
+   "legalinfo_id": "16532614235741",
+   "title_on_legalinfo": "ШҮҮХ ШИНЖИЛГЭЭНИЙ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16532614235741"
+  },
+  {
+   "law_id": "shuukhiin-shiidver-guitsetgekh-tukhai-khuuli",
+   "name": "Шүүхийн шийдвэр гүйцэтгэх тухай хууль",
+   "legalinfo_id": "12701",
+   "title_on_legalinfo": "ШҮҮХИЙН ШИЙДВЭР ГҮЙЦЭТГЭХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12701"
+  },
+  {
+   "law_id": "erdenesiin-sangiin-tukhai-khuuli",
+   "name": "Эрдэнэсийн сангийн тухай хууль",
+   "legalinfo_id": "16530344396841",
+   "title_on_legalinfo": "ЭРДЭНЭСИЙН САНГИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16530344396841"
+  },
+  {
+   "law_id": "erchim-khuchnii-tukhai-khuuli",
+   "name": "Эрчим хүчний тухай хууль",
+   "legalinfo_id": "60",
+   "title_on_legalinfo": "ЭРЧИМ ХҮЧНИЙ ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=60"
+  },
+  {
+   "law_id": "eruul-mendiin-daatgalyn-tukhai-khuuli",
+   "name": "Эрүүл мэндийн даатгалын тухай хууль",
+   "legalinfo_id": "10922",
+   "title_on_legalinfo": "ЭРҮҮЛ МЭНДИЙН ДААТГАЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=10922"
+  },
+  {
+   "law_id": "eruul-mendiin-tukhai-khuuli",
+   "name": "Эрүүл мэндийн тухай хууль",
+   "legalinfo_id": "49",
+   "title_on_legalinfo": "ЭРҮҮЛ МЭНДИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=49"
+  },
+  {
+   "law_id": "undesnii-ikh-bayar-naadmyn-tukhai-khuuli",
+   "name": "Үндэсний их баяр наадмын тухай хууль",
+   "legalinfo_id": "16530657329231",
+   "title_on_legalinfo": "ҮНДЭСНИЙ ИХ БАЯР НААДМЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16530657329231"
+  },
+  {
+   "law_id": "undesnii-tolboriin-sistyemiin-tukhai-khuuli",
+   "name": "Үндэсний төлбөрийн системийн тухай хууль",
+   "legalinfo_id": "12668",
+   "title_on_legalinfo": "ҮНДЭСНИЙ ТӨЛБӨРИЙН СИСТЕМИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12668"
+  },
+  {
+   "law_id": "omgoolliin-tukhai-khuuli",
+   "name": "Өмгөөллийн тухай хууль",
+   "legalinfo_id": "14859",
+   "title_on_legalinfo": "ӨМГӨӨЛЛИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=14859"
   }
  ]
 }

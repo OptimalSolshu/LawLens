@@ -4,6 +4,7 @@ MOCK=1  -> [ЖИШЭЭ] sample dataset (contracts/fixtures/processed), in-memory
 MOCK=0  -> real data/processed via Neo4j (GRAPH_BACKEND=neo4j) or in memory (GRAPH_BACKEND=memory).
 """
 import logging
+import threading
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
@@ -20,7 +21,20 @@ log = logging.getLogger("lawlens")
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     seed_graph()
+    threading.Thread(target=warm_search, daemon=True).start()
     yield
+
+
+def warm_search() -> None:
+    """Build the search index in the background so the first search on the real graph is fast."""
+    if config.MOCK:
+        return
+    from .services.search_service import article_index
+
+    try:
+        article_index(get_store())
+    except Exception:  # noqa: BLE001  the graph may not be loaded yet; the first search builds it then
+        log.warning("search index not warmed", exc_info=True)
 
 
 def seed_graph() -> None:
