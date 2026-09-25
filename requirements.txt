@@ -1,0 +1,6 @@
+neo4j>=5.20
+python-dotenv>=1.0
+fastembed>=0.7
+onnxruntime<1.23
+numpy>=1.26
+anthropic>=1.0
