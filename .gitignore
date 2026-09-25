@@ -23,3 +23,5 @@ data/*.emb.npz
 data/*.norms.json
 test-results/
 playwright-report/
+.vercel/
+.env*.local
