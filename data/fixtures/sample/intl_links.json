@@ -1,0 +1,17 @@
+{
+  "_comment": "[ЖИШЭЭ] Links between SAMPLE provisions and the curated sources in data/international/sources.json (model 'demo-llm').",
+  "links": [
+    {"article_id": "khodolmoriin-tukhai-khuuli:80.1", "source_id": "ilo-c001", "relevance": 0.86, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Долоо хоногийн ажлын цагийн дээд хязгаарын олон улсын стандарт."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:80.1", "source_id": "eu-2003-88", "relevance": 0.81, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Илүү цагийг оруулсан 48 цагийн дундаж хязгаарын гадаад жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:80.1", "source_id": "uk-wtr-1998", "relevance": 0.74, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Ажилтны бичгээр өгөх зөвшөөрөлтэй холбосон ажлын цагийн хязгаарын гадаад жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:91.1", "source_id": "uk-wtr-1998", "relevance": 0.7, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Илүү цагийг ажилтны бичгээр өгсөн зөвшөөрлөөр зохицуулсан жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:104.2", "source_id": "ilo-c131", "relevance": 0.84, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Доод хэмжээг үе үе тохируулах механизмын олон улсын стандарт."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:104.2", "source_id": "eu-2022-2041", "relevance": 0.78, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Доод хэмжээг тогтмол давтамжтай шинэчлэх гадаад жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:104.1", "source_id": "uk-nmwa-1998", "relevance": 0.66, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Доод хэмжээг хуулиар баталгаажуулсан гадаад жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:6.1", "source_id": "ilo-c111", "relevance": 0.88, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Ялгаварлан гадуурхалтын тодорхойлолтын олон улсын стандарт."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:6.1", "source_id": "uk-eqa-2010-s13", "relevance": 0.72, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Шууд ялгаварлан гадуурхалтын тодорхойлолтын гадаад жишээ."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:120.1", "source_id": "ilo-c155", "relevance": 0.83, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Ажил олгогчийн ажлын байрыг аюулгүй байлгах үүргийн олон улсын стандарт."},
+    {"article_id": "khodolmoriin-tukhai-khuuli:120.1", "source_id": "eu-1989-391", "relevance": 0.76, "model": "demo-llm", "explanation": "[ЖИШЭЭ] Ажил олгогчийн ерөнхий үүргийн гадаад жишээ."},
+    {"article_id": "khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli:12.1", "source_id": "ilo-c001", "relevance": 0.8, "model": "demo-llm", "explanation": "[ЖИШЭЭ] 48 цагийн хязгаарын олон улсын стандарт."}
+  ]
+}

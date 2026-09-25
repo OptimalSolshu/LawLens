@@ -1,4 +1,123 @@
 {
-  "Зөвшөөрлийн тухай хууль": ["Тусгай зөвшөөрлийн тухай хууль"],
-  "Зөрчлийн тухай хууль": []
+ "_comment": "Law name registry (contracts/data-format.md#law_names.json). current_name is the canonical name; former_names/short_names/aliases resolve to it. Only add names you have verified on legalinfo.mn. Laws cited by the real Labor Law are listed by the name exactly as cited there.",
+ "laws": [
+  {
+   "current_name": "Зөвшөөрлийн тухай хууль",
+   "former_names": [
+    "Тусгай зөвшөөрлийн тухай хууль"
+   ],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Зөрчлийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Ажиллах хүчний шилжилт хөдөлгөөний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Архив, албан хэрэг хөтлөлтийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Ахмад настны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гадаадын иргэний эрх зүйн байдлын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Гамшгаас хамгаалах тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Иргэний хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийгмийн даатгалын ерөнхий хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Нийгмийн даатгалын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн албаны тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Төрийн хяналт шалгалтын тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөгжлийн бэрхшээлтэй хүний эрхийн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөдөлмөр эрхлэлтийг дэмжих тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөдөлмөрийн аюулгүй байдал, эрүүл ахуйн тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Хөдөлмөрийн хөлсний доод хэмжээний тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрүүгийн хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Эрүүгийн хэрэг хянан шийдвэрлэх тухай хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": []
+  },
+  {
+   "current_name": "Үндсэн хууль",
+   "former_names": [],
+   "short_names": [],
+   "aliases": [
+    "Монгол Улсын Үндсэн хууль"
+   ]
+  }
+ ]
 }

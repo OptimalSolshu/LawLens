@@ -1,0 +1,7 @@
+{
+  "_comment": "[ЖИШЭЭ] Sample dataset only. Laws that are cited by the sample texts but whose text is not in the sample (they become stub laws), plus a registry-only name used to test longest-name matching.",
+  "laws": [
+    {"current_name": "Иргэний хууль", "former_names": [], "short_names": [], "aliases": [], "source_url": "https://example.org/lawlens-sample/laws/irgenii-khuuli"},
+    {"current_name": "Эрүүл ахуйн тухай хууль", "former_names": [], "short_names": [], "aliases": [], "source_url": "https://example.org/lawlens-sample/laws/eruul-akhuin-tukhai-khuuli"}
+  ]
+}

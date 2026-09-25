@@ -1,27 +1,11 @@
-"""Claude calls: conflict/overlap judgement (relations.jsonl), international
-links, amendment suggestions (amendments.jsonl). Every output records `model`
-and a confidence, and is shown to users as a *suggestion*, never as fact.
+"""Claude-backed suggestions (relations.jsonl, amendments.jsonl): backend/app/ai/relations.py.
+
+AnthropicRelationService uses the Anthropic SDK with structured output and a
+disk cache (data/cache/llm) so the API never calls an LLM per request.
+PrecomputedRelationService serves curated/cached judgements offline.
 """
-import os
+from . import _backend  # noqa: F401
+from app.ai.relations import (AnthropicRelationService, LLMRelationService,  # noqa: E402
+                              PrecomputedRelationService, get_relation_service)
 
-import anthropic
-
-MODEL = os.getenv("LLM_MODEL", "claude-sonnet-5")
-
-
-def client() -> anthropic.Anthropic:
-    return anthropic.Anthropic()  # reads ANTHROPIC_API_KEY
-
-
-def ask(prompt: str, max_tokens: int = 1024) -> str:
-    msg = client().messages.create(model=MODEL, max_tokens=max_tokens,
-                                   messages=[{"role": "user", "content": prompt}])
-    return "".join(b.text for b in msg.content if b.type == "text")
-
-
-def judge_relation(a_text: str, b_text: str) -> dict:
-    raise NotImplementedError("TODO(member 3): return {kind, confidence, explanation}")
-
-
-def suggest_amendment(article_text: str, context: list[str]) -> dict:
-    raise NotImplementedError("TODO(member 3): return {reason, suggested_text, based_on_source_ids}")
+__all__ = ["AnthropicRelationService", "LLMRelationService", "PrecomputedRelationService", "get_relation_service"]

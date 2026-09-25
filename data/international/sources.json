@@ -1,4 +1,35 @@
 {
-  "_comment": "Hand-curated international sources. Only add entries whose url you have opened and checked. Schema: contracts/data-format.md#international.json",
-  "sources": []
+  "_comment": "Hand-curated international sources (contracts/data-format.md#international.json). Real documents; summaries are short paraphrases for orientation, always check the linked text. ILO NORMLEX pages are behind a browser challenge and were not machine-checked; legislation.gov.uk and EUR-Lex URLs responded when added (2026-09-25).",
+  "sources": [
+    {"source_id": "ilo-c001", "kind": "treaty", "country_or_org": "ОУХБ (ILO)", "title": "Hours of Work (Industry) Convention, 1919 (No. 1)", "provision": "Article 2",
+     "url": "https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C001",
+     "summary": "Аж үйлдвэрийн газарт ажиллагсдын ажлын цаг өдөрт 8, долоо хоногт 48 цагаас хэтрэхгүй байх зарчмыг тогтоосон."},
+    {"source_id": "ilo-c111", "kind": "treaty", "country_or_org": "ОУХБ (ILO)", "title": "Discrimination (Employment and Occupation) Convention, 1958 (No. 111)", "provision": "Article 1",
+     "url": "https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C111",
+     "summary": "Хөдөлмөр эрхлэлт, мэргэжлийн салбар дахь ялгаварлан гадуурхалтын тодорхойлолтыг (арьс өнгө, хүйс, шашин, улс төрийн үзэл бодол, үндэс угсаа, нийгмийн гарал) тогтоосон."},
+    {"source_id": "ilo-c131", "kind": "treaty", "country_or_org": "ОУХБ (ILO)", "title": "Minimum Wage Fixing Convention, 1970 (No. 131)", "provision": "Article 4",
+     "url": "https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C131",
+     "summary": "Хөдөлмөрийн хөлсний доод хэмжээг тогтоох, үе үе тохируулах механизмыг ажил олгогч, ажилтны төлөөллийн байгууллагатай зөвлөлдөн бий болгохыг заасан."},
+    {"source_id": "ilo-c155", "kind": "treaty", "country_or_org": "ОУХБ (ILO)", "title": "Occupational Safety and Health Convention, 1981 (No. 155)", "provision": "Article 16",
+     "url": "https://normlex.ilo.org/dyn/nrmlx_en/f?p=NORMLEXPUB:12100:0::NO::P12100_ILO_CODE:C155",
+     "summary": "Ажил олгогч ажлын байр, машин тоног төхөөрөмж, үйл ажиллагааг эрүүл мэндэд аюулгүй байлгах, шаардлагатай хамгаалах хувцас, хэрэгслээр хангах үүргийг заасан."},
+    {"source_id": "eu-2003-88", "kind": "foreign_law", "country_or_org": "Европын холбоо (EUR-Lex)", "title": "Directive 2003/88/EC concerning certain aspects of the organisation of working time", "provision": "Article 6",
+     "url": "https://eur-lex.europa.eu/eli/dir/2003/88/oj",
+     "summary": "Долоо хоногийн дундаж ажлын цаг илүү цагийг оруулан 48 цагаас хэтрэхгүй байхыг заасан."},
+    {"source_id": "eu-2022-2041", "kind": "foreign_law", "country_or_org": "Европын холбоо (EUR-Lex)", "title": "Directive (EU) 2022/2041 on adequate minimum wages in the European Union", "provision": "Article 5",
+     "url": "https://eur-lex.europa.eu/eli/dir/2022/2041/oj",
+     "summary": "Хуулиар тогтоосон хөдөлмөрийн хөлсний доод хэмжээг тодорхой шалгуураар тогтоож, тогтмол давтамжтай шинэчлэх журмыг заасан."},
+    {"source_id": "eu-1989-391", "kind": "foreign_law", "country_or_org": "Европын холбоо (EUR-Lex)", "title": "Council Directive 89/391/EEC on safety and health of workers at work", "provision": "Article 6",
+     "url": "https://eur-lex.europa.eu/eli/dir/1989/391/oj",
+     "summary": "Ажил олгогчийн хөдөлмөрийн аюулгүй байдал, эрүүл ахуйг хангах ерөнхий үүрэг, эрсдэлээс урьдчилан сэргийлэх зарчмыг заасан."},
+    {"source_id": "uk-wtr-1998", "kind": "foreign_law", "country_or_org": "Их Британи (legislation.gov.uk)", "title": "The Working Time Regulations 1998", "provision": "Regulation 4",
+     "url": "https://www.legislation.gov.uk/uksi/1998/1833/regulation/4",
+     "summary": "Тооцооны хугацааны дунджаар долоо хоногийн ажлын цаг 48 цагаас хэтрэхгүй байх хязгаар, ажилтны бичгээр өгөх зөвшөөрлийн журмыг заасан."},
+    {"source_id": "uk-nmwa-1998", "kind": "foreign_law", "country_or_org": "Их Британи (legislation.gov.uk)", "title": "National Minimum Wage Act 1998", "provision": "Part I",
+     "url": "https://www.legislation.gov.uk/ukpga/1998/39/contents",
+     "summary": "Үндэсний хэмжээний хөдөлмөрийн хөлсний доод хэмжээг журмаар тогтоох, Low Pay Commission-оос зөвлөмж авах журмыг тогтоосон."},
+    {"source_id": "uk-eqa-2010-s13", "kind": "foreign_law", "country_or_org": "Их Британи (legislation.gov.uk)", "title": "Equality Act 2010", "provision": "Section 13",
+     "url": "https://www.legislation.gov.uk/ukpga/2010/15/section/13",
+     "summary": "Хамгаалагдсан шинж чанараар нь хүнийг бусдаас дутуу харьцах шууд ялгаварлан гадуурхалтыг тодорхойлсон."}
+  ]
 }

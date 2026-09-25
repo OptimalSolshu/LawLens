@@ -1,57 +1,85 @@
+# LawLens local stack.
+#
+#   docker compose up                      demo: MOCK=1 [ЖИШЭЭ] sample data, no Neo4j needed
+#   MOCK=0 docker compose --profile graph up
+#                                          real data/processed loaded into Neo4j (needs NEO4J_PASSWORD in .env)
+#   docker compose --profile explore up neo4j-explore
+#                                          separate exploration graph for parse_law.py / load_neo4j.py
+#
+# Web: http://localhost:5173   API: http://localhost:8000/api/health   Neo4j (graph): http://localhost:7475
 services:
+  # API knowledge graph (Neo4j 5 Community + APOC). Only needed for MOCK=0.
   neo4j:
     image: neo4j:5-community
+    profiles: ["graph"]
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:7475:7474"
+      - "127.0.0.1:7688:7687"
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-}  # set NEO4J_PASSWORD in .env (8+ chars)
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_dbms_usage__report_enabled: "false"
+    volumes:
+      - lawlens_graph:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 10s
+      retries: 12
+
+  # Exploration / GraphRAG graph built by build.sh (load_neo4j.py). Kept apart from the API
+  # graph because it uses the same :Law / :Article labels with other properties (CLAUDE.md §10).
+  neo4j-explore:
+    image: neo4j:5-community
+    profiles: ["explore"]
     container_name: lawgraph-neo4j
     restart: unless-stopped
     ports:
       - "127.0.0.1:7474:7474"
       - "127.0.0.1:7687:7687"
     environment:
-      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:?set NEO4J_PASSWORD in .env}
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-}  # set NEO4J_PASSWORD in .env (8+ chars)
       NEO4J_PLUGINS: '["apoc"]'
       NEO4J_dbms_security_procedures_unrestricted: apoc.*
       NEO4J_server_memory_heap_max__size: 1G
       NEO4J_dbms_usage__report_enabled: "false"
     volumes:
       - neo4j_data:/data
-    healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
-      interval: 10s
-      retries: 12
 
-  api:
+  backend:
     build: ./backend
+    restart: unless-stopped
     env_file:
       - path: .env
         required: false
     environment:
       MOCK: ${MOCK:-1}
+      GRAPH_BACKEND: ${GRAPH_BACKEND:-neo4j}
+      SEED_ON_START: "1"
       NEO4J_URI: bolt://neo4j:7687
       FIXTURES_DIR: /contracts/fixtures
       PROCESSED_DIR: /data/processed
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
       - ./contracts:/contracts:ro
       - ./data/processed:/data/processed:ro
     depends_on:
-      - neo4j
+      neo4j:
+        condition: service_healthy
+        required: false
 
   web:
-    image: node:22-alpine
-    working_dir: /web
-    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
-    environment:
-      VITE_PROXY_TARGET: http://api:8000
+    build: ./web
+    restart: unless-stopped
     ports:
-      - "5173:5173"
-    volumes:
-      - ./web:/web
-      - web-node-modules:/web/node_modules
+      - "5173:80"
     depends_on:
-      - api
+      backend:
+        condition: service_healthy
 
 volumes:
+  lawlens_graph:
   neo4j_data:
-  web-node-modules:

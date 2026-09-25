@@ -1,0 +1,15 @@
+{
+  "_comment": "Suggested links between REAL Labor Law provisions (labor-2021, legalinfo.mn) and the curated sources in sources.json. Chosen by an LLM (Claude, model id below) from the article titles and texts; they are suggestions for staff to check, not legal findings.",
+  "links": [
+    {"article_id": "labor-2021:84", "source_id": "ilo-c001", "relevance": 0.8, "model": "claude-opus-5-5", "explanation": "84 дүгээр зүйл ажлын цагийн дээд хязгаарыг зохицуулдаг; ОУХБ-ын 1 дүгээр конвенц ажлын цагийн дээд хязгаарын стандарт. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:84", "source_id": "eu-2003-88", "relevance": 0.75, "model": "claude-opus-5-5", "explanation": "Долоо хоногийн дундаж ажлын цагийн хязгаарын ЕХ-ны жишээ. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:84", "source_id": "uk-wtr-1998", "relevance": 0.7, "model": "claude-opus-5-5", "explanation": "Долоо хоногийн ажлын цагийн хязгаарын Их Британийн жишээ. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:91", "source_id": "uk-wtr-1998", "relevance": 0.6, "model": "claude-opus-5-5", "explanation": "Илүү цагийн зохицуулалтыг ажилтны зөвшөөрөлтэй холбосон гадаад жишээ. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:6", "source_id": "ilo-c111", "relevance": 0.85, "model": "claude-opus-5-5", "explanation": "6 дугаар зүйл ялгаварлан гадуурхахыг хориглодог; ОУХБ-ын 111 дүгээр конвенц ялгаварлан гадуурхалтын тодорхойлолтыг өгдөг. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:6", "source_id": "uk-eqa-2010-s13", "relevance": 0.65, "model": "claude-opus-5-5", "explanation": "Шууд ялгаварлан гадуурхалтын тодорхойлолтын гадаад жишээ. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:120", "source_id": "ilo-c155", "relevance": 0.8, "model": "claude-opus-5-5", "explanation": "120 дугаар зүйл ажлын байрны аюулгүй байдал, эрүүл ахуйн нөхцөлийг хангах үүргийг зохицуулдаг; ОУХБ-ын 155 дугаар конвенцийн 16 дугаар зүйл ажил олгогчийн ижил үүргийг заадаг. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:120", "source_id": "eu-1989-391", "relevance": 0.7, "model": "claude-opus-5-5", "explanation": "Ажил олгогчийн ерөнхий үүргийн ЕХ-ны жишээ. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:107.3", "source_id": "ilo-c131", "relevance": 0.75, "model": "claude-opus-5-5", "explanation": "107.3 хөдөлмөрийн хөлсний доод хэмжээг Хөдөлмөрийн хөлсний доод хэмжээний тухай хуульд заасны дагуу тогтоохыг заадаг; ОУХБ-ын 131 дүгээр конвенц доод хэмжээ тогтоох механизмын стандарт. Санал; харьцуулж шалгах шаардлагатай."},
+    {"article_id": "labor-2021:107.3", "source_id": "eu-2022-2041", "relevance": 0.65, "model": "claude-opus-5-5", "explanation": "Доод хэмжээг тогтоох, шинэчлэх журмын ЕХ-ны жишээ. Санал; харьцуулж шалгах шаардлагатай."}
+  ]
+}

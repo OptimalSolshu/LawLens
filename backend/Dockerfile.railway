@@ -1,11 +1,12 @@
 # Production image for Railway. Build context = repo root (see railway.json),
-# so contracts/ and data/processed/ ship inside the image. Local dev uses
-# backend/Dockerfile via docker-compose instead.
+# so contracts/ and data/processed/ ship inside the image. Local docker compose
+# uses backend/Dockerfile with mounted data instead.
 FROM python:3.11-slim
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY backend/ .
+COPY backend/app ./app
 COPY contracts/ /contracts/
 COPY data/processed/ /data/processed/
 ENV FIXTURES_DIR=/contracts/fixtures \

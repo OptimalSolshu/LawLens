@@ -1,0 +1,7 @@
+{
+  "_comment": "[ЖИШЭЭ] Old -> current provision numbers after a full revision (шинэчилсэн найруулга). Sample correspondence table, not real.",
+  "source_url": "https://example.org/lawlens-sample/renumbering/khodolmoriin-tukhai-khuuli",
+  "laws": {
+    "khodolmoriin-tukhai-khuuli": {"131.1": "120.1"}
+  }
+}

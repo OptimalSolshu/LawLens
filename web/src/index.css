@@ -1,1 +1,110 @@
 @import "tailwindcss";
+
+/* Formal government style: white, one accent, thin borders, no shadows or gradients. */
+@theme {
+  --color-accent: #1f4e8c;
+  --color-accent-dark: #173b6a;
+  --color-ink: #1b1f24;
+  --color-muted: #59626d;
+  --color-line: #d5d9df;
+  --color-soft: #f4f6f8;
+  --color-warn: #8a3b12;
+  --font-sans: "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+a:hover {
+  color: var(--color-accent-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
+/* Label boxes: plain text with a hairline border, never a coloured badge. */
+.label {
+  display: inline-block;
+  border: 1px solid var(--color-line);
+  padding: 0 0.4rem;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.label-fact {
+  border-color: var(--color-ink);
+}
+
+.label-suggestion {
+  border-style: dashed;
+  color: var(--color-muted);
+}
+
+.label-warn {
+  border-color: var(--color-warn);
+  color: var(--color-warn);
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: #fff;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--color-accent-dark);
+  color: #fff;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.btn-plain {
+  display: inline-block;
+  border: 1px solid var(--color-line);
+  background: #fff;
+  color: var(--color-accent);
+  padding: 0.15rem 0.6rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-plain:hover {
+  border-color: var(--color-accent);
+}
+
+.field {
+  width: 100%;
+  border: 1px solid var(--color-line);
+  padding: 0.45rem 0.6rem;
+  font: inherit;
+  background: #fff;
+}
+
+.field:focus {
+  border-color: var(--color-accent);
+  outline: none;
+}

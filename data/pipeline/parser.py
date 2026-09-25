@@ -1,11 +1,10 @@
-"""raw/laws/*.txt -> processed/laws.jsonl (articles split by number).
+"""Plain law text -> articles (backend/app/parser/law_text.py).
 
-Starter parser.py goes here (it was not in the repo at scaffold time).
+PDF laws from legalinfo.mn go through ../parse_law.py first (pdftotext layout
+parser, keeps repeal/amendment notes) and then pipeline.from_lawgraph.
+Plain-text laws (e.g. the [ЖИШЭЭ] sample files) use parse_law_text directly.
 """
-from pathlib import Path
+from . import _backend  # noqa: F401
+from app.parser.law_text import parse_law_text, split_front_matter  # noqa: E402
 
-from .schemas import LawRec
-
-
-def parse_law(path: Path, former_names: list[str]) -> LawRec:
-    raise NotImplementedError("TODO(member 3): split into articles, set parent_number")
+__all__ = ["parse_law_text", "split_front_matter"]

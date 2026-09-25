@@ -1,19 +1,10 @@
-"""multilingual-e5-large article embeddings + similar pairs -> processed/similar.jsonl.
+"""Embeddings for similar.jsonl (backend/app/ai/embeddings.py).
 
-Needs requirements-ml.txt (sentence-transformers).
+BAAI/bge-m3 by default (EMBED_MODEL; needs requirements-ml.txt), deterministic
+offline fallback "demo-ngram-v1" otherwise. Pairs are computed in pipeline.build.
 """
-# Same model as semantic_links.py (e5: prefix texts with "passage: " / "query: ").
-# 1024-dim, matches the Neo4j vector index in backend/app/graph/schema.cypher
-MODEL = "intfloat/multilingual-e5-large"
-MIN_SCORE = 0.75
+from . import _backend  # noqa: F401
+from app.ai.embeddings import (DemoEmbedder, SentenceTransformerEmbedder, cosine, get_embedder,  # noqa: E402
+                               min_score)
 
-
-def embed(texts: list[str]) -> list[list[float]]:
-    from sentence_transformers import SentenceTransformer
-
-    model = SentenceTransformer(MODEL)
-    return model.encode(["passage: " + t for t in texts], normalize_embeddings=True).tolist()
-
-
-def similar_pairs() -> None:
-    raise NotImplementedError("TODO(member 3): cross-law pairs with score >= MIN_SCORE")
+__all__ = ["DemoEmbedder", "SentenceTransformerEmbedder", "cosine", "get_embedder", "min_score"]
