@@ -13,7 +13,8 @@ from neo4j import GraphDatabase
 
 SCHEMA = [
     "CREATE CONSTRAINT law_node_uid IF NOT EXISTS FOR (n:LawNode) REQUIRE n.uid IS UNIQUE",
-    "CREATE CONSTRAINT law_id IF NOT EXISTS FOR (n:Law) REQUIRE n.id IS UNIQUE",
+    # backend/app/graph/schema.cypher-ийн `law_id` (Law.law_id)-тай нэр давхцахгүйн тулд
+    "CREATE CONSTRAINT lawgraph_law_id IF NOT EXISTS FOR (n:Law) REQUIRE n.id IS UNIQUE",
     "CREATE INDEX actor_name IF NOT EXISTS FOR (n:Actor) ON (n.name)",
     "CREATE CONSTRAINT extlaw_name IF NOT EXISTS FOR (n:ExternalLaw) REQUIRE n.name IS UNIQUE",
     "CREATE CONSTRAINT amending_date IF NOT EXISTS FOR (n:AmendingLaw) REQUIRE n.date IS UNIQUE",
@@ -118,6 +119,9 @@ def main():
 
     driver = GraphDatabase.driver(os.environ["NEO4J_URI"], auth=(os.environ["NEO4J_USER"], os.environ["NEO4J_PASSWORD"]))
     with driver.session() as s:
+        # Хуучин нэртэй (law_id → Law.id) constraint-ийг устгана, эс тэгвээс backend-ийн law_id үүсэхгүй
+        if s.run("SHOW CONSTRAINTS YIELD name, properties WHERE name = 'law_id' AND properties = ['id'] RETURN name").single():
+            s.run("DROP CONSTRAINT law_id")
         for q in SCHEMA:
             s.run(q)
         if args.reset:

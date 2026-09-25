@@ -12,8 +12,10 @@ exists. Their records carry `"_sample": true`. Real output must not.
 ## Conventions
 
 - Encoding UTF-8, `.jsonl` = one JSON object per line.
-- **law_id**: ASCII slug of the law's *current* name, Mongolian Cyrillic
-  transliterated with `pipeline.ids.law_id()`. Example:
+- **law_id**: stable ASCII slug (`[a-z0-9-]+`). A parsed law keeps the id it
+  was given with `parse_law.py --id` (e.g. `labor-2021`), so it survives a
+  rename. A law known only by name (cited, not parsed) gets
+  `pipeline.ids.law_id(name)`, e.g.
   `Зөвшөөрлийн тухай хууль` → `zovshoorliin-tukhai-khuuli`.
 - **article_id**: `"{law_id}:{number}"`, e.g. `zovshoorliin-tukhai-khuuli:15.1`.
   `number` is the provision number as printed (`15`, `15.1`, `15.1.3`).
@@ -42,6 +44,10 @@ One line per law (current and repealed laws that are still referenced).
 ```
 
 `former_names` come from `data/law_names.json` (`{"current name": ["former name", ...]}`).
+
+Produced from `parse_law.py` output by `python -m pipeline.from_lawgraph`
+(run from `data/`). Repealed provisions are not listed, so a reference to one
+has `target_missing: true`.
 
 ## refs.jsonl
 

@@ -1,0 +1,12 @@
+# Context for backend/Dockerfile.railway (repo root). Only backend/, contracts/, data/processed/ are copied.
+.git
+.env
+.venv
+**/__pycache__
+**/.pytest_cache
+**/node_modules
+web/
+data/*.pdf
+data/*.json
+data/*.npz
+data/raw/
