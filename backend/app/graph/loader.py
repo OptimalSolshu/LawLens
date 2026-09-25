@@ -76,8 +76,9 @@ def load(processed_dir: Path, reset: bool = False, embed: bool = True) -> dict:
             raise SystemExit("This Neo4j holds the exploration graph (load_neo4j.py). Use a separate database "
                              "for the API graph (docker compose service 'neo4j', see README).")
         if reset:
+            # in batches: one transaction for a whole graph exceeds dbms.memory.transaction.total.max
             s.run("MATCH (n) WHERE n:Law OR n:LawName OR n:Article OR n:Draft OR n:Source OR n:Suggestion "
-                  "DETACH DELETE n")
+                  "CALL (n) { DETACH DELETE n } IN TRANSACTIONS OF 2000 ROWS").consume()
         apply_schema(s)
         _run(s, """UNWIND $rows AS r MERGE (l:Law {law_id: r.law_id})
                    SET l.name = r.name, l.former_names = r.former_names, l.short_names = r.short_names,
