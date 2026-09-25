@@ -3,6 +3,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
+from ..parser.ids import ancestors, article_id, split_article_id
 from .store import number_key, under
 
 
@@ -100,6 +101,22 @@ class MemoryStore:
                                           or any(under(r["to_number"], p) for p in missing_prefixes)):
                 out.append(r)
         return [dict(r) for r in out]
+
+    def indirect_refs(self, frontier_ids, seed_ids, max_depth):
+        seen = set(seed_ids) | set(frontier_ids)
+        frontier, out = list(frontier_ids), []
+        for depth in range(2, max_depth + 1):
+            found: dict[str, list[dict]] = defaultdict(list)
+            for via in frontier:
+                law_id, number = split_article_id(via)
+                targets = [article_id(law_id, n) for n in [number, *ancestors(number)]]
+                for r in self.refs_to(law_id, targets, [], False):
+                    if r["from_article_id"] not in seen:
+                        found[r["from_article_id"]].append({**r, "via_article_id": via, "depth": depth})
+            seen |= found.keys()
+            out += [r for rs in found.values() for r in rs]
+            frontier = list(found)
+        return out
 
     def refs_from(self, article_ids):
         return [dict(r) for aid in article_ids for r in self._from.get(aid, [])]

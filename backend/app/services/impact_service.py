@@ -16,7 +16,7 @@ Change kinds
   none     (law_id only)              seeds = the whole law
 """
 from ..graph.store import GraphStore, number_key
-from ..parser.ids import ancestors, article_id as make_article_id
+from ..parser.ids import ancestors, article_id as make_article_id, split_article_id
 from ..schemas import (Flags, ImpactChange, ImpactDepth, ImpactRequest, ImpactResponse, ImpactTotals, LawGroup,
                        RefItem)
 from .law_service import get_article_or_404, get_law_or_404, selection
@@ -69,7 +69,6 @@ def compute(store: GraphStore, req: ImpactRequest) -> ImpactResponse:
 
     seen: set[str] = set(seeds)
     depths: list[list[RefItem]] = []
-    frontier: dict[str, dict] = {}
     items: list[RefItem] = []
     ctx.prefetch([r["from_article_id"] for r in refs])
     for r in sorted(refs, key=lambda r: (r["from_article_id"], number_key(r["to_number"]))):
@@ -85,34 +84,23 @@ def compute(store: GraphStore, req: ImpactRequest) -> ImpactResponse:
         if kind == "renumber":
             reason += f" Дугаар {req.new_number} болбол энэ ишлэл олдохгүй заалт руу заана."
         items.append(incoming_item(ctx, r, explanation=reason, flags=flags))
-        frontier[r["from_article_id"]] = r
     depths.append(items)
 
-    # ---- depth 2..n -------------------------------------------------------------
-    for _ in range(2, req.depth + 1):
-        nxt: dict[str, dict] = {}
+    # ---- depth 2..n: one graph traversal (a single Cypher query on Neo4j) -------------
+    frontier = [i.article_id for i in items]
+    by_depth: dict[int, dict[str, list[dict]]] = {}
+    for r in store.indirect_refs(frontier, list(seeds), req.depth):
+        by_depth.setdefault(r["depth"], {}).setdefault(r["from_article_id"], []).append(r)
+    for depth in range(2, req.depth + 1):
+        found = by_depth.get(depth, {})
+        ctx.prefetch(list(found))
         level: list[RefItem] = []
-        by_target: dict[str, list[dict]] = {}
-        for aid, via_ref in frontier.items():
-            lid, num = via_ref["from_law_id"], via_ref["from_number"]
-            for r in store.refs_to(lid, _with_ancestors(lid, num), [], False):
-                by_target.setdefault(r["from_article_id"], []).append((r, via_ref))
-        ctx.prefetch(list(by_target))
-        for from_id in sorted(by_target):
-            if from_id in seen:
-                continue
-            seen.add(from_id)
-            r, via = min(by_target[from_id], key=lambda rv: (number_key(rv[0]["to_number"]), rv[1]["from_article_id"]))
-            via_law = ctx.law(via["from_law_id"])["name"]
-            reason = f"{genitive(via_law)} {via['from_number']}-ээр дамжсан: {r['to_number']}-ийг иш татсан."
+        for from_id in sorted(found):
+            r = min(found[from_id], key=lambda r: (number_key(r["to_number"]), r["via_article_id"]))
+            via_law, via_number = split_article_id(r["via_article_id"])
+            reason = f"{genitive(ctx.law(via_law)['name'])} {via_number}-ээр дамжсан: {r['to_number']}-ийг иш татсан."
             level.append(incoming_item(ctx, r, explanation=reason))
-            nxt[from_id] = r
         depths.append(level)
-        frontier = nxt
-        if not frontier:
-            break
-    while len(depths) < req.depth:
-        depths.append([])
 
     groups = [group(level) for level in depths]
     new_similar = similar_to_text(ctx, req.new_text, law_id, art["number"] if art else None) if req.new_text else []

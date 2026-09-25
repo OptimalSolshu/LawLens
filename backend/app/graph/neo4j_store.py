@@ -11,7 +11,10 @@ REF_RETURN = """RETURN s.article_id AS from_article_id, s.law_id AS from_law_id,
        r.raw_text AS raw_text, r.matched_name AS matched_name, r.uses_old_name AS uses_old_name,
        r.target_missing AS target_missing, r.current_number AS current_number,
        r.method AS method, r.confidence AS confidence"""
-LAW_FIELDS = ("law_id", "name", "former_names", "short_names", "adopted_date", "source_url", "text_available")
+# Upper bound on relationships per impact hop: PART_OF steps up to the cited article
+# (numbers nest at most "12.3.1.2" deep) plus the one REFERS_TO back.
+PATH_STEPS_PER_HOP = 5
+LAW_FIELDS =("law_id", "name", "former_names", "short_names", "adopted_date", "source_url", "text_available")
 
 
 class Neo4jStore:
@@ -71,6 +74,32 @@ class Neo4jStore:
               RETURN s, r
             }}
             {REF_RETURN}""", ids=list(article_ids), law=law_id, law_level=law_level, prefixes=missing_prefixes)
+
+    def indirect_refs(self, frontier_ids, seed_ids, max_depth):
+        """One traversal: a hop is (up PART_OF to a containing article/part)* then back along
+        one REFERS_TO to the citing provision. Depth = 1 + REFERS_TO hops on the shortest
+        path; then the (ref, via) candidates are matched against the previous depth."""
+        if max_depth < 2 or not frontier_ids:
+            return []
+        hops = int(max_depth) - 1
+        return self._q(f"""
+            MATCH (f:Article WHERE f.article_id IN $frontier)
+                  ((x:Article)-[e:PART_OF|REFERS_TO]-(y:Article)
+                   WHERE (type(e) = 'PART_OF' AND startNode(e) = x)
+                      OR (type(e) = 'REFERS_TO' AND endNode(e) = x AND NOT y.article_id IN $seeds)
+                  ){{1,{hops * PATH_STEPS_PER_HOP}}}
+                  (b:Article)
+            WHERE type(last(e)) = 'REFERS_TO' AND NOT b.article_id IN $frontier
+            WITH b, min(size([h IN e WHERE type(h) = 'REFERS_TO'])) AS refs_hops
+            WHERE refs_hops <= $hops
+            WITH collect({{id: b.article_id, depth: refs_hops + 1}}) AS reached
+            UNWIND reached AS hit
+            WITH hit, CASE hit.depth WHEN 2 THEN $frontier
+                      ELSE [p IN reached WHERE p.depth = hit.depth - 1 | p.id] END AS previous
+            MATCH (s:Article {{article_id: hit.id}})-[r:REFERS_TO]->(t:Article)<-[:PART_OF*0..]-(v:Article)
+            WHERE v.article_id IN previous
+            {REF_RETURN}, v.article_id AS via_article_id, hit.depth AS depth""",
+            frontier=list(frontier_ids), seeds=list(seed_ids), hops=hops)
 
     def refs_from(self, article_ids):
         return self._q(f"MATCH (s:Article)-[r:REFERS_TO]->() WHERE s.article_id IN $ids {REF_RETURN}",

@@ -13,6 +13,7 @@ Record shapes
   ref:      from_article_id, from_law_id, from_number, to_law_id, to_number,
             to_article_id, raw_text, matched_name, uses_old_name, target_missing,
             current_number, method, confidence
+  indirect: ref + via_article_id, depth
   similar:  a_article_id, b_article_id, score, model
   relation: a_article_id, b_article_id, kind, confidence, explanation, model
   intl:     article_id, source_id, relevance, explanation, model + source fields
@@ -38,6 +39,12 @@ class GraphStore(Protocol):
         """Refs whose target is one of article_ids, OR a missing provision of law_id whose
         number equals / is under one of missing_prefixes (None = any), OR (law_level) a
         whole-law reference to law_id."""
+
+    def indirect_refs(self, frontier_ids: list[str], seed_ids: list[str], max_depth: int) -> list[dict]:
+        """Impact depth 2..max_depth, breadth first from the depth-1 provisions (frontier_ids).
+        A provision reached at depth d cites a depth d-1 provision (via_article_id) or an
+        article / part containing it. Every such (ref, via) candidate is returned at the
+        provision's smallest depth; seeds and the frontier are never reached again."""
 
     def refs_from(self, article_ids: list[str]) -> list[dict]: ...
     def similar(self, article_ids: list[str]) -> list[dict]: ...
