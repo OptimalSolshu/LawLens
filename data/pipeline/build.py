@@ -31,7 +31,8 @@ class BuildInput:
     laws: list[dict]  # laws.jsonl-shaped dicts with articles (text_available laws)
     law_names_files: list[Path] = field(default_factory=list)
     renumbering: dict[str, dict[str, str]] = field(default_factory=dict)
-    drafts: list[dict] = field(default_factory=list)  # {lawforum_id, title, source_url, text, cosubmitted[]}
+    # {lawforum_id, title, source_url, text, cosubmitted[], target_law?, new_name?}
+    drafts: list[dict] = field(default_factory=list)
     intl_sources: list[dict] = field(default_factory=list)
     intl_links: list[dict] = field(default_factory=list)
     sample: bool = False
@@ -180,13 +181,16 @@ def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) ->
     # ---- drafts ----------------------------------------------------------------
     drafts: list[DraftRec] = []
     for d in inp.drafts:
-        ops = parse_amendments(d["text"], registry=registry, numbers_by_law=numbers)
-        target = law_in_title(d["title"], registry) or (ops[0].law_id if ops else None)
+        # a revised law (шинэчилсэн найруулга) under a new title names the law it replaces
+        # in target_law/new_name; its own text is the new law, not amendment wording
+        replaces = d.get("target_law")
+        ops = [] if replaces else parse_amendments(d["text"], registry=registry, numbers_by_law=numbers)
+        target = law_in_title(replaces or d["title"], registry) or (ops[0].law_id if ops else None)
         if target is None:
             continue
         cos = [c["title"] for c in d.get("cosubmitted", [])]
         cos_ids = [x for x in (law_in_title(t, registry) for t in cos) if x and x != target]
-        rename = next((o.new_text for o in ops if o.op == "rename" and o.law_id == target), None)
+        rename = d.get("new_name") or next((o.new_text for o in ops if o.op == "rename" and o.law_id == target), None)
         drafts.append(DraftRec(
             draft_id=f"draft-{d['lawforum_id']}", lawforum_id=d["lawforum_id"], title=d["title"],
             target_law_id=target, new_name=rename,

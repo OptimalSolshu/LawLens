@@ -40,6 +40,14 @@ cd data && pytest -q                       # pipeline tests
 
 ## Adding a real bill
 
+`python scripts/fetch_lawforum_bill.py <project_id> --cosubmitted-file <file_id>` saves
+the bill from its LawForum page and the co-submitted bills from the page's "Хамт өргөн
+мэдүүлсэн хуулийн төслүүд" attachment (needs LibreOffice). For a revised law under a new
+title, add `--target-law "<old name>" --new-name "<new name>"`: every citation of the old
+law is then expected to be amended. `raw/drafts/11072.json` (Хөдөлмөрийн аюулгүй байдал,
+эрүүл мэндийн тухай, 21 co-submitted bills) was made this way.
+
+Or by hand:
 Create `raw/drafts/<lawforum_id>.json` (same shape as `fixtures/sample/drafts/*.json`):
 `{lawforum_id, title, source_url, text, cosubmitted: [{title, text}]}`. The text is
 parsed for amendment wording ("…гэснийг …гэж өөрчилсүгэй", "…гэсний дараа …гэж
