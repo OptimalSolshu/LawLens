@@ -1,0 +1,2 @@
+# Heavy (torch). Install only where embeddings are computed; not in CI.
+sentence-transformers>=3.0

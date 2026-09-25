@@ -1,0 +1,146 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/articles/{article_id}",
+  "request": {
+    "path": {
+      "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1"
+    }
+  },
+  "response": {
+    "incoming": [],
+    "outgoing": [
+      {
+        "law_id": "zovshoorliin-tukhai-khuuli",
+        "law_name": "Зөвшөөрлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zovshoorliin-tukhai-khuuli",
+            "law_name": "Зөвшөөрлийн тухай хууль",
+            "article_id": null,
+            "number": "15.3",
+            "snippet": "Тусгай зөвшөөрлийн тухай хуулийн 15.3-т",
+            "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.3",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "56.1",
+            "score": null,
+            "explanation": "15.3 заалт байхгүй (хүчингүй болсон эсвэл дугаар өөрчлөгдсөн)"
+          }
+        ]
+      }
+    ],
+    "former_name_refs": [
+      {
+        "law_id": "zovshoorliin-tukhai-khuuli",
+        "law_name": "Зөвшөөрлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zovshoorliin-tukhai-khuuli",
+            "law_name": "Зөвшөөрлийн тухай хууль",
+            "article_id": null,
+            "number": "15.3",
+            "snippet": "Тусгай зөвшөөрлийн тухай хуулийн 15.3-т",
+            "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.3",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "56.1",
+            "score": null,
+            "explanation": "15.3 заалт байхгүй (хүчингүй болсон эсвэл дугаар өөрчлөгдсөн)"
+          }
+        ]
+      }
+    ],
+    "missing_target_refs": [
+      {
+        "law_id": "zovshoorliin-tukhai-khuuli",
+        "law_name": "Зөвшөөрлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zovshoorliin-tukhai-khuuli",
+            "law_name": "Зөвшөөрлийн тухай хууль",
+            "article_id": null,
+            "number": "15.3",
+            "snippet": "Тусгай зөвшөөрлийн тухай хуулийн 15.3-т",
+            "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.3",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "56.1",
+            "score": null,
+            "explanation": "15.3 заалт байхгүй (хүчингүй болсон эсвэл дугаар өөрчлөгдсөн)"
+          }
+        ]
+      }
+    ],
+    "similar": [
+      {
+        "law_id": "zovshoorliin-tukhai-khuuli",
+        "law_name": "Зөвшөөрлийн тухай хууль",
+        "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+        "number": "15.1",
+        "snippet": "[ЖИШЭЭ] Зөвшөөрөл эзэмшигч зөвшөөрлийн нөхцөл, шаардлагыг зөрчсөн бол зөвшөөрөл олгосон байгууллага зөвшөөрлийг 30 хүртэл хоногийн хугацаагаар түдгэлзүүлнэ.",
+        "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.1",
+        "type": "suggestion",
+        "confidence": 0.86,
+        "flags": {
+          "uses_old_name": false,
+          "target_missing": false
+        },
+        "anchor_number": "56.1",
+        "score": 0.86,
+        "explanation": "[ЖИШЭЭ] 56.1-тэй агуулгын хувьд төстэй (cosine 0.86)."
+      }
+    ],
+    "conflicts": [
+      {
+        "law_id": "zovshoorliin-tukhai-khuuli",
+        "law_name": "Зөвшөөрлийн тухай хууль",
+        "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+        "number": "15.1",
+        "snippet": "[ЖИШЭЭ] Зөвшөөрөл эзэмшигч зөвшөөрлийн нөхцөл, шаардлагыг зөрчсөн бол зөвшөөрөл олгосон байгууллага зөвшөөрлийг 30 хүртэл хоногийн хугацаагаар түдгэлзүүлнэ.",
+        "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.1",
+        "type": "suggestion",
+        "confidence": 0.72,
+        "flags": {
+          "uses_old_name": false,
+          "target_missing": false
+        },
+        "anchor_number": "56.1",
+        "score": null,
+        "explanation": "[ЖИШЭЭ] Ашигт малтмалын тухай хуулийн 56.1-д түдгэлзүүлэх хугацааг 14 хоног гэж, Зөвшөөрлийн тухай хуулийн 15.1-д 30 хүртэл хоног гэж өөр өөрөөр заасан."
+      }
+    ],
+    "totals": {
+      "incoming": 0,
+      "outgoing": 1,
+      "former_name_refs": 1,
+      "missing_target_refs": 1,
+      "similar": 1,
+      "conflicts": 1
+    },
+    "article": {
+      "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+      "number": "56.1",
+      "title": "Тусгай зөвшөөрлийг түдгэлзүүлэх",
+      "text": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+      "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+      "law_name": "Ашигт малтмалын тухай хууль",
+      "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1"
+    }
+  }
+}

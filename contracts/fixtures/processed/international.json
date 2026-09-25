@@ -1,0 +1,35 @@
+{
+  "_sample": true,
+  "sources": [
+    {
+      "source_id": "sample-ee-licensing",
+      "kind": "foreign_law",
+      "country_or_org": "Эстони",
+      "title": "[ЖИШЭЭ] Эдийн засгийн үйл ажиллагааны ерөнхий хэсгийн хууль (зөвшөөрлийн хэсэг)",
+      "url": "https://example.org/lawlens-sample/intl/ee-licensing",
+      "summary": "[ЖИШЭЭ] Зөвшөөрлийг түдгэлзүүлэхээс өмнө эзэмшигчид зөрчлөө арилгах хугацаа өгөхийг заасан."
+    },
+    {
+      "source_id": "sample-gats-vi",
+      "kind": "treaty",
+      "country_or_org": "ДХБ",
+      "title": "[ЖИШЭЭ] Үйлчилгээний худалдааны ерөнхий хэлэлцээр, VI зүйл",
+      "url": "https://example.org/lawlens-sample/intl/gats-vi",
+      "summary": "[ЖИШЭЭ] Зөвшөөрлийн журам ил тод, бодитой шалгуурт үндэслэсэн байхыг шаардана."
+    }
+  ],
+  "links": [
+    {
+      "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+      "source_id": "sample-ee-licensing",
+      "relevance": 0.78,
+      "explanation": "[ЖИШЭЭ] Түдгэлзүүлэх хугацаа, урьдчилан мэдэгдэх журмыг харьцуулах боломжтой."
+    },
+    {
+      "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+      "source_id": "sample-gats-vi",
+      "relevance": 0.61,
+      "explanation": "[ЖИШЭЭ] Түдгэлзүүлэх үндэслэл бодитой шалгуурт тулгуурлах ёстой."
+    }
+  ]
+}

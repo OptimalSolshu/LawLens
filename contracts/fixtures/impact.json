@@ -1,0 +1,102 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "POST /api/impact",
+  "request": {
+    "body": {
+      "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+      "law_id": null,
+      "new_name": null,
+      "depth": 2,
+      "new_text": "[ЖИШЭЭ] Зөвшөөрөл эзэмшигч зөвшөөрлийн нөхцөл, шаардлагыг зөрчсөн бол зөвшөөрлийг 45 хүртэл хоногийн хугацаагаар түдгэлзүүлнэ."
+    }
+  },
+  "response": {
+    "depths": [
+      {
+        "depth": 1,
+        "groups": [
+          {
+            "law_id": "zorchliin-tukhai-khuuli",
+            "law_name": "Зөрчлийн тухай хууль",
+            "count": 1,
+            "items": [
+              {
+                "law_id": "zorchliin-tukhai-khuuli",
+                "law_name": "Зөрчлийн тухай хууль",
+                "article_id": "zorchliin-tukhai-khuuli:11.4",
+                "number": "11.4",
+                "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.1-д заасны дагуу түдгэлзүүлсэн зөвшөөрлөөр үйл ажиллагаа эрхэлсэн бол хүнийг хоёр зуун тавин нэгжтэй, хуулийн этгээдийг хоёр мянга таван зуун нэгжтэй тэнцэх хэмжээний төгрөгөөр торгоно.",
+                "source_url": "https://example.org/lawlens-sample/laws/zorchliin-tukhai-khuuli#11.4",
+                "type": "fact",
+                "confidence": 0.98,
+                "flags": {
+                  "uses_old_name": true,
+                  "target_missing": false
+                },
+                "anchor_number": "15.1",
+                "score": null,
+                "explanation": null
+              }
+            ]
+          }
+        ],
+        "count": 1
+      },
+      {
+        "depth": 2,
+        "groups": [
+          {
+            "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+            "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+            "count": 1,
+            "items": [
+              {
+                "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+                "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+                "article_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli:31.1",
+                "number": "31.1",
+                "snippet": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуулийн 15.2-т заасны дагуу зөвшөөрөл хүчингүй болсон этгээд үйл ажиллагаагаа үргэлжлүүлбэл Зөрчлийн тухай хуулийн 11.4-т заасан хариуцлага хүлээлгэнэ.",
+                "source_url": "https://example.org/lawlens-sample/laws/baigali-orchnyg-khamgaalakh-tukhai-khuuli#31.1",
+                "type": "fact",
+                "confidence": 0.99,
+                "flags": {
+                  "uses_old_name": false,
+                  "target_missing": false
+                },
+                "anchor_number": "11.4",
+                "score": null,
+                "explanation": null
+              }
+            ]
+          }
+        ],
+        "count": 1
+      }
+    ],
+    "new_similar": [
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+        "number": "56.1",
+        "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+        "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+        "type": "suggestion",
+        "confidence": 0.81,
+        "flags": {
+          "uses_old_name": false,
+          "target_missing": false
+        },
+        "anchor_number": "15.1",
+        "score": 0.81,
+        "explanation": "[ЖИШЭЭ] Шинэ найруулга нь 56.1-тэй төстэй хэвээр, хугацаа зөрүүтэй."
+      }
+    ],
+    "totals": {
+      "laws": 2,
+      "articles": 2,
+      "new_similar": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/laws",
+  "request": {
+    "query": {
+      "q": ""
+    }
+  },
+  "response": [
+    {
+      "law_id": "zovshoorliin-tukhai-khuuli",
+      "name": "Зөвшөөрлийн тухай хууль",
+      "former_names": [
+        "Тусгай зөвшөөрлийн тухай хууль"
+      ],
+      "article_count": 2
+    },
+    {
+      "law_id": "zorchliin-tukhai-khuuli",
+      "name": "Зөрчлийн тухай хууль",
+      "former_names": [],
+      "article_count": 1
+    },
+    {
+      "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+      "name": "Ашигт малтмалын тухай хууль",
+      "former_names": [],
+      "article_count": 1
+    },
+    {
+      "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+      "name": "Байгаль орчныг хамгаалах тухай хууль",
+      "former_names": [],
+      "article_count": 1
+    }
+  ]
+}

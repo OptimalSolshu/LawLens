@@ -1,0 +1,209 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/laws/{law_id}/connections",
+  "request": {
+    "path": {
+      "law_id": "zovshoorliin-tukhai-khuuli"
+    }
+  },
+  "response": {
+    "incoming": [
+      {
+        "law_id": "zorchliin-tukhai-khuuli",
+        "law_name": "Зөрчлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zorchliin-tukhai-khuuli",
+            "law_name": "Зөрчлийн тухай хууль",
+            "article_id": "zorchliin-tukhai-khuuli:11.4",
+            "number": "11.4",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.1-д заасны дагуу түдгэлзүүлсэн зөвшөөрлөөр үйл ажиллагаа эрхэлсэн бол хүнийг хоёр зуун тавин нэгжтэй, хуулийн этгээдийг хоёр мянга таван зуун нэгжтэй тэнцэх хэмжээний төгрөгөөр торгоно.",
+            "source_url": "https://example.org/lawlens-sample/laws/zorchliin-tukhai-khuuli#11.4",
+            "type": "fact",
+            "confidence": 0.98,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": false
+            },
+            "anchor_number": "15.1",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      },
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+            "law_name": "Ашигт малтмалын тухай хууль",
+            "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+            "number": "56.1",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+            "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "15.3",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      },
+      {
+        "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+        "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+            "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+            "article_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli:31.1",
+            "number": "31.1",
+            "snippet": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуулийн 15.2-т заасны дагуу зөвшөөрөл хүчингүй болсон этгээд үйл ажиллагаагаа үргэлжлүүлбэл Зөрчлийн тухай хуулийн 11.4-т заасан хариуцлага хүлээлгэнэ.",
+            "source_url": "https://example.org/lawlens-sample/laws/baigali-orchnyg-khamgaalakh-tukhai-khuuli#31.1",
+            "type": "fact",
+            "confidence": 0.99,
+            "flags": {
+              "uses_old_name": false,
+              "target_missing": false
+            },
+            "anchor_number": "15.2",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      }
+    ],
+    "outgoing": [],
+    "former_name_refs": [
+      {
+        "law_id": "zorchliin-tukhai-khuuli",
+        "law_name": "Зөрчлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zorchliin-tukhai-khuuli",
+            "law_name": "Зөрчлийн тухай хууль",
+            "article_id": "zorchliin-tukhai-khuuli:11.4",
+            "number": "11.4",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.1-д заасны дагуу түдгэлзүүлсэн зөвшөөрлөөр үйл ажиллагаа эрхэлсэн бол хүнийг хоёр зуун тавин нэгжтэй, хуулийн этгээдийг хоёр мянга таван зуун нэгжтэй тэнцэх хэмжээний төгрөгөөр торгоно.",
+            "source_url": "https://example.org/lawlens-sample/laws/zorchliin-tukhai-khuuli#11.4",
+            "type": "fact",
+            "confidence": 0.98,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": false
+            },
+            "anchor_number": "15.1",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      },
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+            "law_name": "Ашигт малтмалын тухай хууль",
+            "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+            "number": "56.1",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+            "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "15.3",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      }
+    ],
+    "missing_target_refs": [
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+            "law_name": "Ашигт малтмалын тухай хууль",
+            "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+            "number": "56.1",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+            "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+            "type": "fact",
+            "confidence": 0.97,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": true
+            },
+            "anchor_number": "15.3",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      }
+    ],
+    "similar": [
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+        "number": "56.1",
+        "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+        "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+        "type": "suggestion",
+        "confidence": 0.86,
+        "flags": {
+          "uses_old_name": false,
+          "target_missing": false
+        },
+        "anchor_number": "15.1",
+        "score": 0.86,
+        "explanation": "[ЖИШЭЭ] 15.1-тэй агуулгын хувьд төстэй (cosine 0.86)."
+      }
+    ],
+    "conflicts": [
+      {
+        "law_id": "ashigt-maltmalyn-tukhai-khuuli",
+        "law_name": "Ашигт малтмалын тухай хууль",
+        "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+        "number": "56.1",
+        "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.3-т заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 14 хоногийн хугацаагаар түдгэлзүүлнэ.",
+        "source_url": "https://example.org/lawlens-sample/laws/ashigt-maltmalyn-tukhai-khuuli#56.1",
+        "type": "suggestion",
+        "confidence": 0.72,
+        "flags": {
+          "uses_old_name": false,
+          "target_missing": false
+        },
+        "anchor_number": "15.1",
+        "score": null,
+        "explanation": "[ЖИШЭЭ] Ашигт малтмалын тухай хуулийн 56.1-д түдгэлзүүлэх хугацааг 14 хоног гэж, Зөвшөөрлийн тухай хуулийн 15.1-д 30 хүртэл хоног гэж өөр өөрөөр заасан."
+      }
+    ],
+    "totals": {
+      "incoming": 3,
+      "outgoing": 0,
+      "former_name_refs": 2,
+      "missing_target_refs": 1,
+      "similar": 1,
+      "conflicts": 1
+    }
+  }
+}
