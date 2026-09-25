@@ -1,6 +1,6 @@
 """Similar provisions and overlap / conflict suggestions (type="suggestion")."""
 from ..ai.embeddings import DemoEmbedder, cosine, is_demo, min_score
-from ..graph.store import GraphStore
+from ..graph.store import GraphStore, number_key
 from ..schemas import RefItem
 from .reference_service import Ctx, article_url, excerpt
 
@@ -33,7 +33,8 @@ def similar_items(ctx: Ctx, sel: dict[str, dict]) -> list[RefItem]:
         it = _item(ctx, other, sel[mine]["number"], r["score"], r["model"], similar_explanation(r["model"]), r["score"])
         if it:
             out.append(it)
-    return sorted(out, key=lambda i: (-(i.score or 0), i.article_id))
+    # the same provision may be similar to several parts of the selection: order those by part number
+    return sorted(out, key=lambda i: (-(i.score or 0), i.article_id, number_key(i.anchor_number)))
 
 
 def relation_items(ctx: Ctx, sel: dict[str, dict]) -> dict[str, list[RefItem]]:
@@ -51,7 +52,7 @@ def relation_items(ctx: Ctx, sel: dict[str, dict]) -> dict[str, list[RefItem]]:
         if it:
             out[r["kind"]].append(it)
     for k in out:
-        out[k].sort(key=lambda i: (-i.confidence, i.article_id))
+        out[k].sort(key=lambda i: (-i.confidence, i.article_id, -(i.score or 0), number_key(i.anchor_number)))
     return out
 
 

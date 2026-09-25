@@ -1,0 +1,131 @@
+{
+ "_comment": "Laws parsed from legalinfo.mn (pipeline.sources legalinfo find/fetch -> parse_law.py). legalinfo_id is the lawId of the law IN FORCE, matched by exact title; where several matched (Эрүүгийн хууль: 1986, 2002 and 2015 texts) the current revised text was chosen by its adoption date. law_id keeps the id the graph already uses for the law.",
+ "laws": [
+  {
+   "law_id": "labor-2021",
+   "name": "Хөдөлмөрийн тухай хууль",
+   "legalinfo_id": "16230709635751",
+   "title_on_legalinfo": "ХӨДӨЛМӨРИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16230709635751"
+  },
+  {
+   "law_id": "undsen-khuuli",
+   "name": "Үндсэн хууль",
+   "legalinfo_id": "367",
+   "title_on_legalinfo": "МОНГОЛ УЛСЫН ҮНДСЭН ХУУЛЬ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=367"
+  },
+  {
+   "law_id": "khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli",
+   "name": "Хөдөлмөрийн аюулгүй байдал, эрүүл ахуйн тухай хууль",
+   "legalinfo_id": "564",
+   "title_on_legalinfo": "ХӨДӨЛМӨРИЙН АЮУЛГҮЙ БАЙДАЛ, ЭРҮҮЛ АХУЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=564"
+  },
+  {
+   "law_id": "niigmiin-daatgalyn-yeronkhii-khuuli",
+   "name": "Нийгмийн даатгалын ерөнхий хууль",
+   "legalinfo_id": "16760148379551",
+   "title_on_legalinfo": "НИЙГМИЙН ДААТГАЛЫН ЕРӨНХИЙ ХУУЛЬ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16760148379551"
+  },
+  {
+   "law_id": "toriin-albany-tukhai-khuuli",
+   "name": "Төрийн албаны тухай хууль",
+   "legalinfo_id": "13025",
+   "title_on_legalinfo": "ТӨРИЙН АЛБАНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=13025"
+  },
+  {
+   "law_id": "arkhiv-alban-khereg-khotloltiin-tukhai-khuuli",
+   "name": "Архив, албан хэрэг хөтлөлтийн тухай хууль",
+   "legalinfo_id": "15370",
+   "title_on_legalinfo": "АРХИВ, АЛБАН ХЭРЭГ ХӨТЛӨЛТИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=15370"
+  },
+  {
+   "law_id": "zorchliin-tukhai-khuuli",
+   "name": "Зөрчлийн тухай хууль",
+   "legalinfo_id": "12695",
+   "title_on_legalinfo": "ЗӨРЧЛИЙН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12695"
+  },
+  {
+   "law_id": "eruugiin-khuuli",
+   "name": "Эрүүгийн хууль",
+   "legalinfo_id": "11634",
+   "title_on_legalinfo": "ЭРҮҮГИЙН ХУУЛЬ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11634"
+  },
+  {
+   "law_id": "eruugiin-khereg-khyanan-shiidverlekh-tukhai-khuuli",
+   "name": "Эрүүгийн хэрэг хянан шийдвэрлэх тухай хууль",
+   "legalinfo_id": "12694",
+   "title_on_legalinfo": "ЭРҮҮГИЙН ХЭРЭГ ХЯНАН ШИЙДВЭРЛЭХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12694"
+  },
+  {
+   "law_id": "irgenii-khuuli",
+   "name": "Иргэний хууль",
+   "legalinfo_id": "299",
+   "title_on_legalinfo": "ИРГЭНИЙ ХУУЛЬ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=299"
+  },
+  {
+   "law_id": "khodolmor-erkhleltiig-demjikh-tukhai-khuuli",
+   "name": "Хөдөлмөр эрхлэлтийг дэмжих тухай хууль",
+   "legalinfo_id": "563",
+   "title_on_legalinfo": "ХӨДӨЛМӨР ЭРХЛЭЛТИЙГ ДЭМЖИХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=563"
+  },
+  {
+   "law_id": "khodolmoriin-kholsnii-dood-khemjeenii-tukhai-khuuli",
+   "name": "Хөдөлмөрийн хөлсний доод хэмжээний тухай хууль",
+   "legalinfo_id": "566",
+   "title_on_legalinfo": "ХӨДӨЛМӨРИЙН ХӨЛСНИЙ ДООД ХЭМЖЭЭНИЙ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=566"
+  },
+  {
+   "law_id": "gamshgaas-khamgaalakh-tukhai-khuuli",
+   "name": "Гамшгаас хамгаалах тухай хууль",
+   "legalinfo_id": "12458",
+   "title_on_legalinfo": "ГАМШГААС ХАМГААЛАХ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12458"
+  },
+  {
+   "law_id": "khogjliin-berkhsheeltei-khunii-erkhiin-tukhai-khuuli",
+   "name": "Хөгжлийн бэрхшээлтэй хүний эрхийн тухай хууль",
+   "legalinfo_id": "11711",
+   "title_on_legalinfo": "ХӨГЖЛИЙН БЭРХШЭЭЛТЭЙ ХҮНИЙ ЭРХИЙН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=11711"
+  },
+  {
+   "law_id": "akhmad-nastny-tukhai-khuuli",
+   "name": "Ахмад настны тухай хууль",
+   "legalinfo_id": "12453",
+   "title_on_legalinfo": "АХМАД НАСТНЫ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=12453"
+  },
+  {
+   "law_id": "gadaadyn-irgenii-erkh-zuin-baidlyn-tukhai-khuuli",
+   "name": "Гадаадын иргэний эрх зүйн байдлын тухай хууль",
+   "legalinfo_id": "211",
+   "title_on_legalinfo": "ГАДААДЫН ИРГЭНИЙ ЭРХ ЗҮЙН БАЙДЛЫН ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=211"
+  },
+  {
+   "law_id": "ajillakh-khuchnii-shiljilt-khodolgoonii-tukhai-khuuli",
+   "name": "Ажиллах хүчний шилжилт хөдөлгөөний тухай хууль",
+   "legalinfo_id": "16390388880621",
+   "title_on_legalinfo": "АЖИЛЛАХ ХҮЧНИЙ ШИЛЖИЛТ ХӨДӨЛГӨӨНИЙ ТУХАЙ /Шинэчилсэн найруулга/",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=16390388880621"
+  },
+  {
+   "law_id": "toriin-khyanalt-shalgaltyn-tukhai-khuuli",
+   "name": "Төрийн хяналт шалгалтын тухай хууль",
+   "legalinfo_id": "500",
+   "title_on_legalinfo": "ТӨРИЙН ХЯНАЛТ ШАЛГАЛТЫН ТУХАЙ",
+   "source_url": "https://legalinfo.mn/mn/detail?lawId=500"
+  }
+ ]
+}

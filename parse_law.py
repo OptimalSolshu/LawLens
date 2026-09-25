@@ -1,9 +1,17 @@
-"""Монгол хуулийн PDF-ийг бүтэцтэй JSON граф болгон задлах.
+"""Монгол хуулийн PDF эсвэл legalinfo.mn хуудсыг бүтэцтэй JSON граф болгон задлах.
 
 Хэрэглээ:
     python parse_law.py data/labor_law_2021.pdf --id labor-2021 -o data/labor_law_2021.json
+    python parse_law.py data/raw/laws/zorchliin-tukhai-khuuli.html --id zorchliin-tukhai-khuuli \
+        --title "Зөрчлийн тухай хууль" -o data/zorchliin-tukhai-khuuli.json
+
+Дугаарлалтын гурван хэлбэр:
+    "12 дугаар зүйл" + "12.3.", "12.3.1."        заалт бүтэн дугаартай (Хөдөлмөрийн тухай хууль)
+    "7.1 дүгээр зүйл" + "1.", "2.1."             хэсэг зүйл дотроо дугаарлагдана → 7.1.1, 7.1.2.1
+    "Хоёрдугаар зүйл." + "1."                    үгээр бичсэн зүйл (Үндсэн хууль) → 2, 2.1
 """
 import argparse
+import html
 import json
 import re
 import subprocess
@@ -16,13 +24,23 @@ W = rf"[{CYR_L}{CYR_U}]"  # кирилл үсэг
 RE_FOOTER = re.compile(r"^\s*\d+\s*/\s*\d+\s*$")
 RE_CHAPTER = re.compile(rf"^\s*([{CYR_U} ]+?)\s*БҮЛЭГ\s*$")
 RE_SECTION = re.compile(rf"^\s*([{CYR_U}][{CYR_L}]+)\s+дэд\s+бүлэг\s*$")
-RE_ARTICLE = re.compile(r"^\s*(\d+)\s+(?:дүгээр|дугаар)\s+зүйл\.\s*(.*)$")
-RE_PROVISION = re.compile(r"^\s*(\d+(?:\.\d+)+)\.(.*)$")
+NUMBER_PART = r"\d+[⁰¹²³⁴⁵⁶⁷⁸⁹]*"  # a number, possibly with an insertion index: 9¹ (added after 9)
+RE_ARTICLE = re.compile(rf"^\s*({NUMBER_PART}(?:\.{NUMBER_PART})?)\s*(?:дүгээр|дугаар|дугээр|дүгаар)\s+зүйл\.\s*(.*)$")
+RE_ARTICLE_WORD = re.compile(rf"^\s*((?:[{CYR_U}][{CYR_L}]+\s+)?[{CYR_U}{CYR_L}][{CYR_L}]*(?:дугаар|дүгээр))\s+зүйл\.\s*(.*)$")
+RE_PROVISION = re.compile(rf"^\s*({NUMBER_PART}(?:\.{NUMBER_PART})+)\.(.*)$")
+RE_ARTICLE_WORD_SUP = re.compile(rf"^\s*((?:[{CYR_U}][{CYR_L}]+\s+)?[{CYR_U}{CYR_L}][{CYR_L}]*)([\d⁰¹²³⁴⁵⁶⁷⁸⁹])\s*(?:дугаар|дүгээр)\s+зүйл\.\s*(.*)$")  # "Арван ес1 дүгээр зүйл." = 19¹
+RE_LETTER_ITEM = re.compile(rf"^\s*(\d+(?:\.\d+)*)\.([{CYR_L}])\.(.*)$")  # "26.1.7.а.хөгжлийн бэрхшээлтэй хүүхдэд"
+RE_NO_DOT = re.compile(rf"^\s*(\d+(?:\.\d+)+)\s+(?!(?:дэх|дахь|дох|дөх|дугаар|дүгээр)\b)([{CYR_L}].*)$")
+SUPERSCRIPT = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
+RE_BARE_ARTICLE = re.compile(rf"^\s*(\d+\.\d+)\.\s*([{CYR_U}].*)$")  # "3.6.Нийтэд тустай ажил хийлгэх шийтгэл"
+RE_LOCAL_PROVISION = re.compile(r"^\s*(\d{1,3}[⁰¹²³⁴⁵⁶⁷⁸⁹]*(?:\.\d{1,3}[⁰¹²³⁴⁵⁶⁷⁸⁹]*)*)\.(?![\d⁰¹²³⁴⁵⁶⁷⁸⁹])(.*)$")
+# ЕРӨНХИЙ АНГИ, ТУСГАЙ АНГИ, I ХЭСЭГ, НЭГДҮГЭЭР ХЭСЭГ, I ДЭД ХЭСЭГ: бүлгээс дээших бүтэц
+RE_PART_HEAD = re.compile(rf"^\s*(?:(?:[IVXLC]+|[{CYR_U}]+)\s+(?:ДЭД\s+)?ХЭСЭГ|[{CYR_U} ]+\s+АНГИ)\s*$")
 RE_AMEND = re.compile(
     r"^\s*/Энэ\s+(\S+)\s+(\d{4})\s+оны\s+(\d+)\s+(?:дүгээр|дугаар)\s+сарын\s+(\d+)-\S*\s+өдрийн\s+хуулиар\s+(.+?)\.?/\s*$"
 )
-RE_SIGNED = re.compile(r"^\s*МОНГОЛ УЛСЫН ИХ ХУРЛЫН ДАРГА\s+(.+?)\s*$")
-RE_ADOPTED = re.compile(r"(\d{4})\s+оны\s+(\d+)\s+сарын\s+(\d+)\s+өдөр")
+RE_SIGNED = re.compile(r"^\s*МОНГОЛ УЛСЫН (?:АРДЫН )?ИХ ХУРЛЫН ДАРГ\S*(?:\s+(.+?))?\s*$")
+RE_ADOPTED = re.compile(r"(\d{4})\s+оны\s+(\d+)\s+(?:(?:дүгээр|дугаар)\s+)?сарын\s+(\d+)(?:-\S+)?\s+өдөр")
 RE_EFFECTIVE = re.compile(r"(\d{4})\s+оны\s+(\d+)\s+(?:дүгээр|дугаар)\s+сарын\s+(\d+)-\S*\s+өдрөөс\s+эхлэн\s+дагаж\s+мөрдөнө")
 
 ORDINALS = {  # "ЗУРГАДУГААР", "ДОЛДУГААР" гэх мэт тул угтвараар тааруулна
@@ -69,7 +87,52 @@ def pdf_text(pdf: Path) -> str:
     return subprocess.run(["pdftotext", "-layout", str(pdf), "-"], check=True, capture_output=True, text=True).stdout
 
 
+RE_HTML_BLOCK = re.compile(r'<div class="w-100 pull-left responsive_mobile[^"]*"[^>]*>')
+
+
+def html_text(page: str) -> str:
+    """legalinfo.mn detail page -> one line per paragraph, in the layout parse_structure reads.
+    The law body is a run of `responsive_mobile` blocks; print buttons and the hidden
+    comparison popups are dropped."""
+    starts = [m.start() for m in RE_HTML_BLOCK.finditer(page)]
+    lines = []
+    for a, b in zip(starts, starts[1:] + [None]):
+        chunk = re.split(r"<script|<style", page[a:b])[0]
+        chunk = re.sub(r'<span class="(?:icon-s|pull-right print-zuil)[^"]*".*?</span>', "", chunk, flags=re.S)
+        chunk = re.sub(r'<p class="\d+[^"]*" style="display:none[^"]*"[^>]*>.*?</p>', "", chunk, flags=re.S)
+        chunk = re.sub(r"(?i)</p>|<br\s*/?>|</div>|</tr>", "\n", chunk)
+        chunk = re.sub(r"(?i)<sup\b[^>]*>\s*(\d+)(?:\s|&nbsp;|\xa0)*</sup>", lambda m: m.group(1).translate(SUPERSCRIPT), chunk)
+        chunk = re.sub(r"(?i)</?(?:span|b|i|u|strong|em|font|a|sup|sub|o:p)\b[^>]*>", "", chunk)  # inline: "5<span>1</span>" = 51
+        chunk = html.unescape(re.sub(r"<[^>]+>", " ", chunk)).replace("\xa0", " ")
+        chunk = re.sub(r'(?:[a-z-]+\s*:\s*[^;"<>\n]*;?\s*)+"\s*>', " ", chunk)  # style="…; >…"> left by broken tags
+        lines += [clean(line) for line in chunk.split("\n")]
+    return "\n".join(line for line in lines if line)
+
+
+TENS = {"арав": 10, "арван": 10, "хорь": 20, "хорин": 20, "гуч": 30, "гучин": 30, "дөч": 40, "дөчин": 40,
+        "тавь": 50, "тавин": 50, "жар": 60, "жаран": 60, "дал": 70, "далан": 70, "ная": 80, "наян": 80,
+        "ер": 90, "ерэн": 90}
+UNITS = {"нэг": 1, "хоёр": 2, "гурав": 3, "дөрөв": 4, "тав": 5, "зургаа": 6, "зурга": 6, "долоо": 7, "дол": 7,
+         "найм": 8, "ес": 9}
+
+
+def ordinal_number(words: str) -> int:
+    """'Хорин нэгдүгээр', 'ГУЧИН ХОЁРДУГААР', 'Далдугаар' -> 21, 32, 70 (0 if unknown)."""
+    parts = re.sub(r"(дугаар|дүгээр)$", "", words.lower().strip()).split()
+    n = 0
+    for w in parts:
+        if w in TENS:
+            n += TENS[w]
+        elif w in UNITS:
+            n += UNITS[w]
+        else:
+            return 0
+    return n
+
+
 def chapter_number(word: str) -> int:
+    if n := ordinal_number(word):
+        return n
     word = word.replace(" ", "")
     n = 10 if word.startswith("АРВАН") else 0
     rest = word[5:] if n else word
@@ -83,26 +146,75 @@ def clean(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
-def parse_structure(text: str):
+def normalize_number(line: str) -> str:
+    """Typing slips at the start of a numbered line on legalinfo.mn."""
+    line = re.sub(r"^(\s*\d+(?:\.\d+)*)\s+\.(?=\S)", r"\1.", line)  # "174.3 ./Энэ хэсгийг"
+    line = re.sub(r"^(\s*\d+(?:\.\d+)*\.)З\.", r"\g<1>3.", line)  # "7.З." : letter З for 3
+    return re.sub(rf"^(\s*\d+(?:\.\d+)*\.)3(?=[{CYR_L}])", r"\1З", line)  # "1.3өвшөөрөлгүй": digit 3 for З
+
+
+def is_structural(line: str) -> bool:
+    return bool(RE_CHAPTER.match(line) or RE_SECTION.match(line) or RE_PART_HEAD.match(line)
+                or RE_ARTICLE.match(line) or RE_ARTICLE_WORD.match(line) or RE_LOCAL_PROVISION.match(line))
+
+
+def is_heading(line: str) -> bool:
+    """An all-capitals line (АНГИ / ХЭСЭГ titles, running heads): never provision text."""
+    s = line.strip()
+    return len(s) > 3 and s.isupper() and re.search(rf"[{CYR_U}]{{3}}", s) is not None
+
+
+def uses_local_numbers(lines: list[str]) -> bool:
+    """True when parts are numbered inside their article ("1.", "2.1.") rather than in full ("12.1.")."""
+    if any(RE_ARTICLE_WORD.match(l) or ((m := RE_ARTICLE.match(l)) and "." in m.group(1)) for l in lines):
+        return True
+    full = sum(1 for l in lines if RE_PROVISION.match(l))
+    single = sum(1 for l in lines if re.match(r"^\s*\d{1,3}\.(?!\d)\S", l))
+    return full < single
+
+
+def latest_versions(provisions: list[dict]) -> list[dict]:
+    """legalinfo.mn keeps a repealed provision next to the one later added under the same
+    number, and shows an amended wording (in force from a later date) after the old one.
+    Keep one per number: the later one, unless it is repealed and the earlier is not."""
+    out: dict[str, dict] = {}
+    for p in provisions:
+        old = out.get(p["id"])
+        if old is None or not (p["status"] == "хүчингүй" and old["status"] != "хүчингүй"):
+            out[p["id"]] = p if old is None else {**p, "id": old["id"]}
+    return list(out.values())
+
+
+def parse_structure(text: str, html_input: bool = False):
     lines = text.splitlines()
     law = {"title": None, "adopted": None, "signed_by": None, "effective": None}
     chapters, sections, articles, provisions, amendments = [], [], [], [], []
     cur_ch = cur_sec = cur_art = cur_prov = None
     head_lines = []
+    local = uses_local_numbers(lines)
+    dotted_articles = any((m := RE_ARTICLE.match(l)) and "." in m.group(1) for l in lines)
     i = 0
     while i < len(lines):
-        line = lines[i]
+        line = lines[i] = normalize_number(lines[i])
+        if html_input and cur_art and not local and (nd := RE_NO_DOT.match(line)) \
+                and nd.group(1).rsplit(".", 1)[0] in {p["id"] for p in provisions[-50:]}:
+            line = f"{nd.group(1)}.{nd.group(2)}"  # "9.1.3 машин механизм": number without its closing dot
         if RE_FOOTER.match(line) or not line.strip():
             i += 1
             continue
         if m := RE_SIGNED.match(line):
-            law["signed_by"] = m.group(1)
-            i += 1
-            continue
+            law["signed_by"] = m.group(1) or (clean(lines[i + 1]) if i + 1 < len(lines) else None)
+            break  # the law ends at the signature; what follows is annexes / page chrome
         if m := RE_CHAPTER.match(line):
             title = []
             i += 1
-            while i < len(lines) and (not lines[i].strip() or lines[i].strip().isupper()) and not RE_ARTICLE.match(lines[i]):
+            while i < len(lines) and not lines[i].strip():
+                i += 1
+            if i < len(lines) and not lines[i].strip().isupper() and not is_structural(lines[i]):
+                title.append(lines[i].strip())  # sentence-case chapter title (legalinfo.mn)
+                i += 1
+            while i < len(lines) and (not lines[i].strip() or lines[i].strip().isupper()) and not RE_ARTICLE.match(lines[i]) \
+                    and not RE_CHAPTER.match(lines[i]) and not RE_PART_HEAD.match(lines[i]):
                 if lines[i].strip():
                     title.append(lines[i].strip())
                 i += 1
@@ -121,15 +233,39 @@ def parse_structure(text: str):
             cur_prov = None
             i += 1
             continue
-        if m := RE_ARTICLE.match(line):
-            cur_art = {"id": f"art{m.group(1)}", "number": int(m.group(1)), "title": clean(m.group(2)),
-                       "chapter": cur_ch["id"], "text": ""}
+        if RE_PART_HEAD.match(line):  # АНГИ / ХЭСЭГ and their capitalised titles
+            i += 1
+            while i < len(lines) and (not lines[i].strip() or is_heading(lines[i])) and not is_structural(lines[i]):
+                i += 1
+            continue
+        m = RE_ARTICLE.match(line)
+        if not m and dotted_articles and (bare := RE_BARE_ARTICLE.match(line)):
+            nxt = next((l.strip() for l in lines[i + 1:] if l.strip()), "")
+            if nxt.startswith("/Энэ зүйлийг"):  # an added article printed without "дугаар зүйл"
+                m = bare
+        word = None if m else RE_ARTICLE_WORD.match(line)
+        sup = None if (m or word) else RE_ARTICLE_WORD_SUP.match(line)
+        if sup and ordinal_number(sup.group(1) + "дүгээр"):
+            raw = f"{ordinal_number(sup.group(1) + 'дүгээр')}{sup.group(2).translate(SUPERSCRIPT)}"
+            cur_art = {"id": f"art{raw}", "number": raw, "title": clean(sup.group(3)),
+                       "chapter": cur_ch["id"] if cur_ch else None, "text": ""}
+            articles.append(cur_art)
+            cur_prov = None
+            i += 1
+            continue
+        if m or (word and ordinal_number(word.group(1))):
+            raw = m.group(1) if m else str(ordinal_number(word.group(1)))
+            cur_art = {"id": f"art{raw}", "number": int(raw) if raw.isdecimal() else raw, "title": clean((m or word).group(2)),
+                       "chapter": cur_ch["id"] if cur_ch else None, "text": ""}
             articles.append(cur_art)
             cur_prov = None
             i += 1
             continue
         if m := RE_AMEND.match(line):
             target = cur_prov or cur_art
+            if target is None:
+                i += 1
+                continue
             kind = m.group(5)
             amendments.append({
                 "target": target["id"],
@@ -140,30 +276,48 @@ def parse_structure(text: str):
                 cur_prov["status"] = "хүчингүй"
             i += 1
             continue
-        m = RE_PROVISION.match(line)
-        if m and cur_art and m.group(1).split(".")[0] == str(cur_art["number"]):
+        if cur_prov and (li := RE_LETTER_ITEM.match(line)) and (
+                li.group(1) == cur_prov["id"] or f"{cur_art['number']}.{li.group(1)}" == cur_prov["id"]):
+            cur_prov["text"] += f" {li.group(2)}.{li.group(3).strip()}"
+            i += 1
+            continue
+        num = None
+        if cur_art and local:
+            if (m := RE_LOCAL_PROVISION.match(line)) and int(m.group(1).split(".")[0]) <= 200:
+                num = f"{cur_art['number']}.{m.group(1)}"
+        elif cur_art and (m := RE_PROVISION.match(line)) and m.group(1).split(".")[0] == str(cur_art["number"]):
             num = m.group(1)
+        if num:
             parent = num.rsplit(".", 1)[0]
             cur_prov = {"id": num, "number": num, "level": num.count("."), "article": cur_art["id"],
-                        "parent": parent if "." in parent else cur_art["id"], "text": m.group(2), "status": "хүчинтэй"}
+                        "parent": parent if parent != str(cur_art["number"]) else cur_art["id"],
+                        "text": m.group(2), "status": "хүчинтэй"}
             provisions.append(cur_prov)
+            if (a := RE_AMEND.match(m.group(2))) and "хүчингүй" in a.group(5):  # "12.3./Энэ хэсгийг ... хүчингүй .../"
+                cur_prov["status"] = "хүчингүй"
+            i += 1
+            continue
+        if cur_art and html_input and is_heading(line):
             i += 1
             continue
         # үргэлжлэл мөр
         if cur_prov:
             cur_prov["text"] += " " + line.strip()
+        elif cur_art and html_input:  # legalinfo.mn: гарчиг нэг мөрөнд; дараагийн мөр нь зүйлийн бичвэр
+            cur_art["text"] = clean(cur_art["text"] + " " + line)
         elif cur_art:  # эхний хэсгээс өмнөх мөр = гарчгийн үргэлжлэл
             cur_art["title"] = clean(cur_art["title"] + " " + line)
         else:
             head_lines.append(line.strip())
         i += 1
 
+    provisions = latest_versions(provisions)
     head = " ".join(head_lines)
     if m := RE_ADOPTED.search(head):
         law["adopted"] = f"{m.group(1)}-{int(m.group(2)):02d}-{int(m.group(3)):02d}"
     title = [l for l in head_lines if l.isupper() and "УЛСЫН ХУУЛЬ" not in l and "/" not in l]
     law["title"] = clean(" ".join(title)).capitalize() + " хууль" if title else None
-    law["edition"] = "Шинэчилсэн найруулга" if "ШИНЭЧИЛСЭН НАЙРУУЛГА" in head else None
+    law["edition"] = "Шинэчилсэн найруулга" if "ШИНЭЧИЛСЭН НАЙРУУЛГА" in head.upper() else None
     for p in provisions:
         p["text"] = clean(p["text"])
         if m := RE_EFFECTIVE.search(p["text"]):
@@ -205,7 +359,7 @@ def find_mentions(text: str, patterns):
     return found
 
 
-def expand_refs(chunk: str, art_num: int, scope: str):
+def expand_refs(chunk: str, art_num: str, scope: str):
     nums = []
     all_articles = re.search(r"зүйл", chunk) is not None
     parts = re.split(r"\s*(,|болон|–|-(?=\d))\s*", chunk)
@@ -239,7 +393,7 @@ def extract_links(articles, provisions, terms):
     citations = {}  # гадны хуулийн нэр → [{from, raw_text}] (эх бичвэрт яг байгаагаар)
     for p in provisions:
         text = p["text"]
-        art_num = int(p["article"][3:])
+        art_num = p["article"][3:]
         for m in RE_XREF.finditer(text):
             for tgt in expand_refs(m.group(2), art_num, m.group(1)):
                 if (tgt in prov_ids or tgt in art_ids) and tgt != p["id"]:
@@ -261,14 +415,14 @@ def extract_links(articles, provisions, terms):
             citations.setdefault(f"{m.group(1)} хууль", []).append({"from": p["id"], "raw_text": clean(m.group(0))})
         # нэр томьёо, оролцогч
         is_def = p["article"] == "art4" and p["level"] == 2
-        for tid in find_mentions(text, term_patterns):
+        for tid in sorted(find_mentions(text, term_patterns)):
             if not is_def:
                 mentions.append({"from": p["id"], "to": tid})
-        for aid in find_mentions(text, actor_patterns):
+        for aid in sorted(find_mentions(text, actor_patterns)):
             mentions.append({"from": p["id"], "to": aid})
     ext = [{"id": "law:" + n, "name": n, "cited_by": sorted(v), "citations": citations[n]} for n, v in sorted(laws.items())]
     # давхардлыг арилгах
-    refs = [dict(t) for t in {tuple(r.items()) for r in refs}]
+    refs = list({tuple(r.items()): r for r in refs}.values())
     return refs, ext, mentions
 
 
@@ -288,12 +442,19 @@ def modality(text: str):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("pdf", type=Path)
+    ap.add_argument("pdf", type=Path, help="law PDF, or a saved legalinfo.mn detail page (.html)")
     ap.add_argument("--id", default="labor-2021")
+    ap.add_argument("--title", help="official name (overrides the title read from the document head)")
     ap.add_argument("-o", "--out", type=Path, default=Path("data/labor_law_2021.json"))
     args = ap.parse_args()
 
-    law, chapters, sections, articles, provisions, amendments = parse_structure(pdf_text(args.pdf))
+    if args.pdf.suffix.lower() in (".html", ".htm"):
+        text, html_input = html_text(args.pdf.read_text(encoding="utf-8")), True
+    else:
+        text, html_input = pdf_text(args.pdf), False
+    law, chapters, sections, articles, provisions, amendments = parse_structure(text, html_input)
+    if args.title:
+        law["title"] = args.title
     law["id"] = args.id
     law["source_file"] = args.pdf.name
     terms = extract_terms(provisions)

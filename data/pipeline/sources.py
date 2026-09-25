@@ -11,7 +11,8 @@ the API depends on these at request time; they only feed the pipeline.
 
 CLI (real services, credentials from .env):
     python -m pipeline.sources lawforum --search "Хөдөлмөр"   -> raw/lawforum/projects.json
-    python -m pipeline.sources legalinfo URL --out raw/laws/x.pdf
+    python -m pipeline.sources legalinfo find "Зөрчлийн тухай хууль"   -> lawId candidates
+    python -m pipeline.sources legalinfo fetch [--force]              -> raw/laws/<law_id>.html (catalog)
     python -m pipeline.sources parliament getMeetings
 """
 import argparse
@@ -31,7 +32,7 @@ class RawLaw:
     name: str
     source_url: str
     text: str | None = None  # plain text (sample) ...
-    path: Path | None = None  # ... or a downloaded PDF for parse_law.py
+    path: Path | None = None  # ... or a downloaded PDF / legalinfo.mn page for parse_law.py
 
 
 # ---- legalinfo.mn ---------------------------------------------------------------
@@ -58,24 +59,63 @@ class MockLegalInfoSource(LegalInfoSource):
 
 
 class LegalInfoHttpSource(LegalInfoSource):
-    """Downloads law documents by URL. legalinfo.mn detail pages are rendered client-side,
-    so the document (PDF) URL is configured per law in `catalog` ({law_id: (name, page_url, file_url)})."""
+    """legalinfo.mn. A law's detail page (detail?lawId=N) carries the full consolidated
+    text server-side, so the page itself is the document: parse_law.py reads the saved
+    .html. Laws are listed in data/legalinfo_catalog.json by their legalinfo lawId,
+    found with find() and checked by a person before they are added."""
 
-    def __init__(self, catalog: dict[str, tuple[str, str, str]], out_dir: Path = DATA / "raw" / "laws"):
+    BASE = "https://legalinfo.mn"
+    CATALOG = DATA / "legalinfo_catalog.json"
+
+    def __init__(self, catalog: Path = CATALOG, out_dir: Path = DATA / "raw" / "laws"):
         self.catalog, self.out_dir = catalog, out_dir
 
-    def download(self, file_url: str, dest: Path) -> Path:
+    @classmethod
+    def page_url(cls, legalinfo_id: str) -> str:
+        return f"{cls.BASE}/mn/detail?lawId={legalinfo_id}"
+
+    def entries(self) -> list[dict]:
+        return json.loads(self.catalog.read_text(encoding="utf-8"))["laws"]
+
+    def find(self, name: str) -> list[tuple[str, str]]:
+        """Laws in force whose title matches `name` exactly: [(lawId, title)]. The site's list
+        endpoint also returns amending laws and court decisions that mention the name."""
+        import re
+
         import requests
 
-        r = requests.get(file_url, timeout=TIMEOUT)
+        def norm(s: str) -> str:
+            s = re.sub(r"/?\s*шинэчилсэн найруулга\s*/?", "", s.lower())
+            return re.sub(r"\s+", " ", re.sub(r"^монгол улсын\s+", "", s)).strip(" ,/")
+
+        want = {norm(name), norm(re.sub(r"\s*хууль$", "", name))}
+        r = requests.post(f"{self.BASE}/mn/ajaxList", data={"title": re.sub(r"\s*хууль$", "", name), "isvalid": "1"},
+                          timeout=TIMEOUT)
         r.raise_for_status()
+        found = {}
+        for lid, title in re.findall(r"detail\?lawId=(\d+)[^>]*>(.*?)</a>", r.json()["Html"], re.S):
+            title = re.sub(r"<[^>]+>|\s+", " ", title).strip()
+            if title and norm(title) in want:
+                found.setdefault(lid, title)
+        return list(found.items())
+
+    def download(self, entry: dict, force: bool = False) -> Path:
+        import requests
+
+        dest = self.out_dir / f"{entry['law_id']}.html"
+        if dest.exists() and not force:
+            return dest
+        r = requests.get(self.page_url(entry["legalinfo_id"]), timeout=120)
+        r.raise_for_status()
+        if "responsive_mobile" not in r.text:
+            raise RuntimeError(f"{entry['law_id']}: no law text in {r.url}")
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_bytes(r.content)
+        dest.write_text(r.text, encoding="utf-8")
         return dest
 
     def laws(self) -> list[RawLaw]:
-        return [RawLaw(lid, name, page, path=self.download(file_url, self.out_dir / f"{lid}.pdf"))
-                for lid, (name, page, file_url) in self.catalog.items()]
+        return [RawLaw(e["law_id"], e["name"], self.page_url(e["legalinfo_id"]), path=self.download(e))
+                for e in self.entries()]
 
 
 # ---- LawForum -----------------------------------------------------------------------
@@ -203,8 +243,9 @@ def main() -> None:
     lf.add_argument("--search", default="Хөдөлмөр")
     lf.add_argument("--out", type=Path, default=DATA / "raw" / "lawforum" / "projects.json")
     li = sub.add_parser("legalinfo")
-    li.add_argument("url")
-    li.add_argument("--out", type=Path, required=True)
+    li.add_argument("action", choices=["find", "fetch"])
+    li.add_argument("name", nargs="?", help="law name for find")
+    li.add_argument("--force", action="store_true", help="fetch: download again even if saved")
     pa = sub.add_parser("parliament")
     pa.add_argument("func")
     args = ap.parse_args()
@@ -213,8 +254,16 @@ def main() -> None:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         args.out.write_text(json.dumps(items, ensure_ascii=False, indent=1), encoding="utf-8")
         print(f"{len(items)} projects -> {args.out}")
+    elif args.cmd == "legalinfo" and args.action == "find":
+        for lid, title in LegalInfoHttpSource().find(args.name):
+            print(lid, title, LegalInfoHttpSource.page_url(lid))
     elif args.cmd == "legalinfo":
-        print(LegalInfoHttpSource({}).download(args.url, args.out))
+        import time
+
+        src = LegalInfoHttpSource()
+        for e in src.entries():
+            print(src.download(e, force=args.force))
+            time.sleep(1)  # one page a second; the site is a public government service
     else:
         print(json.dumps(ParliamentApiSource().call(args.func), ensure_ascii=False, indent=1)[:4000])
 

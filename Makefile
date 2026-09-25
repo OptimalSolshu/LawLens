@@ -2,7 +2,7 @@ PY ?= python3
 VENV := .venv
 VPY := $(VENV)/bin/python
 
-.PHONY: install up down logs mock real web test test-backend test-data test-web e2e seed data validate-data load
+.PHONY: install up down logs mock real web test test-backend test-data test-web e2e seed laws data validate-data load
 
 install:            ## local venv for backend + data, and web deps
 	$(PY) -m venv $(VENV)
@@ -43,6 +43,9 @@ e2e:                ## Playwright smoke test (starts API + Vite itself)
 
 seed:               ## rebuild the [ЖИШЭЭ] sample dataset + endpoint fixtures
 	$(VPY) scripts/seed_demo.py
+
+laws:               ## download + parse every law in data/legalinfo_catalog.json (legalinfo.mn)
+	$(VPY) scripts/fetch_laws.py
 
 data:               ## rebuild data/processed from real sources
 	$(VPY) scripts/build_processed_data.py

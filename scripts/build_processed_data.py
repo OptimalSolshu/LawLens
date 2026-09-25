@@ -6,11 +6,11 @@
     python scripts/build_processed_data.py --llm               # Claude relation judgements (ANTHROPIC_API_KEY)
 
 Inputs
-  data/<law_id>.json            parse_law.py output (PDF from legalinfo.mn), one per parsed law
+  data/<law_id>.json            parse_law.py output, one per law in data/legalinfo_catalog.json
+                                (scripts/fetch_laws.py downloads and parses them)
   data/law_names.json           current / former / short names and aliases
   data/raw/drafts/*.json        bills (same shape as data/fixtures/sample/drafts/*.json), if any
   data/international/*.json     curated sources + suggested links
-Parsed laws are listed in PARSED below with their legalinfo.mn URL.
 """
 import argparse
 import json
@@ -27,9 +27,14 @@ from pipeline.build import BuildInput, build  # noqa: E402
 from pipeline.from_lawgraph import convert_law  # noqa: E402
 from pipeline.validate import validate_dir  # noqa: E402
 
-PARSED = {
-    "labor-2021": ("data/labor-2021.json", "https://legalinfo.mn/mn/detail?lawId=16230709635751"),
-}
+CATALOG = ROOT / "data" / "legalinfo_catalog.json"
+
+
+def parsed_laws() -> dict[str, tuple[str, str]]:
+    """{law_id: (parsed json, legalinfo.mn url)} for every catalog law that scripts/fetch_laws.py parsed."""
+    laws = json.loads(CATALOG.read_text(encoding="utf-8"))["laws"]
+    return {e["law_id"]: (f"data/{e['law_id']}.json", e["source_url"]) for e in laws
+            if (ROOT / "data" / f"{e['law_id']}.json").exists()}
 
 
 def main() -> None:
@@ -42,7 +47,7 @@ def main() -> None:
     names = ROOT / "data" / "law_names.json"
     former = {r["current_name"]: r["former_names"] for r in load_law_names(names)}
     laws = []
-    for lid, (path, url) in PARSED.items():
+    for lid, (path, url) in parsed_laws().items():
         doc = json.loads((ROOT / path).read_text(encoding="utf-8"))
         laws.append(convert_law(doc, url, former).model_dump(exclude={"sample"}))
     drafts = [json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "data" / "raw" / "drafts").glob("*.json"))]

@@ -6,14 +6,16 @@ scripts/build_processed_data.py (real data). Facts (refs.jsonl) come only from
 the deterministic parser; similar/relations/links/amendments are suggestions
 and always carry a model name.
 """
-import itertools
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import numpy as np
+
 from . import _backend  # noqa: F401  (sys.path for backend/app)
-from app.ai.embeddings import Embedder, cosine, min_score
+from app.ai.embeddings import Embedder, min_score
 from app.ai.relations import LLMRelationService, Provision
+from app.graph.store import number_key
 from app.parser import LawNameRegistry, extract_references, load_law_names, parse_amendments
 from app.parser.amendments import law_in_title
 
@@ -64,6 +66,24 @@ class BuildOutput:
                 f"{len(self.international.links)} intl links, {len(self.amendments)} amendment suggestions")
 
 
+def similar_pairs(texts: list[str], groups: list[str], embedder: Embedder, block: int = 512):
+    """(i, j, cosine) for i < j in different groups with cosine >= the model's threshold.
+    Embeddings are unit vectors, so cosine is a dot product: one matrix product per block
+    of rows instead of a Python loop over every pair (≈10^8 pairs for the connected laws)."""
+    if not texts:
+        return
+    vectors = np.asarray(embedder.embed(texts), dtype=np.float64)
+    group_ids = np.unique(np.asarray(groups), return_inverse=True)[1]
+    threshold = min_score(embedder.model)
+    for start in range(0, len(texts), block):
+        scores = vectors[start:start + block] @ vectors.T
+        rows = np.arange(start, min(start + block, len(texts)))[:, None]
+        cols = np.arange(len(texts))[None, :]
+        keep = (cols > rows) & (group_ids[rows] != group_ids[cols]) & (scores >= threshold)
+        for r, c in zip(*np.nonzero(keep)):
+            yield int(rows[r, 0]), int(c), float(scores[r, c])
+
+
 def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) -> BuildOutput:
     s = {"_sample": True} if inp.sample else {}
     names_meta = [rec for f in inp.law_names_files for rec in load_law_names(f)]
@@ -100,17 +120,14 @@ def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) ->
     # ---- suggestions: similar provisions ---------------------------------------
     linked = {frozenset((r.from_article_id, r.to_article_id)) for r in refs if r.to_article_id}
     texts = [(aid, a["text"]) for aid, (_, a) in articles.items() if a["text"]]
-    vectors = embedder.embed([t for _, t in texts]) if texts else []
-    threshold = min_score(embedder.model)
     similar: list[SimilarRec] = []
-    for (i, (ai, _)), (j, (bj, _)) in itertools.combinations(enumerate(texts), 2):
-        if ai.split(":")[0] == bj.split(":")[0] or frozenset((ai, bj)) in linked:
+    for i, j, score in similar_pairs([t for _, t in texts], [aid.split(":")[0] for aid, _ in texts], embedder):
+        ai, bj = texts[i][0], texts[j][0]
+        if frozenset((ai, bj)) in linked:
             continue
-        score = cosine(vectors[i], vectors[j])
-        if score >= threshold:
-            a_id, b_id = sorted((ai, bj))
-            similar.append(SimilarRec(a_article_id=a_id, b_article_id=b_id, score=round(min(score, 1.0), 3),
-                                      model=embedder.model, **s))
+        a_id, b_id = sorted((ai, bj))
+        similar.append(SimilarRec(a_article_id=a_id, b_article_id=b_id, score=round(min(score, 1.0), 3),
+                                  model=embedder.model, **s))
     similar.sort(key=lambda r: -r.score)
 
     # ---- suggestions: relation judgements + resolution -------------------------
@@ -153,7 +170,7 @@ def build(inp: BuildInput, embedder: Embedder, relations: LLMRelationService) ->
             draft_id=f"draft-{d['lawforum_id']}", lawforum_id=d["lawforum_id"], title=d["title"],
             target_law_id=target, new_name=rename,
             amended_article_ids=sorted({o.article_id for o in ops if o.article_id and o.law_id == target},
-                                       key=lambda x: [int(p) for p in x.split(":")[1].split(".")]),
+                                       key=lambda x: number_key(x.split(":")[1])),
             cosubmitted_law_ids=list(dict.fromkeys(cos_ids)), source_url=d["source_url"],
             operations=[o.to_dict() for o in ops], cosubmitted_titles=cos, **s))
 

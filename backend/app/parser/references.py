@@ -7,6 +7,7 @@ Supported forms (CLAUDE.md §9):
     "…тухай хуулийн 12 дугаар зүйлд"
     "энэ хуулийн 5.3-т", "энэ хуулийн 80.1.4, 80.1.5-д", "3.1.1-3.1.5-д" (ranges)
     "энэ зүйлийн 2 дахь хэсэгт"
+    "…тухай хуулийн 7.1 дүгээр зүйлийн 1 дэх хэсэгт" (codes numbered by chapter: 7.1.1)
     "Иргэний хуулийн …", "…хуулиар / хуульд / хуулийг" (whole-law references)
 
 A citation of a provision that does not exist in a law whose text we have is
@@ -26,9 +27,11 @@ _LIST = r"\d+(?:(?:\s*,\s*|\s+болон\s+|\s+ба\s+)\d+)*"
 _DOTTED = r"\d+(?:\.\d+)+"
 _CASE = rf"(?:\s*-\s*[{CYR_LOWER}]+)?"
 
+_ARTNO = r"\d+(?:\.\d+)?"  # "12", or "7.1" in codes numbered by chapter (Зөрчлийн тухай хууль, Эрүүгийн хууль)
 RE_ART_PART_POINT = re.compile(
-    rf"\s*(\d+)\s+{ORD}\s+зүйлийн\s+(\d+)\s+{LOC}\s+хэс(?:эг|г)[{CYR_LOWER}]*\s+({_LIST})\s+{LOC}\s+заалт[{CYR_LOWER}]*")
-RE_ART_PART = re.compile(rf"\s*(\d+)\s+{ORD}\s+зүйлийн\s+({_LIST})\s+{LOC}\s+хэс(?:эг|г)[{CYR_LOWER}]*")
+    rf"\s*({_ARTNO})\s+{ORD}\s+зүйлийн\s+(\d+)\s+{LOC}\s+хэс(?:эг|г)[{CYR_LOWER}]*\s+({_LIST})\s+{LOC}\s+заалт[{CYR_LOWER}]*")
+# "... зүйлийн 4 дэх заалт": parts of the Constitution are called заалт
+RE_ART_PART = re.compile(rf"\s*({_ARTNO})\s+{ORD}\s+зүйлийн\s+({_LIST})\s+{LOC}\s+(?:хэс(?:эг|г)|заалт)[{CYR_LOWER}]*")
 _ART_LIST = r"\d+(?:\s*[-–]\s*\d+)?(?:(?:\s*,\s*|\s+болон\s+|\s+ба\s+)\d+(?:\s*[-–]\s*\d+)?)*"
 RE_ART = re.compile(rf"\s*({_ART_LIST})\s+{ORD}\s+зүйл[{CYR_LOWER}]*")
 RE_DOTTED = re.compile(rf"\s*({_DOTTED})(?:\s*[-–]\s*({_DOTTED}))?{_CASE}")
@@ -79,6 +82,15 @@ def _expand_range(a: str, b: str) -> list[str]:
     if pa[0] == pb[0] and int(pa[1]) < int(pb[1]) <= int(pa[1]) + 50:
         return [f"{pa[0]}.{k}" for k in range(int(pa[1]), int(pb[1]) + 1)]
     return [a, b]
+
+
+def _article_of(number: str, known: set[str] | None) -> str:
+    """The article a provision belongs to: '80.1.4' -> '80'; in a code numbered by chapter,
+    where no article '7' exists, '7.1.2' -> '7.1'."""
+    parts = number.split(".")
+    if known is not None and parts[0] not in known and len(parts) > 1 and ".".join(parts[:2]) in known:
+        return ".".join(parts[:2])
+    return parts[0]
 
 
 def _locator(text: str, pos: int) -> tuple[list[str], int] | None:
@@ -170,7 +182,7 @@ def extract_references(
                 current_number=renumbering.get(to_law, {}).get(num) if missing else None,
             ))
 
-    art = from_number.split(".")[0]
+    art = _article_of(from_number, numbers_by_law.get(self_law))
     for m in SELF_ARTICLE.finditer(text):
         numbers, stop = _locators(text, m.end(), lambda t, p: _self_article_locator(t, p, art))
         raw = re.sub(r"\s+", " ", text[m.start():stop]).strip()

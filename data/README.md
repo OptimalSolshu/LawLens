@@ -2,7 +2,8 @@
 
 | path | what | real / sample |
 |---|---|---|
-| `labor_law_2021.pdf`, `labor-2021.json` | Хөдөлмөрийн тухай хууль (2021 revised) from legalinfo.mn, parsed by `../parse_law.py` | real |
+| `legalinfo_catalog.json` | the laws we parse: legalinfo.mn lawId of the text in force, name, law_id | real |
+| `<law_id>.json` | each catalog law parsed by `../parse_law.py` (`labor-2021.json` = Хөдөлмөрийн тухай хууль, 2021 revised) | real |
 | `law_names.json` | name registry: `current_name`, `former_names`, `short_names`, `aliases` (contracts/data-format.md) | real names as cited; add former names only after checking legalinfo.mn |
 | `international/sources.json` | curated ILO / EU / UK sources (opened by a person) | real documents |
 | `international/links.json` | suggested links between real Labor Law articles and those sources (`model` set) | suggestions |
@@ -25,11 +26,17 @@ cd data && pytest -q                       # pipeline tests
 
 ## Adding a real law
 
-1. Save the PDF from legalinfo.mn to `raw/laws/<law_id>.pdf`.
-2. `python ../parse_law.py raw/laws/<law_id>.pdf --id <law_id> -o <law_id>.json`
-3. Add it to `PARSED` in `scripts/build_processed_data.py` with its legalinfo.mn URL.
-4. Record verified former / short names in `law_names.json`.
-5. Rebuild and validate.
+1. Find the lawId of the law in force: `cd data && python -m pipeline.sources legalinfo find "Зөрчлийн тухай хууль"`.
+   Check the page, then add `{law_id, name, legalinfo_id, title_on_legalinfo, source_url}` to `legalinfo_catalog.json`
+   (keep the `law_id` the graph already uses for that law, if any).
+2. `python scripts/fetch_laws.py` (or `make laws`): saves the page to `raw/laws/<law_id>.html` (not committed) and
+   parses it with `../parse_law.py` into `<law_id>.json`. `--force` downloads every page again.
+3. Record verified former / short names in `law_names.json`.
+4. `python scripts/build_processed_data.py`, then `python scripts/validate_data.py`.
+
+`parse_law.py` reads three numbering styles: "12 дугаар зүйл" + "12.3." (most laws), "7.1 дүгээр зүйл" + "1.", "2.1."
+(codes numbered by chapter: Зөрчлийн тухай хууль, Эрүүгийн хууль → 7.1.1, 7.1.2.1) and "Хоёрдугаар зүйл." + "1."
+(Үндсэн хууль). Articles inserted later keep their superscript: 9¹, 19¹.1.
 
 ## Adding a real bill
 

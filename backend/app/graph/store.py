@@ -20,6 +20,7 @@ Record shapes
   amendment: article_id, reason, suggested_text, based_on_source_ids, model, confidence
   draft:    drafts.json record
 """
+import re
 from typing import Protocol
 
 
@@ -56,10 +57,21 @@ class GraphStore(Protocol):
     def draft(self, draft_id: str) -> dict | None: ...
 
 
+_SUP = str.maketrans("⁰¹²³⁴⁵⁶⁷⁸⁹", "0123456789")
+
+
+def _number_part(part: str) -> int:
+    """'9' -> 900, '9¹' -> 901 (an article inserted after 9 sorts before 10)."""
+    m = re.match(r"(\d+)([⁰¹²³⁴⁵⁶⁷⁸⁹]*)", part)
+    if not m or not m.group(1).isdecimal():
+        return 0
+    return int(m.group(1)) * 100 + int(m.group(2).translate(_SUP) or 0)
+
+
 def number_key(number: str | None) -> tuple:
     if not number:
         return (10**9,)
-    return tuple(int(p) if p.isdigit() else 0 for p in number.split("."))
+    return tuple(_number_part(p) for p in number.split("."))
 
 
 def under(number: str | None, prefix: str) -> bool:

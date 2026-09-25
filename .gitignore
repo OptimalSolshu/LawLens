@@ -25,3 +25,6 @@ test-results/
 playwright-report/
 .vercel/
 .env*.local
+
+# legalinfo.mn pages (make laws fetches them again)
+data/raw/laws/*.html

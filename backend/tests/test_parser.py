@@ -10,6 +10,7 @@ OSH = "khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli"
 HYGIENE = "eruul-akhuin-tukhai-khuuli"
 PERMIT = "zovshoorliin-tukhai-khuuli"
 CIVIL = "irgenii-khuuli"
+ZORCHIL = "zorchliin-tukhai-khuuli"
 
 
 @pytest.fixture
@@ -131,6 +132,24 @@ def test_this_law_list_and_range(reg):
         (LABOR, "80.1.4", "энэ хууль"), (LABOR, "80.1.5", "энэ хууль"), (LABOR, "80.2", "энэ хууль")]
     out = refs("[ЖИШЭЭ] Энэ хуулийн 80.1.4-80.1.6-д", reg, frm=f"{LABOR}:91.1")
     assert [r.to_number for r in out] == ["80.1.4", "80.1.5", "80.1.6"]
+
+
+def test_article_numbered_by_chapter(reg):
+    reg.add_law(ZORCHIL, "Зөрчлийн тухай хууль")
+    numbers = {**NUMBERS, ZORCHIL: {"7.1", "7.1.1", "7.1.2", "7.1.2.1"}}
+    out = refs("[ЖИШЭЭ] Зөрчлийн тухай хуулийн 7.1 дүгээр зүйлийн 1 дэх хэсэг, 7.1 дүгээр зүйлийн 2 дахь хэсгийн 1 дэх заалт",
+               reg, frm=f"{LABOR}:6.1", numbers=numbers)
+    assert [(r.to_number, r.target_missing) for r in out] == [("7.1.1", False), ("7.1.2.1", False)]
+    [r] = refs("[ЖИШЭЭ] Зөрчлийн тухай хуулийн 7.1 дүгээр зүйлд", reg, frm=f"{LABOR}:6.1", numbers=numbers)
+    assert r.to_article_id == f"{ZORCHIL}:7.1"
+    # "энэ зүйлийн" inside such a code refers to article 7.1, not to a non-existent article 7
+    [r] = refs("[ЖИШЭЭ] энэ зүйлийн 2 дахь хэсэгт", reg, frm=f"{ZORCHIL}:7.1.1", numbers=numbers)
+    assert r.to_article_id == f"{ZORCHIL}:7.1.2"
+
+
+def test_constitution_part_called_zaalt(reg):
+    [r] = refs("[ЖИШЭЭ] Монгол Улсын Үндсэн хуулийн 16 дугаар зүйлийн 4 дэх заалтад", reg)
+    assert (r.to_law_id, r.to_number) == ("undsen-khuuli", "16.4")
 
 
 def test_this_article_part(reg):
