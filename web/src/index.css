@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+/* Palette and type follow lawforum.parliament.mn (themes/lawmaker/css/style.css).
+   Accent is lawforum's #007aff darkened to #0062cc to meet WCAG AA on white. */
+@theme {
+  --font-sans: -apple-system, "SanFranciscoPro", "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --color-ink: #222222;
+  --color-ink-2: #5c5c5c;
+  --color-line: #e3e3e3;
+  --color-line-strong: #8c8c8c;
+  --color-page: #fbfbfb;
+  --color-hover: #f2f2f2;
+  --color-accent: #0062cc;
+  --color-warn: #a61b1b;
+  --color-ok: #1d6b33;
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
