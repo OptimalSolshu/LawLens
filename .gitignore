@@ -1,0 +1,18 @@
+# secrets
+.env
+
+# python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# node
+node_modules/
+web/dist/
+
+# local neo4j data
+.neo4j/
+
+# embedding / model caches
+.cache/

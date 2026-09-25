@@ -1,0 +1,54 @@
+services:
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-change-me-please}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+      NEO4J_server_memory_heap_max__size: 2G
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474 || exit 1"]
+      interval: 10s
+      retries: 12
+
+  api:
+    build: ./backend
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      MOCK: ${MOCK:-1}
+      NEO4J_URI: bolt://neo4j:7687
+      FIXTURES_DIR: /contracts/fixtures
+      PROCESSED_DIR: /data/processed
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - ./contracts:/contracts:ro
+      - ./data/processed:/data/processed:ro
+    depends_on:
+      - neo4j
+
+  web:
+    image: node:22-alpine
+    working_dir: /web
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    environment:
+      VITE_PROXY_TARGET: http://api:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./web:/web
+      - web-node-modules:/web/node_modules
+    depends_on:
+      - api
+
+volumes:
+  neo4j-data:
+  web-node-modules:

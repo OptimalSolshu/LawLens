@@ -1,0 +1,32 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/articles/{article_id}/amendment",
+  "request": {
+    "path": {
+      "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1"
+    }
+  },
+  "response": {
+    "article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1",
+    "suggested_text": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуулийн 15.1-д заасан үндэслэлээр ашигт малтмалын тусгай зөвшөөрлийг 30 хүртэл хоногийн хугацаагаар түдгэлзүүлнэ.",
+    "reason": "[ЖИШЭЭ] Хуулийн хуучин нэрийг ашигласан, байхгүй 15.3-т иш татсан, түдгэлзүүлэх хугацаа Зөвшөөрлийн тухай хуулийн 15.1-тэй зөрчилдөж байна.",
+    "sources": [
+      {
+        "kind": "law_article",
+        "id": "zovshoorliin-tukhai-khuuli:15.1",
+        "title": "Зөвшөөрлийн тухай хууль 15.1",
+        "url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli#15.1"
+      },
+      {
+        "kind": "foreign_law",
+        "id": "sample-ee-licensing",
+        "title": "[ЖИШЭЭ] Эдийн засгийн үйл ажиллагааны ерөнхий хэсгийн хууль (зөвшөөрлийн хэсэг)",
+        "url": "https://example.org/lawlens-sample/intl/ee-licensing"
+      }
+    ],
+    "type": "suggestion",
+    "confidence": 0.7,
+    "model": "claude-sonnet-5"
+  }
+}

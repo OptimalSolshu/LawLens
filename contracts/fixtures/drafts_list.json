@@ -1,0 +1,35 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/drafts",
+  "request": {},
+  "response": [
+    {
+      "draft_id": "draft-sample-001",
+      "lawforum_id": "sample-001",
+      "title": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуульд нэмэлт, өөрчлөлт оруулах тухай хуулийн төсөл",
+      "target_law_id": "zovshoorliin-tukhai-khuuli",
+      "new_name": null,
+      "amended_article_ids": [
+        "zovshoorliin-tukhai-khuuli:15.1",
+        "zovshoorliin-tukhai-khuuli:15.2"
+      ],
+      "cosubmitted_law_ids": [
+        "zorchliin-tukhai-khuuli"
+      ],
+      "source_url": "https://example.org/lawlens-sample/drafts/sample-001"
+    },
+    {
+      "draft_id": "draft-sample-002",
+      "lawforum_id": "sample-002",
+      "title": "[ЖИШЭЭ] Зөрчлийн тухай хуульд өөрчлөлт оруулах тухай хуулийн төсөл",
+      "target_law_id": "zorchliin-tukhai-khuuli",
+      "new_name": null,
+      "amended_article_ids": [
+        "zorchliin-tukhai-khuuli:11.4"
+      ],
+      "cosubmitted_law_ids": [],
+      "source_url": "https://example.org/lawlens-sample/drafts/sample-002"
+    }
+  ]
+}

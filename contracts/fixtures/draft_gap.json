@@ -1,0 +1,66 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/drafts/{draft_id}/gap",
+  "request": {
+    "path": {
+      "draft_id": "draft-sample-001"
+    }
+  },
+  "response": {
+    "draft_id": "draft-sample-001",
+    "found": 2,
+    "covered": [
+      {
+        "law_id": "zorchliin-tukhai-khuuli",
+        "law_name": "Зөрчлийн тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "zorchliin-tukhai-khuuli",
+            "law_name": "Зөрчлийн тухай хууль",
+            "article_id": "zorchliin-tukhai-khuuli:11.4",
+            "number": "11.4",
+            "snippet": "[ЖИШЭЭ] Тусгай зөвшөөрлийн тухай хуулийн 15.1-д заасны дагуу түдгэлзүүлсэн зөвшөөрлөөр үйл ажиллагаа эрхэлсэн бол хүнийг хоёр зуун тавин нэгжтэй, хуулийн этгээдийг хоёр мянга таван зуун нэгжтэй тэнцэх хэмжээний төгрөгөөр торгоно.",
+            "source_url": "https://example.org/lawlens-sample/laws/zorchliin-tukhai-khuuli#11.4",
+            "type": "fact",
+            "confidence": 0.98,
+            "flags": {
+              "uses_old_name": true,
+              "target_missing": false
+            },
+            "anchor_number": "15.1",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      }
+    ],
+    "missing": [
+      {
+        "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+        "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+        "count": 1,
+        "items": [
+          {
+            "law_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli",
+            "law_name": "Байгаль орчныг хамгаалах тухай хууль",
+            "article_id": "baigali-orchnyg-khamgaalakh-tukhai-khuuli:31.1",
+            "number": "31.1",
+            "snippet": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуулийн 15.2-т заасны дагуу зөвшөөрөл хүчингүй болсон этгээд үйл ажиллагаагаа үргэлжлүүлбэл Зөрчлийн тухай хуулийн 11.4-т заасан хариуцлага хүлээлгэнэ.",
+            "source_url": "https://example.org/lawlens-sample/laws/baigali-orchnyg-khamgaalakh-tukhai-khuuli#31.1",
+            "type": "fact",
+            "confidence": 0.99,
+            "flags": {
+              "uses_old_name": false,
+              "target_missing": false
+            },
+            "anchor_number": "15.2",
+            "score": null,
+            "explanation": null
+          }
+        ]
+      }
+    ]
+  }
+}

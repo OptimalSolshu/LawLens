@@ -1,0 +1,36 @@
+{
+  "_sample": true,
+  "_note": "Invented SAMPLE data for development. Not real legal content.",
+  "endpoint": "GET /api/laws/{law_id}",
+  "request": {
+    "path": {
+      "law_id": "zovshoorliin-tukhai-khuuli"
+    }
+  },
+  "response": {
+    "law": {
+      "law_id": "zovshoorliin-tukhai-khuuli",
+      "source_url": "https://example.org/lawlens-sample/laws/zovshoorliin-tukhai-khuuli",
+      "name": "Зөвшөөрлийн тухай хууль",
+      "former_names": [
+        "Тусгай зөвшөөрлийн тухай хууль"
+      ],
+      "short_names": [],
+      "adopted_date": "2020-01-01"
+    },
+    "articles": [
+      {
+        "article_id": "zovshoorliin-tukhai-khuuli:15.1",
+        "number": "15.1",
+        "title": "Зөвшөөрлийг түдгэлзүүлэх",
+        "text": "[ЖИШЭЭ] Зөвшөөрөл эзэмшигч зөвшөөрлийн нөхцөл, шаардлагыг зөрчсөн бол зөвшөөрөл олгосон байгууллага зөвшөөрлийг 30 хүртэл хоногийн хугацаагаар түдгэлзүүлнэ."
+      },
+      {
+        "article_id": "zovshoorliin-tukhai-khuuli:15.2",
+        "number": "15.2",
+        "title": "Зөвшөөрлийг хүчингүй болгох",
+        "text": "[ЖИШЭЭ] Түдгэлзүүлсэн хугацаанд зөрчлийг арилгаагүй бол зөвшөөрөл олгосон байгууллага зөвшөөрлийг хүчингүй болгоно."
+      }
+    ]
+  }
+}
