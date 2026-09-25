@@ -1,1 +1,8 @@
-{"_sample": true, "a_article_id": "ashigt-maltmalyn-tukhai-khuuli:56.1", "b_article_id": "zovshoorliin-tukhai-khuuli:15.1", "score": 0.86, "model": "BAAI/bge-m3"}
+{"_sample":true,"a_article_id":"khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli:12.1","b_article_id":"khodolmoriin-tukhai-khuuli:80.1","score":0.955,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli:10.1","b_article_id":"khodolmoriin-tukhai-khuuli:120.1","score":0.884,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli:12.2","b_article_id":"khodolmoriin-tukhai-khuuli:80.3","score":0.793,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmor-erkhleltiig-demjikh-tukhai-khuuli:12.1","b_article_id":"khodolmoriin-tukhai-khuuli:6.1","score":0.761,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-kholsnii-dood-khemjeenii-tukhai-khuuli:5.1","b_article_id":"khodolmoriin-tukhai-khuuli:104.2","score":0.725,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-ayuulgui-baidal-eruul-akhuin-tukhai-khuuli:12.1","b_article_id":"khodolmoriin-tukhai-khuuli:80.2","score":0.672,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-tukhai-khuuli:104.1","b_article_id":"zorchliin-tukhai-khuuli:6.6","score":0.653,"model":"demo-ngram-v1"}
+{"_sample":true,"a_article_id":"khodolmoriin-tukhai-khuuli:104.1","b_article_id":"niigmiin-daatgalyn-tukhai-khuuli:7.2","score":0.65,"model":"demo-ngram-v1"}

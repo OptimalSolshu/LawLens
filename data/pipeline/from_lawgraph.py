@@ -13,6 +13,9 @@ import argparse
 import json
 from pathlib import Path
 
+from . import _backend  # noqa: F401
+from app.parser.names import load_law_names
+
 from .ids import article_id, law_id
 from .schemas import ArticleRec, LawRec, RefRec
 
@@ -83,7 +86,7 @@ def main() -> None:
     args = ap.parse_args()
 
     urls = dict(s.split("=", 1) for s in args.source_url)
-    former = json.loads(LAW_NAMES.read_text(encoding="utf-8"))
+    former = {rec["current_name"]: rec["former_names"] for rec in load_law_names(LAW_NAMES)}
     docs = [json.loads(p.read_text(encoding="utf-8")) for p in args.json]
     ids = {d["law"]["title"]: d["law"]["id"] for d in docs}
     # name as cited -> (law_id, matched name, uses_old_name)

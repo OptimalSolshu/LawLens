@@ -1,11 +1,12 @@
 """Citation detection -> processed/refs.jsonl.
 
-Starter references.py goes here (it was not in the repo at scaffold time).
-Resolve law names against current AND former names (law_names.json); set
-uses_old_name / target_missing per contracts/data-format.md.
+The implementation is shared with the API: backend/app/parser/references.py
+(regex facts; former names and short names via the name registry; missing
+targets kept with target_missing=True). This module re-exports it for the
+pipeline.
 """
-from .schemas import LawRec, RefRec
+from . import _backend  # noqa: F401
+from app.parser.names import LawNameRegistry, load_law_names  # noqa: E402
+from app.parser.references import Ref, extract_references  # noqa: E402
 
-
-def find_refs(law: LawRec, laws_by_name: dict[str, LawRec], former_to_current: dict[str, str]) -> list[RefRec]:
-    raise NotImplementedError("TODO(member 3): regex pass, then LLM for leftovers (method='llm')")
+__all__ = ["LawNameRegistry", "Ref", "extract_references", "load_law_names"]

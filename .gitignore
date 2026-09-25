@@ -21,3 +21,5 @@ web/dist/
 data/*.txt
 data/*.emb.npz
 data/*.norms.json
+test-results/
+playwright-report/

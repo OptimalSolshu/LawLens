@@ -29,6 +29,8 @@ class LawRec(Record):
     adopted_date: str | None
     source_url: str
     articles: list[ArticleRec]
+    # False = known only by name (cited, text not loaded): target_missing cannot be decided
+    text_available: bool = True
 
 
 class RefRec(Record):
@@ -42,6 +44,8 @@ class RefRec(Record):
     target_missing: bool
     method: Literal["regex", "llm"]
     confidence: Confidence
+    # new number from a renumbering table when target_missing, else null
+    current_number: str | None = None
 
 
 class SimilarRec(Record):
@@ -60,6 +64,19 @@ class RelationRec(Record):
     model: str
 
 
+class DraftOpRec(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    op: Literal["replace", "insert", "delete", "repeal", "add", "rename"]
+    law_id: str
+    number: str | None
+    article_id: str | None
+    old_text: str | None
+    new_text: str | None
+    raw_text: str
+    uses_old_name: bool
+    target_missing: bool
+
+
 class DraftRec(Record):
     draft_id: str
     lawforum_id: str
@@ -69,6 +86,8 @@ class DraftRec(Record):
     amended_article_ids: list[str]
     cosubmitted_law_ids: list[str]
     source_url: str
+    operations: list[DraftOpRec] = []
+    cosubmitted_titles: list[str] = []
 
 
 class IntlSourceRec(BaseModel):
@@ -79,6 +98,7 @@ class IntlSourceRec(BaseModel):
     title: str
     url: str
     summary: str
+    provision: str | None = None
 
 
 class IntlLinkRec(BaseModel):
@@ -87,6 +107,7 @@ class IntlLinkRec(BaseModel):
     source_id: str
     relevance: Confidence
     explanation: str
+    model: str | None = None
 
 
 class InternationalFile(Record):
@@ -100,6 +121,7 @@ class AmendmentRec(Record):
     suggested_text: str
     based_on_source_ids: list[str]
     model: str
+    confidence: Confidence | None = None
 
 
 JSONL = {

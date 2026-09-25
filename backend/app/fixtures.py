@@ -5,33 +5,31 @@ from functools import cache
 from pydantic import TypeAdapter
 
 from . import config
-from .models import (
-    Amendment,
-    ArticleConnections,
-    Connections,
-    Draft,
-    DraftGap,
-    ImpactRequest,
-    ImpactResponse,
-    International,
-    LawDetail,
-    LawSummary,
-)
+from .schemas import (Amendment, Article, ArticleConnections, Connections, Draft, DraftDetail, DraftGap, Health,
+                      ImpactRequest, ImpactResponse, International, LawDetail, LawSummary, RelationDetail,
+                      SearchResponse, ArticleImpactRequest)
 
 RESPONSE_TYPES = {
+    "health": Health,
     "laws_list": list[LawSummary],
     "law_detail": LawDetail,
+    "law_articles": list[Article],
     "law_connections": Connections,
     "article_connections": ArticleConnections,
+    "article_impact": ImpactResponse,
     "impact": ImpactResponse,
     "drafts_list": list[Draft],
+    "draft_detail": DraftDetail,
     "draft_gap": DraftGap,
     "article_international": International,
     "article_amendment": Amendment,
+    "relation_detail": RelationDetail,
+    "search": SearchResponse,
 }
 
 REQUEST_BODY_TYPES = {
     "impact": ImpactRequest,
+    "article_impact": ArticleImpactRequest,
 }
 
 

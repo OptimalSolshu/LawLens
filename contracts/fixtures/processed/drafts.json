@@ -1,31 +1,113 @@
 [
-  {
-    "_sample": true,
-    "draft_id": "draft-sample-001",
-    "lawforum_id": "sample-001",
-    "title": "[ЖИШЭЭ] Зөвшөөрлийн тухай хуульд нэмэлт, өөрчлөлт оруулах тухай хуулийн төсөл",
-    "target_law_id": "zovshoorliin-tukhai-khuuli",
-    "new_name": null,
-    "amended_article_ids": [
-      "zovshoorliin-tukhai-khuuli:15.1",
-      "zovshoorliin-tukhai-khuuli:15.2"
-    ],
-    "cosubmitted_law_ids": [
-      "zorchliin-tukhai-khuuli"
-    ],
-    "source_url": "https://example.org/lawlens-sample/drafts/sample-001"
-  },
-  {
-    "_sample": true,
-    "draft_id": "draft-sample-002",
-    "lawforum_id": "sample-002",
-    "title": "[ЖИШЭЭ] Зөрчлийн тухай хуульд өөрчлөлт оруулах тухай хуулийн төсөл",
-    "target_law_id": "zorchliin-tukhai-khuuli",
-    "new_name": null,
-    "amended_article_ids": [
-      "zorchliin-tukhai-khuuli:11.4"
-    ],
-    "cosubmitted_law_ids": [],
-    "source_url": "https://example.org/lawlens-sample/drafts/sample-002"
-  }
+ {
+  "_sample": true,
+  "draft_id": "draft-sample-labor-001",
+  "lawforum_id": "sample-labor-001",
+  "title": "[ЖИШЭЭ] Хөдөлмөрийн тухай хуульд нэмэлт, өөрчлөлт оруулах тухай хуулийн төсөл",
+  "target_law_id": "khodolmoriin-tukhai-khuuli",
+  "new_name": null,
+  "amended_article_ids": [
+   "khodolmoriin-tukhai-khuuli:80.1",
+   "khodolmoriin-tukhai-khuuli:104.2"
+  ],
+  "cosubmitted_law_ids": [
+   "zorchliin-tukhai-khuuli"
+  ],
+  "source_url": "https://example.org/lawlens-sample/drafts/sample-labor-001",
+  "operations": [
+   {
+    "op": "replace",
+    "law_id": "khodolmoriin-tukhai-khuuli",
+    "number": "80.1",
+    "article_id": "khodolmoriin-tukhai-khuuli:80.1",
+    "old_text": "40 цагаас",
+    "new_text": "38 цагаас",
+    "raw_text": "1 дүгээр зүйл.[ЖИШЭЭ] Хөдөлмөрийн тухай хуулийн 80.1 дэх хэсгийн \"40 цагаас\" гэснийг \"38 цагаас\" гэж өөрчилсүгэй.",
+    "uses_old_name": false,
+    "target_missing": false
+   },
+   {
+    "op": "insert",
+    "law_id": "khodolmoriin-tukhai-khuuli",
+    "number": "104.2",
+    "article_id": "khodolmoriin-tukhai-khuuli:104.2",
+    "old_text": "жил бүр",
+    "new_text": "гурван талт хорооны саналыг үндэслэн",
+    "raw_text": "2 дугаар зүйл.[ЖИШЭЭ] Хөдөлмөрийн тухай хуулийн 104.2 дахь хэсгийн \"жил бүр\" гэсний дараа \"гурван талт хорооны саналыг үндэслэн\" гэж нэмсүгэй.",
+    "uses_old_name": false,
+    "target_missing": false
+   }
+  ],
+  "cosubmitted_titles": [
+   "[ЖИШЭЭ] Зөрчлийн тухай хуульд өөрчлөлт оруулах тухай хуулийн төсөл"
+  ]
+ },
+ {
+  "_sample": true,
+  "draft_id": "draft-sample-labor-002",
+  "lawforum_id": "sample-labor-002",
+  "title": "[ЖИШЭЭ] Хөдөлмөр эрхлэлтийг дэмжих тухай хуульд нэмэлт, өөрчлөлт оруулах тухай хуулийн төсөл",
+  "target_law_id": "khodolmor-erkhleltiig-demjikh-tukhai-khuuli",
+  "new_name": "Хөдөлмөр эрхлэлт, ур чадварыг дэмжих тухай хууль",
+  "amended_article_ids": [],
+  "cosubmitted_law_ids": [
+   "khodolmoriin-tukhai-khuuli"
+  ],
+  "source_url": "https://example.org/lawlens-sample/drafts/sample-labor-002",
+  "operations": [
+   {
+    "op": "rename",
+    "law_id": "khodolmor-erkhleltiig-demjikh-tukhai-khuuli",
+    "number": null,
+    "article_id": null,
+    "old_text": null,
+    "new_text": "Хөдөлмөр эрхлэлт, ур чадварыг дэмжих тухай хууль",
+    "raw_text": "1 дүгээр зүйл.[ЖИШЭЭ] Хөдөлмөр эрхлэлтийг дэмжих тухай хуулийн нэрийг \"Хөдөлмөр эрхлэлт, ур чадварыг дэмжих тухай хууль\" гэж өөрчилсүгэй.",
+    "uses_old_name": false,
+    "target_missing": false
+   }
+  ],
+  "cosubmitted_titles": [
+   "[ЖИШЭЭ] Хөдөлмөрийн тухай хуульд өөрчлөлт оруулах тухай хуулийн төсөл"
+  ]
+ },
+ {
+  "_sample": true,
+  "draft_id": "draft-sample-zorchil-003",
+  "lawforum_id": "sample-zorchil-003",
+  "title": "[ЖИШЭЭ] Зөрчлийн тухай хуульд өөрчлөлт оруулах тухай хуулийн төсөл",
+  "target_law_id": "zorchliin-tukhai-khuuli",
+  "new_name": null,
+  "amended_article_ids": [
+   "zorchliin-tukhai-khuuli:6.1",
+   "zorchliin-tukhai-khuuli:6.4"
+  ],
+  "cosubmitted_law_ids": [],
+  "source_url": "https://example.org/lawlens-sample/drafts/sample-zorchil-003",
+  "operations": [
+   {
+    "op": "replace",
+    "law_id": "zorchliin-tukhai-khuuli",
+    "number": "6.1",
+    "article_id": "zorchliin-tukhai-khuuli:6.1",
+    "old_text": "нэг мянган нэгжтэй",
+    "new_text": "хоёр мянган нэгжтэй",
+    "raw_text": "1 дүгээр зүйл.[ЖИШЭЭ] Зөрчлийн тухай хуулийн 6.1 дэх хэсгийн \"нэг мянган нэгжтэй\" гэснийг \"хоёр мянган нэгжтэй\" гэж өөрчилсүгэй.",
+    "uses_old_name": false,
+    "target_missing": false
+   },
+   {
+    "op": "repeal",
+    "law_id": "zorchliin-tukhai-khuuli",
+    "number": "6.4",
+    "article_id": "zorchliin-tukhai-khuuli:6.4",
+    "old_text": null,
+    "new_text": null,
+    "raw_text": "2 дугаар зүйл.[ЖИШЭЭ] Зөрчлийн тухай хуулийн 6.4 дэх хэсгийг хүчингүй болсонд тооцсугай.",
+    "uses_old_name": false,
+    "target_missing": false
+   }
+  ],
+  "cosubmitted_titles": []
+ }
 ]

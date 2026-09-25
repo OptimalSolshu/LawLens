@@ -1,26 +1,43 @@
-"""LawLens API. MOCK=1 serves contracts/fixtures; MOCK=0 queries Neo4j (app/graph)."""
+"""LawLens API.
+
+MOCK=1  -> [ЖИШЭЭ] sample dataset (contracts/fixtures/processed), in-memory graph, no Neo4j / LLM / network.
+MOCK=0  -> real data/processed via Neo4j (GRAPH_BACKEND=neo4j) or in memory (GRAPH_BACKEND=memory).
+"""
+import logging
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
-from . import config, fixtures
-from .graph import queries
-from .models import (
-    Amendment,
-    ArticleConnections,
-    Connections,
-    Draft,
-    DraftGap,
-    Health,
-    ImpactRequest,
-    ImpactResponse,
-    International,
-    LawDetail,
-    LawSummary,
-)
+from . import config
+from .deps import get_store
+from .routers import articles, laws, misc
 
-app = FastAPI(title="LawLens API", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+log = logging.getLogger("lawlens")
+
+
+
+@asynccontextmanager
+async def lifespan(_: FastAPI):
+    seed_graph()
+    yield
+
+
+def seed_graph() -> None:
+    """docker compose (MOCK=0, SEED_ON_START=1): load data/processed into an empty Neo4j."""
+    if config.MOCK or config.GRAPH_BACKEND != "neo4j" or not config.SEED_ON_START:
+        return
+    from .graph.loader import is_empty, load
+
+    if is_empty():
+        log.info("empty graph: loading %s", config.PROCESSED_DIR)
+        load(config.PROCESSED_DIR, reset=False)
+
+
+app = FastAPI(title="LawLens API", version="0.2.0", lifespan=lifespan,
+              description="Хуулийн уялдааны шинжилгээ. Facts and suggestions are separate; nothing here is a legal verdict.")
+app.add_middleware(CORSMiddleware, allow_origins=config.CORS_ORIGINS, allow_methods=["GET", "POST"],
+                   allow_headers=["*"], expose_headers=["Content-Disposition", "X-LawLens-Sample"])
 
 
 @app.middleware("http")
@@ -31,62 +48,8 @@ async def mark_sample(request: Request, call_next):
     return response
 
 
-@app.exception_handler(NotImplementedError)
-async def not_implemented(_: Request, exc: NotImplementedError):
-    return JSONResponse(status_code=501, content={"detail": f"not implemented: {exc}"})
+app.include_router(misc.router)
+app.include_router(laws.router)
+app.include_router(articles.router)
 
-
-@app.get("/api/health", response_model=Health)
-def health():
-    return Health(status="ok", mock=config.MOCK)
-
-
-@app.get("/api/laws", response_model=list[LawSummary])
-def list_laws(q: str = ""):
-    if not config.MOCK:
-        return queries.list_laws(q)
-    laws = fixtures.response("laws_list")
-    needle = q.strip().casefold()
-    if not needle:
-        return laws
-    return [l for l in laws if any(needle in n.casefold() for n in [l.name, *l.former_names])]
-
-
-@app.get("/api/laws/{law_id}", response_model=LawDetail)
-def get_law(law_id: str):
-    return fixtures.response("law_detail") if config.MOCK else queries.get_law(law_id)
-
-
-@app.get("/api/laws/{law_id}/connections", response_model=Connections)
-def law_connections(law_id: str):
-    return fixtures.response("law_connections") if config.MOCK else queries.law_connections(law_id)
-
-
-@app.get("/api/articles/{article_id}", response_model=ArticleConnections)
-def article_connections(article_id: str):
-    return fixtures.response("article_connections") if config.MOCK else queries.article_connections(article_id)
-
-
-@app.post("/api/impact", response_model=ImpactResponse)
-def impact(req: ImpactRequest):
-    return fixtures.response("impact") if config.MOCK else queries.impact(req)
-
-
-@app.get("/api/drafts", response_model=list[Draft])
-def list_drafts():
-    return fixtures.response("drafts_list") if config.MOCK else queries.list_drafts()
-
-
-@app.get("/api/drafts/{draft_id}/gap", response_model=DraftGap)
-def draft_gap(draft_id: str):
-    return fixtures.response("draft_gap") if config.MOCK else queries.draft_gap(draft_id)
-
-
-@app.get("/api/articles/{article_id}/international", response_model=International)
-def article_international(article_id: str):
-    return fixtures.response("article_international") if config.MOCK else queries.international(article_id)
-
-
-@app.get("/api/articles/{article_id}/amendment", response_model=Amendment)
-def article_amendment(article_id: str):
-    return fixtures.response("article_amendment") if config.MOCK else queries.amendment(article_id)
+__all__ = ["app", "get_store"]

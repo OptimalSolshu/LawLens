@@ -1,56 +1,66 @@
+"""MOCK=1: every recorded fixture replays to the identical response."""
 import pytest
-from fastapi.testclient import TestClient
 
-from app import config, fixtures
-from app.main import app
+from app import fixtures
+from app.mock.record import REQUESTS, replay
 
-client = TestClient(app)
-LAW = "zovshoorliin-tukhai-khuuli"
-ART = f"{LAW}:15.1"
+from .conftest import LABOR
 
 
-@pytest.fixture(autouse=True)
-def mock_mode(monkeypatch):
-    monkeypatch.setattr(config, "MOCK", True)
-
-
-@pytest.mark.parametrize("method,path,fixture", [
-    ("get", "/api/laws", "laws_list"),
-    ("get", f"/api/laws/{LAW}", "law_detail"),
-    ("get", f"/api/laws/{LAW}/connections", "law_connections"),
-    ("get", f"/api/articles/{ART}", "article_connections"),
-    ("get", "/api/drafts", "drafts_list"),
-    ("get", "/api/drafts/draft-sample-001/gap", "draft_gap"),
-    ("get", f"/api/articles/{ART}/international", "article_international"),
-    ("get", f"/api/articles/{ART}/amendment", "article_amendment"),
-])
-def test_get_endpoints_serve_fixtures(method, path, fixture):
-    r = getattr(client, method)(path)
+@pytest.mark.parametrize("name", sorted(REQUESTS))
+def test_fixture_replays(client, name):
+    r = replay(client, name)
     assert r.status_code == 200, r.text
     assert r.headers["X-LawLens-Sample"] == "true"
-    assert r.json() == fixtures.load(fixture)["response"]
+    assert r.json() == fixtures.load(name)["response"]
 
 
-def test_impact_serves_fixture():
-    r = client.post("/api/impact", json=fixtures.load("impact")["request"]["body"])
-    assert r.status_code == 200, r.text
-    assert r.json() == fixtures.load("impact")["response"]
+@pytest.mark.parametrize("path", [
+    f"/api/laws/{LABOR}", f"/api/laws/{LABOR}/articles", f"/api/laws/{LABOR}/connections",
+    f"/api/articles/{LABOR}:80", f"/api/articles/{LABOR}:80/connections", f"/api/articles/{LABOR}:80.1/impact",
+    f"/api/articles/{LABOR}:6/international", "/api/drafts", "/api/drafts/draft-sample-labor-001",
+    "/api/drafts/draft-sample-labor-001/gap", "/api/drafts/draft-sample-labor-001/gaps", "/api/search?q=80",
+])
+def test_every_endpoint_answers(client, path):
+    assert client.get(path).status_code == 200
 
 
-@pytest.mark.parametrize("body", [{"article_id": ART, "depth": 4}, {"depth": 1}])
-def test_impact_rejects_bad_request(body):
+def test_health_reports_mock(client):
+    assert client.get("/api/health").json() == {"status": "ok", "mock": True, "dataset": "sample", "graph": "memory"}
+
+
+def test_laws_search_matches_former_name(client):
+    names = [l["name"] for l in client.get("/api/laws", params={"q": "хамгааллын"}).json()]
+    assert names == ["Хөдөлмөрийн аюулгүй байдал, эрүүл ахуйн тухай хууль"]
+
+
+@pytest.mark.parametrize("body", [{"article_id": f"{LABOR}:80.1", "depth": 4}, {"depth": 1},
+                                  {"article_id": f"{LABOR}:80.1", "new_number": "abc"}])
+def test_impact_rejects_bad_request(client, body):
     assert client.post("/api/impact", json=body).status_code == 422
 
 
-def test_laws_search_matches_former_name():
-    names = [l["name"] for l in client.get("/api/laws", params={"q": "тусгай"}).json()]
-    assert names == ["Зөвшөөрлийн тухай хууль"]
+@pytest.mark.parametrize("path,status", [
+    ("/api/articles/not an id", 422), ("/api/articles/x:1'--", 422), ("/api/laws/DROP", 422),
+    ("/api/articles/nope:1", 404), ("/api/laws/nope", 404), ("/api/drafts/nope", 404),
+    (f"/api/articles/{LABOR}:6/amendment", 404),
+])
+def test_input_validation_and_404(client, path, status):
+    assert client.get(path).status_code == status
 
 
-def test_health_reports_mock():
-    assert client.get("/api/health").json() == {"status": "ok", "mock": True}
-
-
-def test_real_mode_is_501_until_implemented(monkeypatch):
-    monkeypatch.setattr(config, "MOCK", False)
-    assert client.get(f"/api/laws/{LAW}").status_code == 501
+def test_every_item_is_cited_and_typed(client):
+    body = client.get(f"/api/articles/{LABOR}:80").json()
+    items = [i for k in ("incoming", "outgoing", "former_name_refs", "missing_target_refs")
+             for g in body[k] for i in g["items"]] + body["similar"] + body["conflicts"] + body["overlaps"]
+    assert items
+    for i in items:
+        assert i["law_name"] and i["source_url"].startswith("https://") and i["number"]
+        assert i["type"] in ("fact", "suggestion")
+        if i["type"] == "fact":
+            assert i["confidence"] == 1.0
+        else:
+            assert i["model"] and 0 <= i["confidence"] <= 1
+    facts = {i["type"] for k in ("incoming", "outgoing") for g in body[k] for i in g["items"]}
+    assert facts == {"fact"}
+    assert {i["type"] for i in body["similar"] + body["conflicts"]} == {"suggestion"}

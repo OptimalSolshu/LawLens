@@ -1,4 +1,4 @@
-// Mirrors backend/app/models.py (contracts/api.md). Change both together, via PR.
+// Mirrors backend/app/schemas/api.py (contracts/api.md). Change both together, via PR.
 
 export type ItemType = "fact" | "suggestion";
 
@@ -21,6 +21,11 @@ export interface RefItem {
   anchor_number?: string | null;
   score?: number | null;
   explanation?: string | null;
+  raw_text?: string | null;
+  matched_name?: string | null;
+  current_number?: string | null;
+  model?: string | null;
+  cited_number?: string | null;
 }
 
 export interface LawGroup {
@@ -33,6 +38,8 @@ export interface LawGroup {
 export interface Health {
   status: "ok";
   mock: boolean;
+  dataset: "sample" | "real";
+  graph: "memory" | "neo4j";
 }
 
 export interface LawSummary {
@@ -40,6 +47,9 @@ export interface LawSummary {
   name: string;
   former_names: string[];
   article_count: number;
+  short_names: string[];
+  text_available: boolean;
+  source_url: string | null;
 }
 
 export interface Law {
@@ -49,6 +59,7 @@ export interface Law {
   short_names: string[];
   adopted_date: string | null;
   source_url: string;
+  text_available: boolean;
 }
 
 export interface Article {
@@ -56,6 +67,7 @@ export interface Article {
   number: string;
   title: string | null;
   text: string;
+  parent_number: string | null;
 }
 
 export interface LawDetail {
@@ -76,6 +88,7 @@ export interface ConnectionTotals {
   missing_target_refs: number;
   similar: number;
   conflicts: number;
+  overlaps: number;
 }
 
 export interface Connections {
@@ -85,6 +98,7 @@ export interface Connections {
   missing_target_refs: LawGroup[];
   similar: RefItem[];
   conflicts: RefItem[];
+  overlaps: RefItem[];
   totals: ConnectionTotals;
 }
 
@@ -97,6 +111,14 @@ export interface ImpactRequest {
   article_id?: string | null;
   new_text?: string | null;
   new_name?: string | null;
+  new_number?: string | null;
+  depth: 1 | 2 | 3;
+}
+
+export interface ArticleImpactRequest {
+  new_text?: string | null;
+  new_name?: string | null;
+  new_number?: string | null;
   depth: 1 | 2 | 3;
 }
 
@@ -106,10 +128,35 @@ export interface ImpactDepth {
   count: number;
 }
 
+export interface ImpactChange {
+  kind: "text" | "rename" | "renumber" | "none";
+  law_id: string;
+  law_name: string;
+  article_id: string | null;
+  number: string | null;
+  summary: string;
+}
+
 export interface ImpactResponse {
   depths: ImpactDepth[];
   new_similar: RefItem[];
-  totals: { laws: number; articles: number; new_similar: number };
+  totals: { laws: number; articles: number; new_similar: number; direct: number; indirect: number };
+  direct_impact: LawGroup[];
+  indirect_impact: LawGroup[];
+  change: ImpactChange | null;
+  note: string;
+}
+
+export interface DraftOp {
+  op: "replace" | "insert" | "delete" | "repeal" | "add" | "rename";
+  law_id: string;
+  number: string | null;
+  article_id: string | null;
+  old_text: string | null;
+  new_text: string | null;
+  raw_text: string;
+  uses_old_name: boolean;
+  target_missing: boolean;
 }
 
 export interface Draft {
@@ -121,6 +168,8 @@ export interface Draft {
   amended_article_ids: string[];
   cosubmitted_law_ids: string[];
   source_url: string;
+  operations: DraftOp[];
+  cosubmitted_titles: string[];
 }
 
 export interface DraftGap {
@@ -128,6 +177,15 @@ export interface DraftGap {
   found: number;
   covered: LawGroup[];
   missing: LawGroup[];
+  review: LawGroup[];
+}
+
+export interface DraftDetail {
+  draft: Draft;
+  target_law: LawSummary;
+  amended: { op: DraftOp; article: ArticleDetail | null }[];
+  cosubmitted: LawSummary[];
+  gap: DraftGap;
 }
 
 export interface IntlItem {
@@ -140,6 +198,9 @@ export interface IntlItem {
   relevance: number;
   explanation: string;
   type: "suggestion";
+  provision: string | null;
+  model: string | null;
+  anchor_number: string | null;
 }
 
 export interface International {
@@ -163,4 +224,33 @@ export interface Amendment {
   type: "suggestion";
   confidence: number;
   model: string;
+}
+
+export interface RelationDetail {
+  a: ArticleDetail;
+  b: ArticleDetail;
+  kind: "conflict" | "overlap" | "consistent";
+  type: "suggestion";
+  confidence: number;
+  explanation: string;
+  model: string;
+  score: number | null;
+  international: IntlItem[];
+  resolution: Amendment | null;
+}
+
+export interface ArticleHit {
+  article_id: string;
+  law_id: string;
+  law_name: string;
+  number: string;
+  title: string | null;
+  snippet: string;
+  source_url: string;
+}
+
+export interface SearchResponse {
+  query: string;
+  laws: LawSummary[];
+  articles: ArticleHit[];
 }

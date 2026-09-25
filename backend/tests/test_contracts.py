@@ -1,4 +1,4 @@
-"""Fails when a fixture in contracts/fixtures drifts from app/models.py."""
+"""Fails when a fixture in contracts/fixtures drifts from app/schemas/api.py."""
 import re
 
 import pytest
@@ -7,6 +7,7 @@ from app import config, fixtures
 
 ARTICLE_ID = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*:[0-9]+(\.[0-9]+)*$")
 FIXTURE_FILES = sorted(p.stem for p in config.FIXTURES_DIR.glob("*.json"))
+BANNED = ["зөрчилтэй", "хууль бус", "зөрчсөн нь тогтоогдсон"]
 
 
 def test_every_fixture_is_registered():
@@ -49,4 +50,17 @@ def test_ids_follow_convention(name):
             if "law_id" in obj:
                 assert aid.startswith(obj["law_id"] + ":"), aid
         if isinstance(obj.get("source_url"), str):
-            assert obj["source_url"].startswith("https://example.org/"), "fixtures must not link real sources"
+            assert obj["source_url"].startswith("https://example.org/"), "sample laws must not link real sources"
+
+
+@pytest.mark.parametrize("name", FIXTURE_FILES)
+def test_sample_texts_are_labelled_and_wording_is_not_a_verdict(name):
+    doc = fixtures.load(name)
+    for obj in _walk(doc["response"]):
+        for key in ("text", "snippet", "suggested_text"):
+            if isinstance(obj.get(key), str) and obj[key]:
+                heading_or_citation = obj[key] in (obj.get("title"), obj.get("raw_text")) or obj.get("text") == ""
+                assert obj[key].startswith("[ЖИШЭЭ]") or heading_or_citation, (key, obj[key][:60])
+    blob = str(doc["response"]).lower()
+    for word in BANNED:
+        assert word not in blob

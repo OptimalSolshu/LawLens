@@ -240,22 +240,23 @@ Source of truth: `backend/app/graph/schema.cypher`. If this section and that
 file disagree, the file wins.
 
 Nodes: Law {law_id, name, former_names[], short_names[], adopted_date,
-source_url}, Article {article_id, law_id, number, parent_number, title, text,
-embedding}, Draft, IntlSource (foreign law or treaty), Suggestion.
+source_url, text_available}, LawName {name}, Article {article_id, law_id, number,
+parent_number, title, text, embedding}, Draft, Source (curated foreign law or
+treaty), Suggestion.
 Relationships:
 
-- Law-HAS_ARTICLE->Article, Article-CHILD_OF->Article
-- Former/short names are properties of Law (`former_names`), not nodes.
+- Law-HAS_ARTICLE->Article, Article-PART_OF->Article, Law-KNOWN_AS {kind}->LawName
+  (former/short names are also kept as Law properties)
 - Fact: Article-REFERS_TO->Article {raw_text, matched_name, uses_old_name,
-  method, confidence}
-- Fact: Article-REFERS_TO_MISSING->Law {to_number, raw_text, matched_name,
-  uses_old_name, method, confidence} (target provision does not exist)
-- Suggestion: Article-SIMILAR->Article {score, model} (stored once, query
+  target_missing, current_number, method, confidence}
+- Fact: Article-REFERS_TO->Law (same properties + to_number) when the target
+  provision does not exist (target_missing) or the whole law is cited
+- Suggestion: Article-SIMILAR_TO->Article {score, model} (stored once, query
   undirected)
-- Suggestion: Article-RELATION->Article {kind: conflict|overlap|consistent,
-  confidence, explanation, model}
-- Draft-TARGETS->Law, Draft-AMENDS->Article, Draft-COSUBMITS->Law
-- Article-INTL_LINK->IntlSource {relevance, explanation}
+- Suggestion: Article-CONFLICTS_WITH|OVERLAPS_WITH|CONSISTENT_WITH->Article
+  {kind, confidence, explanation, model}
+- Draft-TARGETS->Law, Draft-AMENDS {op}->Article, Draft-CO_SUBMITTED_FOR->Law
+- Article-RELEVANT_SOURCE->Source {relevance, explanation, model}
 - Article-AMENDMENT_SUGGESTION->Suggestion {reason, suggested_text,
   based_on_source_ids[], model}
 
