@@ -1,6 +1,23 @@
+# secrets
 .env
+
+# python
 .venv/
 __pycache__/
+*.pyc
+.pytest_cache/
+
+# node
+node_modules/
+web/dist/
+
+# local neo4j data
+.neo4j/
+
+# embedding / model caches
+.cache/
+
+# parse_law.py / semantic_links.py / extract_norms.py generated
 data/*.txt
 data/*.emb.npz
 data/*.norms.json

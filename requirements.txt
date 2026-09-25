@@ -4,3 +4,4 @@ fastembed>=0.7
 onnxruntime<1.23
 numpy>=1.26
 anthropic>=1.0
+pydantic>=2.7

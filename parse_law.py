@@ -236,15 +236,16 @@ def extract_links(articles, provisions, terms):
     term_patterns = sorted(((t["id"], stem_pattern(t["name"])) for t in terms), key=lambda x: -len(x[1]))
     actor_patterns = sorted(((f"actor:{n}", rx) for n, _, rx in ACTORS), key=lambda x: -len(x[1]))
     refs, laws, mentions = [], {}, []
+    citations = {}  # гадны хуулийн нэр → [{from, raw_text}] (эх бичвэрт яг байгаагаар)
     for p in provisions:
         text = p["text"]
         art_num = int(p["article"][3:])
         for m in RE_XREF.finditer(text):
             for tgt in expand_refs(m.group(2), art_num, m.group(1)):
                 if (tgt in prov_ids or tgt in art_ids) and tgt != p["id"]:
-                    refs.append({"from": p["id"], "to": tgt})
+                    refs.append({"from": p["id"], "to": tgt, "raw_text": m.group(0)})
         for m in RE_CH_REF.finditer(text):
-            refs.append({"from": p["id"], "to": f"ch{chapter_number(m.group(1).upper())}"})
+            refs.append({"from": p["id"], "to": f"ch{chapter_number(m.group(1).upper())}", "raw_text": m.group(0)})
         # гадны хууль
         masked = text
         for m in RE_TUKHAI_LAW.finditer(text):
@@ -253,9 +254,11 @@ def extract_links(articles, provisions, terms):
             name = re.sub(r"хуул[ьи]\w*$", "хууль", s[caps[-1]:] if caps else s)
             name = clean(name)
             laws.setdefault(name, set()).add(p["id"])
+            citations.setdefault(name, []).append({"from": p["id"], "raw_text": clean(s)})
             masked = masked.replace(s, " " * len(s))
         for m in re.finditer(KNOWN_LAWS, masked):
             laws.setdefault(f"{m.group(1)} хууль", set()).add(p["id"])
+            citations.setdefault(f"{m.group(1)} хууль", []).append({"from": p["id"], "raw_text": clean(m.group(0))})
         # нэр томьёо, оролцогч
         is_def = p["article"] == "art4" and p["level"] == 2
         for tid in find_mentions(text, term_patterns):
@@ -263,7 +266,7 @@ def extract_links(articles, provisions, terms):
                 mentions.append({"from": p["id"], "to": tid})
         for aid in find_mentions(text, actor_patterns):
             mentions.append({"from": p["id"], "to": aid})
-    ext = [{"id": "law:" + n, "name": n, "cited_by": sorted(v)} for n, v in sorted(laws.items())]
+    ext = [{"id": "law:" + n, "name": n, "cited_by": sorted(v), "citations": citations[n]} for n, v in sorted(laws.items())]
     # давхардлыг арилгах
     refs = [dict(t) for t in {tuple(r.items()) for r in refs}]
     return refs, ext, mentions

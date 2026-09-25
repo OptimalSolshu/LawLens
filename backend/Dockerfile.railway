@@ -1,0 +1,14 @@
+# Production image for Railway. Build context = repo root (see railway.json),
+# so contracts/ and data/processed/ ship inside the image. Local dev uses
+# backend/Dockerfile via docker-compose instead.
+FROM python:3.11-slim
+WORKDIR /app
+COPY backend/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY backend/ .
+COPY contracts/ /contracts/
+COPY data/processed/ /data/processed/
+ENV FIXTURES_DIR=/contracts/fixtures \
+    PROCESSED_DIR=/data/processed \
+    MOCK=1
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

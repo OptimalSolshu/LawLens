@@ -25,7 +25,7 @@ CREATE INDEX article_law IF NOT EXISTS FOR (a:Article) ON (a.law_id);
 // current + former names searchable together
 CREATE FULLTEXT INDEX law_names IF NOT EXISTS FOR (l:Law) ON EACH [l.name, l.former_names_text];
 
-// BAAI/bge-m3 dense vectors
+// intfloat/multilingual-e5-large dense vectors (data/pipeline/embeddings.py)
 CREATE VECTOR INDEX article_embedding IF NOT EXISTS
 FOR (a:Article) ON (a.embedding)
 OPTIONS {indexConfig: {`vector.dimensions`: 1024, `vector.similarity_function`: 'cosine'}};

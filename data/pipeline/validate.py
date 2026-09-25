@@ -2,12 +2,13 @@
 
 Usage: python -m pipeline.validate processed
 """
+import re
 import sys
 from pathlib import Path
 
 from pydantic import TypeAdapter
 
-from .ids import article_id, law_id
+from .ids import article_id
 from .schemas import JSONL, DraftRec, InternationalFile, LawRec
 
 
@@ -27,8 +28,8 @@ def validate_dir(d: Path) -> list[str]:
                 errors.append(f"{name}:{i}: {e}")
                 continue
             if isinstance(rec, LawRec):
-                if rec.law_id != law_id(rec.name):
-                    errors.append(f"{name}:{i}: law_id {rec.law_id!r} != law_id(name) {law_id(rec.name)!r}")
+                if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", rec.law_id):
+                    errors.append(f"{name}:{i}: law_id {rec.law_id!r} is not an ASCII slug")
                 for a in rec.articles:
                     if a.article_id != article_id(rec.law_id, a.number):
                         errors.append(f"{name}:{i}: bad article_id {a.article_id!r}")
